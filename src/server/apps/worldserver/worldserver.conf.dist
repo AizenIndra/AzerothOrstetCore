@@ -4684,6 +4684,18 @@ RankSystem.RewardWinArena = 25
 RankSystem.RewardWinBG = 150
 RankSystem.RewardKillBG = 10
 
+#
+# Custom Premium
+Rate.Honor.Premium = 2.0
+Rate.Rank.Premium = 2.0
+
+# AntiDraw
+Arena.AntiDraw.Enabled = 1
+
+# Arena cap dayly
+Arena.CapPerDay = 400
+
+#
 ###################################################################################################
 
 ###################################################################################################
