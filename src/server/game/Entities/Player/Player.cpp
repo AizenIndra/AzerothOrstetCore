@@ -99,6 +99,7 @@
 //  there is probably some underlying problem with imports which should properly addressed
 //  see: https://github.com/azerothcore/azerothcore-wotlk/issues/9766
 #include "GridNotifiersImpl.h"
+#include "../../../scripts/Custom/ServerMenu/ServerMenuMgr.h"
 
 enum CharacterFlags
 {
@@ -16478,9 +16479,12 @@ void Player::RewardRankPoints(uint32 amount, int source)
     /* если уже максимальный ранг */
     if (GetRankPoints() >= pvp_rang_points[49])
         return;
+    
+    if (sServerMenuMgr->isDoubleDays())
+        amount *= 1.5f;
 
     if (GetSession()->IsPremium())
-        amount *= sWorld->getRate(RATE_RANK_REWARD_PREMIUM);
+        amount *= sWorld->getRate(RATE_RANK_REWARD_PREMIUM);    
 
     if ((GetRankPoints() + amount) >= 0) {
         SetRankPoints(GetRankPoints() + amount);
