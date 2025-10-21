@@ -2905,7 +2905,7 @@ void ObjectMgr::LoadItemTemplates()
                          //   125                 126                     127            128            129            130         131         132
                          "GemProperties, RequiredDisenchantSkill, ArmorDamageModifier, duration, ItemLimitCategory, HolidayId, ScriptName, DisenchantID, "
                          //  133        134            135          136
-                         "FoodType, minMoneyLoot, maxMoneyLoot, flagsCustom FROM item_template");
+                         "FoodType, minMoneyLoot, maxMoneyLoot, flagsCustom, RequiredRank FROM item_template");
 
     if (!result)
     {
@@ -3039,6 +3039,7 @@ void ObjectMgr::LoadItemTemplates()
         itemTemplate.MinMoneyLoot            = fields[134].Get<uint32>();
         itemTemplate.MaxMoneyLoot            = fields[135].Get<uint32>();
         itemTemplate.FlagsCu                 = ItemFlagsCustom(fields[136].Get<uint32>());
+        itemTemplate.RequiredRank            = fields[137].Get<uint8>();
 
         // Checks
         ItemEntry const* dbcitem = sItemStore.LookupEntry(entry);

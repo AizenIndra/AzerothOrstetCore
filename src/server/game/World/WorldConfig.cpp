@@ -627,6 +627,12 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<uint32>(CONFIG_BG_REWARD_LOSER_HONOR_FIRST, "Battleground.RewardLoserHonorFirst", 5);
     SetConfigValue<uint32>(CONFIG_BG_REWARD_LOSER_HONOR_LAST, "Battleground.RewardLoserHonorLast", 5);
 
+    // rank system
+    SetConfigValue<bool>(CONFIG_RANK_SYSTEM_WIN_ENABLE,       "RankSystem.RewardWinArenaEnable", true);
+    SetConfigValue<uint32>(CONFIG_RANK_SYSTEM_WIN_RATE_ARENA, "RankSystem.RewardWinArena", 25);
+    SetConfigValue<uint32>(CONFIG_RANK_SYSTEM_WIN_RATE_BG,    "RankSystem.RewardWinBG", 150);
+    SetConfigValue<uint32>(CONFIG_RANK_SYSTEM_KILL_RATE_BG,   "RankSystem.RewardKillBG", 10);
+
     SetConfigValue<uint32>(CONFIG_WAYPOINT_MOVEMENT_STOP_TIME_FOR_PLAYER, "WaypointMovementStopTimeForPlayer", 120);
 
     SetConfigValue<uint32>(CONFIG_DUNGEON_ACCESS_REQUIREMENTS_PRINT_MODE, "DungeonAccessRequirements.PrintMode", 1);

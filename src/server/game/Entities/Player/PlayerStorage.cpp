@@ -69,6 +69,8 @@
 //  there is probably some underlying problem with imports which should properly addressed
 //  see: https://github.com/azerothcore/azerothcore-wotlk/issues/9766
 #include "GridNotifiersImpl.h"
+#include "Translate.h"
+#define GetText(a, b, c)    a->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU ? b : c
 
 /*********************************************************/
 /***                    STORAGE SYSTEM                 ***/
@@ -1836,6 +1838,13 @@ InventoryResult Player::CanEquipItem(uint8 slot, uint16& dest, Item* pItem, bool
         ItemTemplate const* pProto = pItem->GetTemplate();
         if (pProto)
         {
+            /* Rank required for equipe item */
+            uint8 RankLevel = pProto->RequiredRank;
+            if(GetAuraCount(71201) < RankLevel) {
+                ChatHandler(GetSession()).PSendSysMessage(this->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU ? RU_equipe_rank : EN_equipe_rank, RankLevel);
+                return EQUIP_ERR_ITEM_CANT_BE_EQUIPPED;
+            }
+            
             if (!sScriptMgr->OnPlayerCanEquipItem(const_cast<Player*>(this), slot, dest, pItem, swap, not_loading))
                 return EQUIP_ERR_CANT_DO_RIGHT_NOW;
 
@@ -4952,8 +4961,8 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
     //"arenaPoints, totalHonorPoints, todayHonorPoints, yesterdayHonorPoints, totalKills, todayKills, yesterdayKills, chosenTitle, knownCurrencies, watchedFaction, drunk, "
     // 55      56      57      58      59      60      61      62      63           64                 65                 66             67              68      69
     //"health, power1, power2, power3, power4, power5, power6, power7, instance_id, talentGroupsCount, activeTalentGroup, exploredZones, equipmentCache, ammoId, knownTitles,
-    // 70          71               72            73                     74
-    //"actionBars, grantableLevels, innTriggerId, extraBonusTalentCount, UNIX_TIMESTAMP(creation_date) FROM characters WHERE guid = '{}'", guid);
+    // 70          71               72            73                     74             75
+    //"actionBars, grantableLevels, innTriggerId, extraBonusTalentCount, rankPoints, UNIX_TIMESTAMP(creation_date) FROM characters WHERE guid = '{}'", guid);
     PreparedQueryResult result = holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_FROM);
 
     if (!result)
@@ -5597,6 +5606,12 @@ bool Player::LoadFromDB(ObjectGuid playerGuid, CharacterDatabaseQueryHolder cons
 
     if (m_grantableLevels > 0)
         SetByteValue(PLAYER_FIELD_BYTES, 1, 0x01);
+
+    // rank system
+    m_rankPoints = fields[74].Get<uint32>();
+    if (m_rankPoints < 0) {
+        m_rankPoints = 0;
+    }        
 
     _LoadDeclinedNames(holder.GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_DECLINED_NAMES));
 
