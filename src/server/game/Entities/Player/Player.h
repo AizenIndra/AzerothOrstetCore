@@ -1307,6 +1307,9 @@ public:
     void UpdateLootAchievements(LootItem* item, Loot* loot);
     void UpdateTitansGrip();
 
+    void SetDeathMatch(bool inornot) { m_deathmatch = inornot; }
+    bool IsDeathMatch() const { return m_deathmatch; }    
+
     InventoryResult CanTakeMoreSimilarItems(uint32 entry, uint32 count, Item* pItem, uint32* no_space_count = nullptr) const;
     InventoryResult CanStoreItem(uint8 bag, uint8 slot, ItemPosCountVec& dest, uint32 entry, uint32 count, Item* pItem = nullptr, bool swap = false, uint32* no_space_count = nullptr) const;
 
@@ -2971,6 +2974,8 @@ private:
     bool m_bHasDelayedTeleport;
     bool m_canTeleport;
     bool m_canKnockback;
+
+    bool m_deathmatch;
 
     std::unique_ptr<PetStable> m_petStable;
 
