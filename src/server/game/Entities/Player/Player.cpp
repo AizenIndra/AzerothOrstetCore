@@ -4055,6 +4055,7 @@ void Player::DeleteFromDB(ObjectGuid::LowType lowGuid, uint32 accountId, bool up
     RemovePetitionsAndSigns(playerGuid, 10);
 
     CharacterDatabasePreparedStatement* stmt = nullptr;
+    LoginDatabasePreparedStatement* LoginStmt = nullptr;
 
     switch (charDelete_method)
     {
@@ -4331,11 +4332,18 @@ void Player::DeleteFromDB(ObjectGuid::LowType lowGuid, uint32 accountId, bool up
                 stmt->SetData(0, lowGuid);
                 trans->Append(stmt);
 
+                LoginDatabaseTransaction LoginTrans = LoginDatabase.BeginTransaction();
+                LoginStmt = LoginDatabase.GetPreparedStatement(LOGIN_UPD_REALM_CHARACTERS);
+                LoginStmt->SetData(0, accountId);
+                LoginStmt->SetData(1, realm.Id.Realm);
+                LoginTrans->Append(LoginStmt);
+
                 Corpse::DeleteFromDB(playerGuid, trans);
 
                 sScriptMgr->OnPlayerDeleteFromDB(trans, lowGuid);
 
                 CharacterDatabase.CommitTransaction(trans);
+                LoginDatabase.CommitTransaction(LoginTrans);
                 break;
             }
         // The character gets unlinked from the account, the name gets freed up and appears as deleted ingame
