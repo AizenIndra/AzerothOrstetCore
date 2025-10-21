@@ -2682,6 +2682,8 @@ public:
     void RemoveRankBuff();
     void VerifiedRankBuff(Map* /*map*/);  
 
+    // Кап арены за день
+    uint32 ReturnCapArenaPerDays();
     // проверка на выдачи арены или нет за победу или поражение
     bool AcceptArenaToday();
 

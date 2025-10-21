@@ -119,6 +119,10 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<float>(RATE_ARENA_POINTS, "Rate.ArenaPoints", 1.0f);
     SetConfigValue<float>(RATE_INSTANCE_RESET_TIME, "Rate.InstanceResetTime", 1.0f);
 
+    /* Vip аккаунт */
+    SetConfigValue<float>(RATE_HONOR_PREMIUM, "Rate.Honor.Premium", 2.0f);
+    SetConfigValue<float>(RATE_RANK_REWARD_PREMIUM, "Rate.Rank.Premium", 2.0f);
+
     SetConfigValue<float>(RATE_MISS_CHANCE_MULTIPLIER_TARGET_CREATURE, "Rate.MissChanceMultiplier.TargetCreature", 11.0f);
     SetConfigValue<float>(RATE_MISS_CHANCE_MULTIPLIER_TARGET_PLAYER, "Rate.MissChanceMultiplier.TargetPlayer", 7.0f);
     SetConfigValue<bool>(CONFIG_MISS_CHANCE_MULTIPLIER_ONLY_FOR_PLAYERS, "Rate.MissChanceMultiplier.OnlyAffectsPlayer", false);
