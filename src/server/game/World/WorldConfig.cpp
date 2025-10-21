@@ -462,6 +462,8 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<bool>(CONFIG_ARENA_QUEUE_ANNOUNCER_PLAYERONLY, "Arena.QueueAnnouncer.PlayerOnly", false);
     SetConfigValue<uint32>(CONFIG_ARENA_QUEUE_ANNOUNCER_DETAIL, "Arena.QueueAnnouncer.Detail", 3);
 
+    SetConfigValue<bool>(CONFIG_ARENA_DEMENTIA_ENABLED, "Arena.AntiDraw.Enabled", true);
+
     SetConfigValue<bool>(CONFIG_OFFHAND_CHECK_AT_SPELL_UNLEARN, "OffhandCheckAtSpellUnlearn", true);
     SetConfigValue<bool>(CONFIG_CREATURE_REPOSITION_AGAINST_NPCS, "Creature.RepositionAgainstNpcs", true);
     SetConfigValue<uint32>(CONFIG_CREATURE_STOP_FOR_PLAYER, "Creature.MovingStopTimeForPlayer", 180000);
