@@ -2634,7 +2634,7 @@ public:
     // за какие услуги получен опыт
     enum RewardSource
     {
-        PVP_HK = 0,
+        PVP_HK,
         PVP_BG,
         PVP_ARENA,
         PVP_QUEST,
@@ -2643,6 +2643,7 @@ public:
         PVE_ACHIV,
         EXCHANGER_HONOR,
         EVENT_REWARD,
+        KILL_BOSS,
     };
 
     // опыты для каждого ранга
