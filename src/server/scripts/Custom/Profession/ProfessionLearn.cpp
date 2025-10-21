@@ -5,7 +5,6 @@
 #include "ScriptedGossip.h"
 #include "ScriptMgr.h"
 #include "NpcProfessionMgr.h"
-#include "ServerMenuMgr.h"
 
 class Professions_NPC : public CreatureScript
 {
@@ -36,9 +35,9 @@ class Professions_ : public CreatureScript
 public:
     Professions_() : CreatureScript("Professions_") {}
 
-    bool OnGossipHello(Player* player, Creature* /*creature*/)
+    bool OnGossipHello(Player* player, Creature*)
     {
-        sScriptMgr->OnGossipSelect(player, GossipHelloMenu + 2, GOSSIP_SENDER_MAIN, 0);
+        sProfessionMgr->MainMenu(player);
         return true;
     }
 };

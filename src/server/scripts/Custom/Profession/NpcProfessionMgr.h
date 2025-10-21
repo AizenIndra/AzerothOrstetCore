@@ -3,6 +3,10 @@
 
 #include "SharedDefines.h"
 
+enum SERVER_MENU: uint8_t {
+    GossipHelloMenu = 1
+};
+
 class sProfession
 {
 public:
@@ -33,7 +37,7 @@ public:
     static constexpr std::array<uint32, 11> _SKILL_HERBALISM     = { 2366, 2368, 3570, 11993, 28695, 50300, 55428, 55480, 55500, 55501, 55502 };
 
     /* количество профессий в завимости от ранга */
-    uint8 CountPlayerCanLearn(const Player* /* player */);
+    uint8 CountPlayerCanLearn(const Player*);
     /* если у игрока уже есть максимально кол профессий */
     bool PlayerAlreadyHasMaxProfessions(const Player* /* player */);
     /* выучаем всю профессию */
@@ -51,7 +55,7 @@ public:
     /* меню second */
     void SecondMenu(Player* /* player */);
     /* меню реагентов */
-    void ReagentsMenu(Player* /* player */, Creature* /* creature */);
+    void ReagentsMenu(Player* /* player */, Creature*);
     /* заголовка в госипке */
     std::string HeadMenu(Player* /* player */);
     /* заголовка в разделе реагентов */
