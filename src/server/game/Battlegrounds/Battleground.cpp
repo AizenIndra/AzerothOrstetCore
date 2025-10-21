@@ -1198,6 +1198,7 @@ void Battleground::RemovePlayerAtLeave(Player* player)
         player->SpawnCorpseBones();
     }
 
+    player->Dismount();
     player->RemoveAurasByType(SPELL_AURA_MOUNTED);
 
     // GetStatus might be changed in RemovePlayer - define it here
