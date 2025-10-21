@@ -92,31 +92,6 @@ void sServerMenu::CharControlMenu(Player* player) {
     player->PlayerTalkClass->SendGossipMenu(sServerMenuMgr->HeadMenu(player, 1), player->GetGUID());
 }
 
-void sServerMenu::AccControlMenu(Player* player) {
-    static std::stringstream ss;
-    ss.str("");
-    const char* broadcastText = player->GetSession()->GetAutobroadcast() ?
-        (player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU ? RU_ACC_CONTROL_BROADCAST_ON : EN_ACC_CONTROL_BROADCAST_ON) :
-        (player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU ? RU_ACC_CONTROL_BROADCAST_OFF : EN_ACC_CONTROL_BROADCAST_OFF);
-    ss << (player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU ? RU_ACC_CONTROL_BROADCAST : EN_ACC_CONTROL_BROADCAST) << broadcastText;
-
-    ClearGossipMenuFor(player);
-    AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, ss.str().c_str(), GOSSIP_SENDER_MAIN + 18, 0);
-    AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, "Назад", "Back"), GOSSIP_SENDER_MAIN, 0);
-    player->PlayerTalkClass->SendGossipMenu(sServerMenuMgr->HeadMenu(player, 8), player->GetGUID());
-}
-
-void sServerMenu::SetBroadcastControl(Player* player) {
-    
-    uint32 accountId = player->GetSession()->GetAccountId();
-    
-    if (!accountId)
-        return;
-
-    player->GetSession()->SetAutobroadcast(!player->GetSession()->GetAutobroadcast());
-    sServerMenuMgr->AccControlMenu(player);
-}
-
 std::string sServerMenu::HeadMenu(Player* player, uint8 MenuId) 
 {
     if (!player)

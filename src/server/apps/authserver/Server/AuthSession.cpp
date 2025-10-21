@@ -526,8 +526,8 @@ bool AuthSession::HandleLogonProof()
             // Finish SRP6 and send the final result to the client
             ByteBuffer packet;
 
-        stmt = LoginDatabase.GetPreparedStatement(LOGIN_UPD_EXPIRED_ACCOUNT_PREMIUM);
-        LoginDatabase.DirectExecute(stmt);
+            LoginDatabasePreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_UPD_EXPIRED_ACCOUNT_PREMIUM);
+            LoginDatabase.DirectExecute(stmt);
 
             if (_expversion & POST_BC_EXP_FLAG)                 // 2.x and 3.x clients
             {

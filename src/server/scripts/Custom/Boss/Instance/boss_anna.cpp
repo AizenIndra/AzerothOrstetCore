@@ -73,8 +73,8 @@ public:
 		{
             me->Yell(SAY_PHASE_ZERO, LANG_UNIVERSAL);
 			_events.SetPhase(PHASE_ONE);
-			_events.ScheduleEvent(EVENT_FLUCH_DER_PEIN, 1000);
-			_events.ScheduleEvent(EVENT_SPALTEN, 5000);
+			_events.ScheduleEvent(EVENT_FLUCH_DER_PEIN, Milliseconds(1000));
+			_events.ScheduleEvent(EVENT_SPALTEN, Milliseconds(5000));
 		}
 
 		void DamageTaken(Unit*, uint32& damage, DamageEffectType, SpellSchoolMask) override
@@ -83,44 +83,44 @@ public:
 			{
                 me->Yell(SAY_PHASE_ONE, LANG_UNIVERSAL);
 				_events.SetPhase(PHASE_TWO);
-				_events.ScheduleEvent(EVENT_FLUCH_DER_PEIN, 0);
-				_events.ScheduleEvent(EVENT_SCHATTENWORT_SCHMERZ, 3000);
-                _events.ScheduleEvent(EVENT_HEALTH_BURN, 5000);
-                _events.ScheduleEvent(EVENT_SPALTEN, 10000);
+				_events.ScheduleEvent(EVENT_FLUCH_DER_PEIN, Milliseconds(0));
+				_events.ScheduleEvent(EVENT_SCHATTENWORT_SCHMERZ, Milliseconds(3000));
+                _events.ScheduleEvent(EVENT_HEALTH_BURN, Milliseconds(5000));
+                _events.ScheduleEvent(EVENT_SPALTEN, Milliseconds(10000));
 			}
 
 			if (me->HealthBelowPctDamaged(60, damage) && _events.IsInPhase(PHASE_TWO))
 			{
                 me->Yell(SAY_PHASE_TWO, LANG_UNIVERSAL);
 				_events.SetPhase(PHASE_THREE);
-				_events.ScheduleEvent(EVENT_VERDERBNIS, urand(500, 1000));
-				_events.ScheduleEvent(EVENT_HEALTH_BURN, 2000);
-				_events.ScheduleEvent(EVENT_FIRE, 7000);
-				_events.ScheduleEvent(EVENT_HAMMER_DER_GERECHTIGKEIT, 12000);
-				_events.ScheduleEvent(EVENT_WIRBELWIND, 17000);
+				_events.ScheduleEvent(EVENT_VERDERBNIS, Milliseconds(urand(500, 1000)));
+				_events.ScheduleEvent(EVENT_HEALTH_BURN, Milliseconds(2000));
+				_events.ScheduleEvent(EVENT_FIRE, Milliseconds(7000));
+				_events.ScheduleEvent(EVENT_HAMMER_DER_GERECHTIGKEIT, Milliseconds(12000));
+				_events.ScheduleEvent(EVENT_WIRBELWIND, Milliseconds(17000));
 			}
 
 			if (me->HealthBelowPctDamaged(40, damage) && _events.IsInPhase(PHASE_THREE))
 			{
                 me->Yell(SAY_PHASE_THREE, LANG_UNIVERSAL);
 				_events.SetPhase(PHASE_FOUR);
-				_events.ScheduleEvent(EVENT_HAMMER_DER_GERECHTIGKEIT, 1000);
-				_events.ScheduleEvent(EVENT_HEALTH_BURN, 2500);
-				_events.ScheduleEvent(EVENT_FIRE, 3000);
-				_events.ScheduleEvent(EVENT_FLEISCH_EINAESCHERN, 10000);
-				_events.ScheduleEvent(EVENT_SCHATTENWORT_SCHMERZ, 12000);
-				_events.ScheduleEvent(EVENT_WIRBELWIND, 17000);
+				_events.ScheduleEvent(EVENT_HAMMER_DER_GERECHTIGKEIT, Milliseconds(1000));
+				_events.ScheduleEvent(EVENT_HEALTH_BURN, Milliseconds(2500));
+				_events.ScheduleEvent(EVENT_FIRE, Milliseconds(3000));
+				_events.ScheduleEvent(EVENT_FLEISCH_EINAESCHERN, Milliseconds(10000));
+				_events.ScheduleEvent(EVENT_SCHATTENWORT_SCHMERZ, Milliseconds(12000));
+				_events.ScheduleEvent(EVENT_WIRBELWIND, Milliseconds(17000));
 			}
 
 			if (me->HealthBelowPctDamaged(20, damage) && _events.IsInPhase(PHASE_FOUR))
 			{
                 me->Yell(SAY_PHASE_FOUR, LANG_UNIVERSAL);
 				_events.SetPhase(PHASE_FIVE);
-				_events.ScheduleEvent(EVENT_ZAUBERSCHILD, 0);
-				_events.ScheduleEvent(EVENT_FLEISCH_EINAESCHERN, 2000);
-				_events.ScheduleEvent(EVENT_VERDERBENDE_SEUCHE, 800);
-				_events.ScheduleEvent(EVENT_WUNDGIFT, 2000);
-				_events.ScheduleEvent(EVENT_GOETTLICHER_STURM, 10000);
+				_events.ScheduleEvent(EVENT_ZAUBERSCHILD, Milliseconds(0));
+				_events.ScheduleEvent(EVENT_FLEISCH_EINAESCHERN, Milliseconds(2000));
+				_events.ScheduleEvent(EVENT_VERDERBENDE_SEUCHE, Milliseconds(800));
+				_events.ScheduleEvent(EVENT_WUNDGIFT, Milliseconds(2000));
+				_events.ScheduleEvent(EVENT_GOETTLICHER_STURM, Milliseconds(10000));
 
 			}
 		}
@@ -162,83 +162,83 @@ public:
                     if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 15, true)) {
 						DoCast(target, SPELL_FIRE);
 					}
-					_events.ScheduleEvent(EVENT_HEALTH_BURN, 21000);
+					_events.ScheduleEvent(EVENT_HEALTH_BURN, Milliseconds(21000));
 					break;
 
 				case EVENT_FIRE:
 					if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 30, true)) {
 						DoCast(target, SPELL_AOE_FEAR);
 					}
-					_events.ScheduleEvent(EVENT_FIRE, 21000);
+					_events.ScheduleEvent(EVENT_FIRE, Milliseconds(21000));
 					break;
 
 				case EVENT_FLUCH_DER_PEIN:
 					if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 30, true)) {
 						DoCast(target, SPELL_FLUCH_DER_PEIN);
 					}
-					_events.ScheduleEvent(EVENT_FLUCH_DER_PEIN, 24000);
+					_events.ScheduleEvent(EVENT_FLUCH_DER_PEIN, Milliseconds(24000));
 					break;
 
 				case EVENT_SPALTEN:
 					DoCastVictim(SPELL_SPALTEN);
-					_events.ScheduleEvent(EVENT_SPALTEN, 10000);
+					_events.ScheduleEvent(EVENT_SPALTEN, Milliseconds(10000));
 					break;
 
 				case EVENT_SCHATTENWORT_SCHMERZ:
 					DoCastToAllHostilePlayers(SPELL_SCHATTENWORT_SCHMERZ);
-					_events.ScheduleEvent(EVENT_SCHATTENWORT_SCHMERZ, 15000);
+					_events.ScheduleEvent(EVENT_SCHATTENWORT_SCHMERZ, Milliseconds(15000));
 					break;
 
 				case EVENT_VERDERBNIS: // порча
 					if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 30, true)) {
 						DoCast(target, SPELL_VERDERBNIS);
 					}
-					_events.ScheduleEvent(EVENT_VERDERBNIS, 18000);
+					_events.ScheduleEvent(EVENT_VERDERBNIS, Milliseconds(18000));
 					break;
 
 				case EVENT_FLEISCH_EINAESCHERN:
 					if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 30, true)) {
 						DoCast(target, SPELL_FLEISCH_EINAESCHERN);
 					}
-					_events.ScheduleEvent(EVENT_FLEISCH_EINAESCHERN, 30000);
+					_events.ScheduleEvent(EVENT_FLEISCH_EINAESCHERN, Milliseconds(30000));
 					break;
 
 				case EVENT_WIRBELWIND:
 					if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 30, true)) {
 						DoCast(target, SPELL_WIRBELWIND);
 					}
-					_events.ScheduleEvent(EVENT_WIRBELWIND, 45000);
+					_events.ScheduleEvent(EVENT_WIRBELWIND, Milliseconds(45000));
 					break;
 
 				case EVENT_VERDERBENDE_SEUCHE:
 					if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 30, true)) {
 						DoCast(target, SPELL_VERDERBENDE_SEUCHE);
 					}
-					_events.ScheduleEvent(EVENT_VERDERBENDE_SEUCHE, 30000);
+					_events.ScheduleEvent(EVENT_VERDERBENDE_SEUCHE, Milliseconds(30000));
 						break;
 
 				case EVENT_WUNDGIFT:
 					DoCastVictim(SPELL_WUNDGIFT);
-					_events.ScheduleEvent(EVENT_WUNDGIFT, 18000);
+					_events.ScheduleEvent(EVENT_WUNDGIFT, Milliseconds(18000));
 					break;
 
 				case EVENT_HAMMER_DER_GERECHTIGKEIT:
 					if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 30, true)) {
 						DoCast(target, SPELL_HAMMER_DER_GERECHTIGKEIT);
 					}
-					_events.ScheduleEvent(EVENT_HAMMER_DER_GERECHTIGKEIT, 300000);
+					_events.ScheduleEvent(EVENT_HAMMER_DER_GERECHTIGKEIT, Milliseconds(300000));
 					break;
 
 				case EVENT_GOETTLICHER_STURM:
                     if (Unit* target = SelectTarget(SelectTargetMethod::Random, 0, 30, true)) {
                         DoCast(target, SPELL_GOETTLICHER_STURM);
                     }
-					_events.ScheduleEvent(EVENT_GOETTLICHER_STURM, 30000);
+					_events.ScheduleEvent(EVENT_GOETTLICHER_STURM, Milliseconds(30000));
 					break;
 
 				case EVENT_ZAUBERSCHILD:
 					DoCast(me, SPELL_ZAUBERSCHILD);
-					_events.ScheduleEvent(EVENT_ZAUBERSCHILD, 120000);
+					_events.ScheduleEvent(EVENT_ZAUBERSCHILD, Milliseconds(120000));
 					break;
 
 				default:

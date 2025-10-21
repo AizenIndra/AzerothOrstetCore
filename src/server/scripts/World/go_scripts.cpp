@@ -18,6 +18,7 @@
 #include "AreaDefines.h"
 #include "CellImpl.h"
 #include "Chat.h"
+#include "WorldSessionMgr.h"
 #include "CreatureScript.h"
 #include "GameEventMgr.h"
 #include "GameObjectAI.h"
@@ -1902,7 +1903,7 @@ public:
     {
         std::string playerName = player->GetName();
         std::string message = "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Сообщение о событии]:|r Игрок " + playerName + " одерживает победу на арене Гурубаши и забирает достойную награду !";
-        sWorld->SendServerMessage(SERVER_MSG_STRING, message.c_str());
+        sWorldSessionMgr->SendServerMessage(SERVER_MSG_STRING, message.c_str());
 
         // Create a vector of structs to store the loot information
         constexpr Loot lootTable[] = {

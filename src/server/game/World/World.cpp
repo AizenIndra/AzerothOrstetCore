@@ -1629,12 +1629,12 @@ void World::InitDailyQuestResetTime()
 
 void World::InitDailyArenaCapResetTime()
 {
-    Seconds wstime = Seconds(sWorld->getWorldState(WORLD_STATE_CUSTOM_DAYLY_ARENA_POINTS_CAP));
+    Seconds wstime = Seconds(sWorldState->getWorldState(WORLD_STATE_CUSTOM_DAYLY_ARENA_POINTS_CAP));
     _NextDailyArenaCapReset = wstime > 0s ? wstime : Seconds(Acore::Time::GetNextTimeWithDayAndHour(-1, 6));
 
     if (wstime == 0s)
     {
-        sWorld->setWorldState(WORLD_STATE_CUSTOM_DAYLY_ARENA_POINTS_CAP, _NextDailyArenaCapReset.count());
+        sWorldState->setWorldState(WORLD_STATE_CUSTOM_DAYLY_ARENA_POINTS_CAP, _NextDailyArenaCapReset.count());
     }    
 }
 
@@ -1704,12 +1704,13 @@ void World::ResetDailyArenaCap()
     CharacterDatabasePreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_UPD_ARENA_CAP_DAILY);
     CharacterDatabase.Execute(stmt);
 
-    for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
+    WorldSessionMgr::SessionMap const& sessionMap = sWorldSessionMgr->GetAllSessions();
+    for (WorldSessionMgr::SessionMap::const_iterator itr = sessionMap.begin(); itr != sessionMap.end(); ++itr)
         if (itr->second->GetPlayer())
             itr->second->GetPlayer()->ResetDailyArenaCapStatus();
 
     _NextDailyArenaCapReset = Seconds(Acore::Time::GetNextTimeWithDayAndHour(-1, 6));
-    sWorld->setWorldState(WORLD_STATE_CUSTOM_DAYLY_ARENA_POINTS_CAP, _NextDailyArenaCapReset.count());
+    sWorldState->setWorldState(WORLD_STATE_CUSTOM_DAYLY_ARENA_POINTS_CAP, _NextDailyArenaCapReset.count());
 }
 
 void World::LoadDBAllowedSecurityLevel()

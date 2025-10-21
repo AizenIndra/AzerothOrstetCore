@@ -39,6 +39,7 @@
 //  there is probably some underlying problem with imports which should properly addressed
 //  see: https://github.com/azerothcore/azerothcore-wotlk/issues/9766
 #include "GridNotifiersImpl.h"
+#include <Chat.h>
 
 Battlefield::Battlefield()
 {
@@ -177,7 +178,7 @@ bool Battlefield::Update(uint32 diff)
     if(!IsWarTime() && m_StartGrouping && !m_StartAnnounce5min && m_Timer <= m_StartGroupingTimerAnnounce)
     {
         m_StartAnnounce5min = true;
-        sWorld->SendWorldText(BATTLEFIELD_WG_WORLD_START_MESSAGE_5MIN);
+        ChatHandler(nullptr).SendWorldText(BATTLEFIELD_WG_WORLD_START_MESSAGE_5MIN);
         m_StartGroupingTimerAnnounce = 5000;
     }
 

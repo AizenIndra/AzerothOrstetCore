@@ -343,7 +343,7 @@ class DeathMatchkill : public PlayerScript
 public:
     DeathMatchkill() : PlayerScript("DeathMatchkill") { }
 
-    void OnPVPKill(Player* killer, Player* killed) override
+    void OnPlayerPVPKill(Player* killer, Player* killed) override
     {
         if (!killer || !killed)
             return;
@@ -354,7 +354,7 @@ public:
         if(!killer->IsDeathMatch() || !killed->IsDeathMatch())
             return;
 
-        if (killed->getLevel() < 80)
+        if (killed->GetLevel() < 80)
             return;
 
         // кв на убийство игроков 150
@@ -371,7 +371,7 @@ public:
                 std::ostringstream ss;
                 ss << "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Королевская Битва]: Игрок |cffffff4d";
                 ss << killer->GetName() << "|r|cffff9933 убил игрока |cffffff4d" << killed->GetName() << "|r|cffff9933.";
-                sWorld->SendZoneText(3817, ss.str().c_str());
+                killer->GetMap()->SendZoneText(3817, ss.str().c_str());
             } else {
                 ChatHandler(killer->GetSession()).PSendSysMessage(GetText(killer, RU_FARM_ATTEMPT, EN_FARM_ATTEMPT));
                 return;
@@ -387,7 +387,7 @@ public:
             DeathMatchMgr->RevivePlayer(killed);
     }
 
-    void OnUpdateZone(Player* player, uint32 newZone, uint32 /*newArea*/) override
+    void OnPlayerUpdateZone(Player* player, uint32 newZone, uint32 /*newArea*/) override
     {
         if (!player || !newZone)
             return;
@@ -398,7 +398,7 @@ public:
             DeathMatchMgr->RemovePlayer(player);
     }
 
-    void OnLogin(Player* player) override
+    void OnPlayerLogin(Player* player) override
     {
         if (!player)
             return;
@@ -409,7 +409,7 @@ public:
         }
     }
 
-    void OnLogout(Player* player) override
+    void OnPlayerLogout(Player* player) override
     {
         if (!player)
             return;

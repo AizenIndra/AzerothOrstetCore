@@ -14,13 +14,13 @@
 #define RU_glory_win_4 "неизвестная причина"
 
 #define EN_glory_win_5 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: You got |cffffff4d%u|cffff9933 experience for|cffffff4d %s|cffff9933. You have to gain|cffffff4d %u|cffff9933 experience to the next rank.|r"
-#define RU_glory_win_5 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система Рангов]: Вы получили |cffffff4d%u|cffff9933 опыта за|cffffff4d %s|cffff9933. Вам осталось набрать|cffffff4d %u|cffff9933 опыта до следущего ранга.|r"
+#define RU_glory_win_5 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: Вы получили |cffffff4d%u|cffff9933 опыта за|cffffff4d %s|cffff9933. Вам осталось набрать|cffffff4d %u|cffff9933 опыта до следущего ранга.|r"
 
 #define EN_glory_win_6 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: You have|cffffff4d %u|cffff9933 experience (%u rank)\n|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]:|cffffff4d %u|cffff9933 experience left until next rank.|r"
-#define RU_glory_win_6 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система Рангов]: У вас|cffffff4d %u|cffff9933 опыта (%u ранг)\n|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система Рангов]: До следующего ранга осталось|cffffff4d %u|cffff9933 опыта.|r"
+#define RU_glory_win_6 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: У вас|cffffff4d %u|cffff9933 опыта (%u ранг)\n|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: До следующего ранга осталось|cffffff4d %u|cffff9933 опыта.|r"
 
 #define EN_glory_win_10 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: You have the|cffffff4d maximum|cffff9933 rank.|r"
-#define RU_glory_win_10 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система Рангов]: У вас|cffffff4d максимальный|cffff9933 ранг.|r"
+#define RU_glory_win_10 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: У вас|cffffff4d максимальный|cffff9933 ранг.|r"
 
 #define EN_glory_win_7 "an completed quest"
 #define RU_glory_win_7 "выполненное задание"
@@ -28,17 +28,26 @@
 #define EN_glory_win_8 "an clicking on an item"
 #define RU_glory_win_8 "нажатие на предмет"
 
-#define EN_glory_win_11 "kill boss in dungeon/raid"
-#define RU_glory_win_11 "убийство босса в инсте/рейде"
+#define EN_glory_win_11 "kill player"
+#define RU_glory_win_11 "убийство игрока"
 
 #define EN_glory_win_12 "gain achievement"
 #define RU_glory_win_12 "получение достижения"
 
+#define EN_glory_win_14 "exchange for honor points"
+#define RU_glory_win_14 "обмен на очки чести"
+
+#define EN_glory_win_15 "event"
+#define RU_glory_win_15 "ивент"
+
+#define EN_glory_win_16 "kill boss"
+#define RU_glory_win_16 "убийство босса"
+
 #define EN_glory_win_9 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: Your rank is not high enough, you need rank |cffffff4d%u|cffff9933.|r"
-#define RU_glory_win_9 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система Рангов]: У вас не достаточно высокий ранг, нужен |cffffff4d%u|cffff9933 ранг.|r"
+#define RU_glory_win_9 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: У вас не достаточно высокий ранг, нужен |cffffff4d%u|cffff9933 ранг.|r"
 
 #define EN_glory_win_13 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: Congratulations! You received |cffffff4dnew|cffff9933 rank.|r"
-#define RU_glory_win_13 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система Рангов]: Поздравляем! Вы получили |cffffff4dновый|cffff9933 ранг.|r"
+#define RU_glory_win_13 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: Поздравляем! Вы получили |cffffff4dновый|cffff9933 ранг.|r"
 
 #define EN_NOT_FOUND_MENU "|cffff9933This menu ID was not found, inform the administration\nError code: NOT_FOUND_%u_MENU_ID"
 #define RU_NOT_FOUND_MENU "|cffff9933Данный меню ID не найден, сообщите администрации\nКод ошибки: NOT_FOUND_%u_MENU_ID"
@@ -56,7 +65,7 @@
 #define RU_HOME_MENU_1 "|TInterface\\icons\\Achievement_zone_easternkingdoms_01:20:20:-20:0|tТелепортация"
 
 #define EN_HOME_MENU_2 "|TInterface\\icons\\ability_warrior_rampage:20:20:-20:0|tRank system"
-#define RU_HOME_MENU_2 "|TInterface\\icons\\ability_warrior_rampage:20:20:-20:0|tСистема рангов"
+#define RU_HOME_MENU_2 "|TInterface\\icons\\ability_warrior_rampage:20:20:-20:0|tРанг Система"
 
 #define EN_HOME_MENU_3 "|TInterface\\icons\\Inv_misc_coin_02:20:20:-20:0|tItem Store"
 #define RU_HOME_MENU_3 "|TInterface\\icons\\Inv_misc_coin_02:20:20:-20:0|tМагазин предметов"
@@ -73,29 +82,32 @@
 #define RU_HOME_MENU_7 "|TInterface\\icons\\Achievement_pvp_p_07:20:20:-20:0|tПвП раздел арены"
 #define EN_HOME_MENU_7 "|TInterface\\icons\\Achievement_pvp_p_07:20:20:-20:0|tPvP arena section"
 
-#define RU_CHAR_CONTROL_1 "|TInterface\\icons\\INV_Misc_Bag_07:20:20:-20:0|tБанк"
-#define EN_CHAR_CONTROL_1 "|TInterface\\icons\\INV_Misc_Bag_07:20:20:-20:0|tBank"
+#define RU_CHAR_CONTROL_1 "|TInterface\\icons\\INV_Misc_Bag_07:18:18:-20:0|tБанк"
+#define EN_CHAR_CONTROL_1 "|TInterface\\icons\\INV_Misc_Bag_07:18:18:-20:0|tBank"
 
-#define RU_CHAR_CONTROL_2 "|TInterface\\icons\\INV_Letter_11:20:20:-20:0|tПочта"
-#define EN_CHAR_CONTROL_2 "|TInterface\\icons\\INV_Letter_11:20:20:-20:0|tMail"
+#define RU_CHAR_CONTROL_2 "|TInterface\\icons\\INV_Letter_11:18:18:-20:0|tПочта"
+#define EN_CHAR_CONTROL_2 "|TInterface\\icons\\INV_Letter_11:18:18:-20:0|tMail"
 
-#define RU_CHAR_CONTROL_3 "|TInterface\\icons\\Inv_crate_08:20:20:-20:0|tПрофессии"
-#define EN_CHAR_CONTROL_3 "|TInterface\\icons\\Inv_crate_08:20:20:-20:0|tProfessions"
+#define RU_CHAR_CONTROL_3 "|TInterface\\icons\\Inv_crate_08:18:18:-20:0|tПрофессии"
+#define EN_CHAR_CONTROL_3 "|TInterface\\icons\\Inv_crate_08:18:18:-20:0|tProfessions"
 
-#define RU_CHAR_CONTROL_4 "|TInterface\\icons\\INV_Misc_Tournaments_Banner_Orc:20:20:-20:0|tСменить фракцию за 15 000 |TInterface\\moneyframe\\ui-goldicon:12:12:-1:1|t"
-#define EN_CHAR_CONTROL_4 "|TInterface\\icons\\INV_Misc_Tournaments_Banner_Orc:20:20:-20:0|tChange faction for 15 000 |TInterface\\moneyframe\\ui-goldicon:12:12:-1:1|t"
+#define RU_CHAR_CONTROL_4 "|TInterface\\icons\\INV_Misc_Tournaments_Banner_Orc:18:18:-20:0|tСменить фракцию за 50 бонусов"
+#define EN_CHAR_CONTROL_4 "|TInterface\\icons\\INV_Misc_Tournaments_Banner_Orc:18:18:-20:0|tChange faction for 50 bonuses"
 
-#define RU_CHAR_CONTROL_5 "|TInterface\\icons\\INV_Misc_Toy_04:20:20:-20:0|tСменить расу за 7 500 |TInterface\\moneyframe\\ui-goldicon:12:12:-1:1|t"
-#define EN_CHAR_CONTROL_5 "|TInterface\\icons\\INV_Misc_Toy_04:20:20:-20:0|tChange race for 7 500 |TInterface\\moneyframe\\ui-goldicon:12:12:-1:1|t"
+#define RU_CHAR_CONTROL_5 "|TInterface\\icons\\INV_Misc_Toy_04:18:18:-20:0|tСменить расу за 30 бонусов"
+#define EN_CHAR_CONTROL_5 "|TInterface\\icons\\INV_Misc_Toy_04:18:18:-20:0|tChange race for 30 bonuses"
 
-#define RU_CHAR_CONTROL_6 "|TInterface\\icons\\Achievement_character_nightelf_female:20:20:-20:0|tСменить ник за 5 000 |TInterface\\moneyframe\\ui-goldicon:12:12:-1:1|t"
-#define EN_CHAR_CONTROL_6 "|TInterface\\icons\\Achievement_character_nightelf_female:20:20:-20:0|tChange nickname for 5 000 |TInterface\\moneyframe\\ui-goldicon:12:12:-1:1|t"
+#define RU_CHAR_CONTROL_6 "|TInterface\\icons\\Achievement_character_nightelf_female:18:18:-20:0|tСменить ник за 15 бонусов"
+#define EN_CHAR_CONTROL_6 "|TInterface\\icons\\Achievement_character_nightelf_female:18:18:-20:0|tChange nickname for 15 bonuses"
+
+#define RU_CHAR_CONTROL_7 "|TInterface\\icons\\Achievement_reputation_01:18:18:-20:0|tТрансфер очков чести"
+#define EN_CHAR_CONTROL_7 "|TInterface\\icons\\Achievement_reputation_01:18:18:-20:0|tTransfer honor points"
 
 #define RU_NOTVIP_MENU_1 "Узнать о бонусах Премиум аккаунте"
 #define EN_NOTVIP_MENU_1 "Learn about Premium account bonuses"
 
-#define RU_NOTVIP_MENU_2 "|TInterface\\icons\\Achievement_bg_trueavshutout:20:20:-20:0|tКупить Премиум аккаунт"
-#define EN_NOTVIP_MENU_2 "|TInterface\\icons\\Achievement_bg_trueavshutout:20:20:-20:0|tBuy Premium account"
+#define RU_NOTVIP_MENU_2 "|TInterface\\icons\\Achievement_bg_trueavshutout:20:20:-20:0|tКупить премиум аккаунт на 7 дней"
+#define EN_NOTVIP_MENU_2 "|TInterface\\icons\\Achievement_bg_trueavshutout:20:20:-20:0|tBuy premium account for 7 days"
 
 #define RU_NOTVIP_MENU_3 "|TInterface\\icons\\Achievement_bg_tophealer_wsg:20:20:-20:0|tКак получить бесплатно ?"
 #define EN_NOTVIP_MENU_3 "|TInterface\\icons\\Achievement_bg_tophealer_wsg:20:20:-20:0|tHow to get it for free?"
@@ -112,8 +124,8 @@
 #define RU_BUY_VIP_SUCCES "Поздравляем Вас, с получением Премиум аккаунта.\nТеперь у вас доступна меню Премиум аккаунта."
 #define EN_BUY_VIP_SUCCES "Congratulations on receiving your Premium account.\nNow you have access to the Premium account menu."
 
-#define RU_BUY_VIP_TEXT "Стоимость Премиум аккаунта в день стоит 25 бонусов\nВведите количество дней на сколько хотите приобрести Премиум аккаунт.\nМинимальное количество дней -> 4\n"
-#define EN_BUY_VIP_TEXT "Premium account cost per day costs 25 bonuses\nEnter the number of days for how long you want to purchase a Premium account.\nMinimum number of days -> 4\n"
+#define RU_BUY_VIP_TEXT "Стоимость премиум аккаунта в день стоит 350 бонусов.\n\nВы уверены что хотите купить премиум аккаунт ?"
+#define EN_BUY_VIP_TEXT "The cost of a premium account per day costs 350 bonus points.\n\nAre you sure you want to buy a premium account ?"
 
 /******************************************************  proffesion.cpp *********************************************************/
 
@@ -258,11 +270,17 @@
 #define EN_back "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:20:20:-20|tBack"
 #define RU_back "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:20:20:-20|tНазад"
 
+#define EN_back_CHAR "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:18:18:-20|tBack"
+#define RU_back_CHAR "|TInterface/PaperDollInfoFrame/UI-GearManager-Undo:18:18:-20|tНазад"
+
 #define EN_player_errors_2 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: You have already learned available quantity professions!"
-#define RU_player_errors_2 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система Рангов]: Вы уже выучили доступное количество профессий!"
+#define RU_player_errors_2 "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: Вы уже выучили доступное количество профессий!"
 
 #define EN_arena_queue_1v1_disable_for_heal "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Arena Queue]: You cannot join because you have invested a lot of points in forbidden talents. Please change your talents."
 #define RU_arena_queue_1v1_disable_for_heal "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Очередь Арены]: Вы не можете присоединиться, потому что вы вложили много очков в запрещенные таланты. Пожалуйста измените свои таланты."
+
+#define EN_arena_queue_1v1_disable_for_hybrid "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Arena Queue]: You cannot join because you are using a forbidden 1v1 arena talent build."
+#define RU_arena_queue_1v1_disable_for_hybrid "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Очередь Арены]: Вы не можете присоединиться, потому что вы используете запретный билд талантов для арены 1v1."
 
 #define EN_arena_err_queue "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Arena Queue]: Something went wrong ... Check if you are standing on the battlefield."
 #define RU_arena_err_queue "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Очередь Арены]: Что-то пошло не так... Проверьте не стоите те ли вы в учете на поле битве."
@@ -288,11 +306,14 @@
 #define EN_arena_team_dissables "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Arena Queue]: Arena is disabled!"
 #define RU_arena_team_dissables "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Очередь Арены]: Арена отключена!"
 
+#define EN_arena_team_dissables_event "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Arena Queue]: Arena 1v1 is disabled during the 2v2 event!"
+#define RU_arena_team_dissables_event "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Очередь Арены]: Арена 1v1 отключена во время ивента 2v2!"
+
 #define EN_arena_leave_queue "|TInterface\\icons\\Achievement_arena_2v2_7:20:20:-20|tLeave Queue"
 #define RU_arena_leave_queue "|TInterface\\icons\\Achievement_arena_2v2_7:20:20:-20|tПокинуть очередь"
 
 #define EN_equipe_rank "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: You must have |cffffff4d%u|cffff9933 rank in order to equip an item."
-#define RU_equipe_rank "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система Рангов]: У вас должен быть |cffffff4d%u|cffff9933 ранг для того чтобы оборудовать предметом."
+#define RU_equipe_rank "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: У вас должен быть |cffffff4d%u|cffff9933 ранг для того чтобы оборудовать предметом."
 
 /************************************************   TemplateNPC.cpp  ********************************************/
 
@@ -648,27 +669,37 @@
 #define RU_MRBGE "Вы получили %u |TInterface\\moneyframe\\ui-goldicon:15:15:-1:3|t за поражение на поле битве."
 #define EN_MRBGE "You received %u |TInterface\\moneyframe\\ui-goldicon:15:15:-1:3|t for defeat on the battleground."
 
+#define RU_MRKILL "Вы получили %u |TInterface\\moneyframe\\ui-goldicon:15:15:-1:3|t за убийство игрока."
+#define EN_MRKILL "You received %u |TInterface\\moneyframe\\ui-goldicon:15:15:-1:3|t for killing a player."
+
 /************************************************ Деадматч ************************************************/
 
-#define RU_DEATHMATCH_FARM "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Королевская Битва]: Зона исключила вас по причине входа второго персонажа с одинаковым ip адрессом в зону."
-#define EN_DEATHMATCH_FARM "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Royale Battle]: The zone excluded you due to the entrance of the second character with the same ip address in zone."
+#define RU_DEATHMATCH_FARM "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Королевская Битва]: Зона исключила вас по причине входа второго персонажа с одинаковым ip адрессом в зоне."
+#define EN_DEATHMATCH_FARM "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Battle Royale]: The zone excluded you due to the entrance of the second character with the same ip address in zone."
 
 #define RU_DEATHMATCH_JOIN "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Королевская Битва]: Вы присоединились к Королевской Битве, для выхода из зоны пропишите в чат |cffffff4d.dm exit|r"
-#define EN_DEATHMATCH_JOIN "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Royale Battle]: You joined the Royale Battle, to leave the zone, write to the chat |cffffff4d.dm exit|r"
+#define EN_DEATHMATCH_JOIN "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Battle Royale]: You joined the Battle Royale, to leave the zone, write to the chat |cffffff4d.dm exit|r"
 
 #define RU_DEATHMATCH_EXIT "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Королевская Битва]: Вы покинули Королевскую Битву, за текущий бой вы убили |cffffff4d%u|r|cffff9933 игроков"
-#define EN_DEATHMATCH_EXIT "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Royale Battle]: You left the Royale Battle, you have killed in the current battle |cffffff4d%u|r|cffff9933 player(s)"
+#define EN_DEATHMATCH_EXIT "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Battle Royale]: You left the Battle Royale, you have killed in the current battle |cffffff4d%u|r|cffff9933 player(s)"
 
 #define RU_DEATHMATCH_JOIN_NPC "|TInterface/ICONS/Achievement_bg_grab_cap_flagunderxseconds:20:20:-20:0|tПрисоединиться к Королевской Битве"
-#define EN_DEATHMATCH_JOIN_NPC "|TInterface/ICONS/Achievement_bg_grab_cap_flagunderxseconds:20:20:-20:0|tJoin the Royale Battle"
+#define EN_DEATHMATCH_JOIN_NPC "|TInterface/ICONS/Achievement_bg_grab_cap_flagunderxseconds:20:20:-20:0|tJoin the Battle Royale"
 
 #define RU_DEATHMATCH_INFO_NPC "Вы уверены что хотите попасть в Королевскую Битву ?"
-#define EN_DEATHMATCH_INFO_NPC "Are you sure you want to get to the Royale Battle?"
+#define EN_DEATHMATCH_INFO_NPC "Are you sure you want to get to the Battle Royale?"
+
+#define RU_DEATHMATCH_KILL "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Королевская Битва]: Игрок |cffffff4d%s|r|cffff9933 убил игрока |cffffff4d%s|r|cffff9933."
+#define EN_DEATHMATCH_KILL "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Battle Royale]: Player |cffffff4d%s|r|cffff9933 killed a player |cffffff4d%s|r|cffff9933."
+
 
 /******************************************** Бонус система **********************************************/
 
 #define RU_GET_BONUS_USE_ITEM "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система бонусов]: Вы успешно получили |cffffff4d%u|r|cffff9933 бонусов !|r"
 #define EN_GET_BONUS_USE_ITEM "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Bonus system]: You have successfully received |cffffff4d%u|r|cffff9933 bonuses !|r"
+
+#define RU_NO_BONUS_HAVE "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система бонусов]: Недостаточно бонусов, вам нужно |cffffff4d%u|r|cffff9933 бонусов !|r"
+#define EN_NO_BONUS_HAVE "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Bonus system]: Not enough bonuses, you need |cffffff4d%u|r|cffff9933 bonuses !|r"
 
 #define RU_DUEL_ZONE_ONLY "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t Дуэли разрешены только в дуэль зоне !|r"
 #define EN_DUEL_ZONE_ONLY "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t Duels are only allowed in the duel zone !|r"
@@ -694,5 +725,111 @@
 #define EN_UPGRADE_FORCE "You are trying to replace an existing amplifier with the same level or higher,|cffE72117force|r improvement ?\n\n"\
                          "Enter the slot you want to replace:\n from 1 to 5.\n\n"\
                          "Then click on |cff069E02TO ACCEPT|r."
+
+#define EN_DEMETIA_STACK "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Dementia]: Damage and healing is going to be progressively increased every minute from now!|r"
+#define RU_DEMETIA_STACK "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Безумие]: С этого момента урон и исцеление будут увеличиваться с каждой минутой!|r"
+
+#define RU_HONOR_TRADE_1000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t1000 очков чести"
+#define EN_HONOR_TRADE_1000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t1000 honor points"
+
+#define RU_HONOR_TRADE_5000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t5000 очков чести"
+#define EN_HONOR_TRADE_5000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t5000 honor points"
+
+#define RU_HONOR_TRADE_10000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t10000 очков чести"
+#define EN_HONOR_TRADE_10000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t10000 honor points"
+
+#define RU_HONOR_TRADE_25000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t25000 очков чести"
+#define EN_HONOR_TRADE_25000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t25000 honor points"
+
+#define RU_HONOR_TRADE_50000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t50000 очков чести"
+#define EN_HONOR_TRADE_50000 "|TInterface/ICONS/Achievement_Arena_2v2_1:20:20:-20|t50000 honor points"
+
+#define EN_HONOR_TRADE_OK_SENDER "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Transfer]: Player |cffffff4d%s|cffff9933 successfully received |cffffff4d%u|cffff9933 honor points.|r"
+#define RU_HONOR_TRADE_OK_SENDER "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Трансфер]: Игрок |cffffff4d%s|cffff9933 успешно получил |cffffff4d%u|cffff9933 очков чести.|r"
+
+#define EN_HONOR_TRADE_OK_RECEIVER "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Transfer]: You received |cffffff4d%u|cffff9933 honor points from the player |cffffff4d%s|cffff9933.|r"
+#define RU_HONOR_TRADE_OK_RECEIVER "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Трансфер]: Вы получили |cffffff4d%u|cffff9933 очков чести от игрока |cffffff4d%s|cffff9933.|r"
+
+#define EN_REWARD_ARENA_POINTS_WIN "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Arena Reward]: You received |cffffff4d%u|cffff9933 arena points for win.|r"
+#define RU_REWARD_ARENA_POINTS_WIN "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Арена награда]: Вы получили |cffffff4d%u|cffff9933 очков арены за победу.|r"
+
+#define EN_REWARD_ARENA_POINTS_CAP "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Arena Reward]: Arena reward cap exceeded, you didn't get anything.|r"
+#define RU_REWARD_ARENA_POINTS_CAP "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Арена награда]: Кап награды за арену превышен, вы ничего не получили.|r"
+
+#define EN_REWARD_ARENA_POINTS_LOOS "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Arena Reward]: You received |cffffff4d%u|cffff9933 arena points for loos in arena.|r"
+#define RU_REWARD_ARENA_POINTS_LOOS "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Арена награда]: Вы получили |cffffff4d%u|cffff9933 очков арены за поражение на арене.|r"
+
+#define EN_ARENA1VS1_FARM "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Арена 1x1]: To join arena 1vs1, you need to log out from the second client."
+#define RU_ARENA1VS1_FARM "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Арена 1x1]: Для регистрации арены 1x1 нужно выйти со второго клиента."
+
+#define EN_HONOR_EXCHANGE_FAIL "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Exchanger]: Unfortunately, you don't have enough honor points.|r"
+#define RU_HONOR_EXCHANGE_FAIL "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Обменник]: К сожалению у вас недостаточно очков чести.|r"
+
+#define RU_HONOR_EXCHANGE_MAIN "|TInterface/ICONS/Inv_crate_07:18:18:-20|tОбменять очки чести на опыт"
+#define EN_HONOR_EXCHANGE_MAIN "|TInterface/ICONS/Inv_crate_07:18:18:-20|tExchanger honor points for exp"
+
+#define RU_ARENA_EXCHANGE_MAIN "|TInterface/ICONS/Inv_cask_01:18:18:-20|tОбменять очки чести на очки арены"
+#define EN_ARENA_EXCHANGE_MAIN "|TInterface/ICONS/Inv_cask_01:18:18:-20|tExchanger honor points for arena points"
+
+
+#define RU_RESET_INSTANCE_CD "|TInterface/ICONS/Inv_scroll_05:18:18:-20|tУдалить мои сохраненные подземелья"
+#define EN_RESET_INSTANCE_CD "|TInterface/ICONS/Inv_scroll_05:18:18:-20|tRemove my instance saves"
+
+#define RU_REPAIR_EQUIPMENT "|TInterface/ICONS/trade_engineering:18:18:-20|tОтремонтировать предметы"
+#define EN_REPAIR_EQUIPMENT "|TInterface/ICONS/trade_engineering:18:18:-20|tRepair items"
+
+#define EN_RESET_INSTANCE_CD_OK "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Instances]: Your instances have been reset.|r"
+#define RU_RESET_INSTANCE_CD_OK "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Подземелья]: Ваши подземелья перезагружены.|r"
+
+#define EN_REPAIR_EQUIPMENT_OK "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Repair]: Your items have been repaired.|r"
+#define RU_REPAIR_EQUIPMENT_OK "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ремонт]: Ваши предметы были отремонтированы.|r"
+
+#define RU_TOKEN_EXCHANGE_MAIN "|TInterface/ICONS/inv_misc_platnumdisks:18:18:-20|tОбменник эмблем"
+#define EN_TOKEN_EXCHANGE_MAIN "|TInterface/ICONS/inv_misc_platnumdisks:18:18:-20|tExchanger emblems"
+
+#define EN_TOKEN_EXCHANGE_FAIL "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Exchanger]: Unfortunately, you don't have enough emblems.|r"
+#define RU_TOKEN_EXCHANGE_FAIL "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Обменник]: К сожалению у вас недостаточно эмблем.|r"
+
+#define EN_TOKEN_EXCHANGE_FAIL_ERR "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Exchanger]: Incorrect value.|r"
+#define RU_TOKEN_EXCHANGE_FAIL_ERR "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Обменник]: Неверное значение.|r"
+
+#define RU_FROST_EXCHANGE_MENU "|TInterface/ICONS/inv_misc_frostemblem_01:20:20:-20|t1 эмблему льда на 1 осколок."
+#define EN_FROST_EXCHANGE_MENU "|TInterface/ICONS/inv_misc_frostemblem_01:20:20:-20|t1 emblems of frost for 1 shard."
+
+#define RU_TRIUMF_EXCHANGE_MENU "|TInterface/ICONS/spell_holy_summonchampion:20:20:-20|t10 эмблем триумфа на 1 осколок."
+#define EN_TRIUMF_EXCHANGE_MENU "|TInterface/ICONS/spell_holy_summonchampion:20:20:-20|t10 emblems of triumph for 1 shard."
+
+#define RU_FROST_EXCHANGE_MENU_FAST "|TInterface/ICONS/inv_misc_frostemblem_01:20:20:-20|tБыстрый обмен льда на осколки."
+#define EN_FROST_EXCHANGE_MENU_FAST "|TInterface/ICONS/inv_misc_frostemblem_01:20:20:-20|tQuick exchange frost for shards."
+
+#define RU_FROST_EXCHANGE_FAST_INFO "     ВНИМАНИЕ !\n\n  Укажите количество эмблем льда которые хотите обменять на осколки !\n\n   После чего нажмите на [ принять ]."
+#define EN_FROST_EXCHANGE_FAST_INFO "      ATTENTION!\n\n  Specify the number of ice emblems you want to exchange for shards !\n\n   Then click on [ accept ]."
+
+#define EN_TOKEN_EXCHANGE_SUCCESS "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Exchanger]: The exchange has been successful.|r"
+#define RU_TOKEN_EXCHANGE_SUCCESS "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Обменник]: Обмен успешно произошел.|r"
+
+#define EN_ONLINE_REWARD "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Online Reward]: You have successfully received the bonus for online.|r"
+#define RU_ONLINE_REWARD "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Онлайн Награда]: Вы успешно получили бонус за онлайн.|r"
+
+#define EN_FARM_ATTEMPT "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Protection system]: Farm attempt detected, we warn the administration.|r"
+#define RU_FARM_ATTEMPT "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Система защиты]: Обнаружена попытка фарма, предупреждаем администрацию.|r"
+
+#define EN_HOLIDAY_ONLOGIN "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Holiday]: Today is holiday! Rank points of honor and rank gain increased by 25 percent!|r"
+#define RU_HOLIDAY_ONLOGIN "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Выходной день]: Сегодня выходной день ! Получение очков чести и опыта для ранга повышено на 25 процентов!|r"
+
+#define EN_WIN_EVENT_BOSS "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Capital Siege]: You have received a reward for winning the auto event! The next auto event will be in 6 часов."
+#define RU_WIN_EVENT_BOSS "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Осада столиц]: Вы получили награду за победу на авто ивенте! Следующий авто ивент будет через 6 часов."
+
+#define RU_DONAT_MENU_OPTION "|TInterface\\icons\\INV_Misc_Tournaments_Banner_Orc:17:17:-1:1|t Разные функции"
+#define EN_DONAT_MENU_OPTION "|TInterface\\icons\\INV_Misc_Tournaments_Banner_Orc:17:17:-1:1|t Miscellaneous functions"
+
+#define RU_ACC_CONTROL_BROADCAST "Режим подсказок "
+#define EN_ACC_CONTROL_BROADCAST "Autobroadcast "
+
+#define RU_ACC_CONTROL_BROADCAST_ON "включен"
+#define EN_ACC_CONTROL_BROADCAST_ON "enable"
+
+#define RU_ACC_CONTROL_BROADCAST_OFF "выключен"
+#define EN_ACC_CONTROL_BROADCAST_OFF "disable"
 
 #endif

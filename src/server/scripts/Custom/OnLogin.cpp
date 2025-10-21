@@ -72,7 +72,7 @@ public:
 
     ChannelMgr* _channelMgr = nullptr;
 
-    void OnUpdateZone(Player* player, uint32 newZone, uint32 newArea) override
+    void OnPlayerUpdateZone(Player* player, uint32 newZone, uint32 newArea) override
 	{
         if (!player || !newZone || !newArea)
             return;
@@ -82,7 +82,7 @@ public:
             player->RemoveAura(SPELL_DEMENTIA);
     }
 
-    void OnMapChanged(Player *player) override
+    void OnPlayerMapChanged(Player *player) override
     {
         if (!player)
             return;
@@ -152,7 +152,7 @@ public:
         }
     }
 
-    void OnFirstLogin(Player* player) override
+    void OnPlayerFirstLogin(Player* player) override
     {
         player->GetReputationMgr().ModifyReputation(sFactionStore.LookupEntry(1156), 42999);
         DeleteItem_OnLogin(player);
@@ -188,7 +188,7 @@ public:
         }
     }
 
-    void OnLogin(Player* player) override
+    void OnPlayerLogin(Player* player) override
     {
 
         if (!player)

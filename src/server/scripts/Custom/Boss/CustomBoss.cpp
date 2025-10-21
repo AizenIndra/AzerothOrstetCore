@@ -3,6 +3,7 @@
 #include "WorldSession.h"
 #include "Translate.h"
 #include "Chat.h"
+#include <WorldSessionMgr.h>
 
 enum Spells
 {
@@ -1098,7 +1099,7 @@ class event_mage_fire : public CreatureScript
                 ss << "|TInterface/GossipFrame/Battlemastergossipicon:15:15|t |cffff9933[Сообщение о событии]:|r Осада столиц, победа";
                 bool isAlliance = me->GetEntry() == 99008;
                 ss << (isAlliance ? " Орды!" : " Альянса!");
-                sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
+                sWorldSessionMgr->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                 RewarBossKill(me, !isAlliance);
                 if (sGameEventMgr->IsActiveEvent(92))
                     sGameEventMgr->StopEvent(92, true);
@@ -1123,10 +1124,10 @@ class event_mage_fire : public CreatureScript
 
             void RewarBossKill(Creature* killer, bool alliance)
             {
-                SessionMap const& sessions = sWorld->GetAllSessions();
+                WorldSessionMgr::SessionMap const& sessions = sWorldSessionMgr->GetAllSessions();
                 uint32 areaId = killer->GetAreaId();
 
-                for (SessionMap::const_iterator it = sessions.begin(); it != sessions.end(); ++it)
+                for (WorldSessionMgr::SessionMap::const_iterator it = sessions.begin(); it != sessions.end(); ++it)
                 {
                     if (Player* player = it->second->GetPlayer())
                     {
@@ -1469,7 +1470,7 @@ class IceMan : public CreatureScript
                 me->Say("Неужели это конец? Я был слишком слаб для вас, но я вернусь, и в следующий раз я не буду так легкой добычей. Подождите меня...",LANG_UNIVERSAL);
                 std::ostringstream ss;
                 ss << "|TInterface/GossipFrame/Battlemastergossipicon:15:15|t |cffff9933[Сообщение о событии]:|r Герои нашего мира, мы с радостью сообщаем вам, что босс Сверх способный аномалиус был успешно убит! Огромное спасибо всем участникам за их стойкость и мужество. Поздравляем победителей и ждем вас на новых ивентах!";
-                sWorld->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
+                sWorldSessionMgr->SendServerMessage(SERVER_MSG_STRING, ss.str().c_str());
                 if (sGameEventMgr->IsActiveEvent(93))
                     sGameEventMgr->StopEvent(93, true);
             }             

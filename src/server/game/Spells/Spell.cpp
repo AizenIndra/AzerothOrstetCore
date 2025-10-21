@@ -61,6 +61,7 @@
 #include "GridNotifiersImpl.h"
 #include "IVMapMgr.h"
 #include "VMapMgr2.h"
+#include <DeathMatch.h>
 
 extern pEffect SpellEffects[TOTAL_SPELL_EFFECTS];
 

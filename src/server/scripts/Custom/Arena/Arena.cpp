@@ -16,6 +16,7 @@
 #include "Translate.h"
 #include "GameTime.h"
 #include "ArenaOnevsOne.h"
+#include <WorldState.h>
 
 
 void ArenaOne::LeaveQueue(Player* player) 
@@ -104,7 +105,7 @@ bool ArenaOne::JoinQueueArena(Player* player, bool isRated)
     if (!player)
         return false;
 
-    if (80 > player->getLevel())
+    if (80 > player->GetLevel())
         return false;
 
     uint8 arenaslot = ArenaTeam::GetSlotByType(ARENA_TEAM_5v5);
@@ -130,7 +131,7 @@ bool ArenaOne::JoinQueueArena(Player* player, bool isRated)
         return false;
     }
 
-    PvPDifficultyEntry const* bracketEntry = GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
+    PvPDifficultyEntry const* bracketEntry = GetBattlegroundBracketByLevel(bg->GetMapId(), player->GetLevel());
     if (!bracketEntry)
         return false;
 
@@ -264,8 +265,8 @@ void ArenaOne::ArenaMainMenu(Player* player)
     std::stringstream s;
 
     s << "Обновление капа и начисление очков арены через:\n";
-    s << "\nНачисление: " <<  secsToTimeString((sWorld->getWorldState(WS_ARENA_DISTRIBUTION_TIME) - GameTime::GetGameTime().count()), true).c_str();
-    s << "\nОбновление: " <<  secsToTimeString((sWorld->getWorldState(WS_DAYLY_ARENA_POINTS_CAP) - GameTime::GetGameTime().count()), true).c_str() << "\n";
+    s << "\nНачисление: " <<  secsToTimeString((sWorldState->getWorldState(WORLD_STATE_CUSTOM_ARENA_DISTRIBUTION_TIME) - GameTime::GetGameTime().count()), true).c_str();
+    s << "\nОбновление: " <<  secsToTimeString((sWorldState->getWorldState(WORLD_STATE_CUSTOM_DAYLY_ARENA_POINTS_CAP) - GameTime::GetGameTime().count()), true).c_str() << "\n";
     
     if (at) {
         uint32 rating = uint32((at->GetStats().Rating / 50) + player->GetRankByExp());
