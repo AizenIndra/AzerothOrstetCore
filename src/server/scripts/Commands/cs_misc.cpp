@@ -1984,6 +1984,7 @@ public:
         std::string userName          = handler->GetAcoreString(LANG_ERROR);
         ObjectGuid::LowType lowguid   = target->GetGUID().GetCounter();
         uint32 accId                  = 0;
+        uint32 accBonuses             = handler->GetSession()->GetBonuses();
         std::string eMail             = handler->GetAcoreString(LANG_ERROR);
         std::string regMail           = handler->GetAcoreString(LANG_ERROR);
         uint32 security               = 0;
@@ -2237,6 +2238,9 @@ public:
                 if (accountFlags & static_cast<uint32>(accountFlagText[i].flag))
                     handler->PSendSysMessage(LANG_SUBCMDS_LIST_ENTRY, accountFlagText[i].text);
         }
+
+        // Output LANG_PINFO_ACC_BONUSES
+        handler->PSendSysMessage(LANG_PINFO_ACC_BONUSES, accBonuses);        
 
         // Output VI. LANG_PINFO_ACC_LASTLOGIN
         handler->PSendSysMessage(LANG_PINFO_ACC_LASTLOGIN, lastLogin, failedLogins);
