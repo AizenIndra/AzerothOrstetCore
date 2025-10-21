@@ -168,6 +168,9 @@ public:
     [[nodiscard]] Seconds GetNextWeeklyQuestsResetTime() const override { return _nextWeeklyQuestReset; }
     [[nodiscard]] Seconds GetNextRandomBGResetTime() const override { return _nextRandomBGReset; }
 
+    // кап арены
+    [[nodiscard]] Seconds GetNextDailyArenaCapResetTime() const { return m_NextDailyArenaCapReset; }
+
     /// Get the maximum skill level a player can reach
     [[nodiscard]] uint16 GetConfigMaxSkillValue() const override
     {
@@ -248,12 +251,14 @@ protected:
     void _UpdateRealmCharCount(PreparedQueryResult resultCharCount,uint32 accountId);
 
     void InitDailyQuestResetTime();
+    void InitDailyArenaCapResetTime();
     void InitWeeklyQuestResetTime();
     void InitMonthlyQuestResetTime();
     void InitRandomBGResetTime();
     void InitCalendarOldEventsDeletionTime();
     void InitGuildResetTime();
     void ResetDailyQuests();
+    void ResetDailyArenaCap();
     void ResetWeeklyQuests();
     void ResetMonthlyQuests();
     void ResetRandomBG();
@@ -297,6 +302,7 @@ private:
 
     // next daily quests and random bg reset time
     Seconds _nextDailyQuestReset;
+    Seconds _NextDailyArenaCapReset;
     Seconds _nextWeeklyQuestReset;
     Seconds _nextMonthlyQuestReset;
     Seconds _nextRandomBGReset;

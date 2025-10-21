@@ -635,6 +635,9 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<uint32>(CONFIG_RANK_SYSTEM_WIN_RATE_BG,    "RankSystem.RewardWinBG", 150);
     SetConfigValue<uint32>(CONFIG_RANK_SYSTEM_KILL_RATE_BG,   "RankSystem.RewardKillBG", 10);
 
+    // arena cap today
+    SetConfigValue<uint32>(CONFIG_ARENA_CAP_PER_DAYS, "Arena.CapPerDay", 400);
+
     SetConfigValue<uint32>(CONFIG_WAYPOINT_MOVEMENT_STOP_TIME_FOR_PLAYER, "WaypointMovementStopTimeForPlayer", 120);
 
     SetConfigValue<uint32>(CONFIG_DUNGEON_ACCESS_REQUIREMENTS_PRINT_MODE, "DungeonAccessRequirements.PrintMode", 1);
