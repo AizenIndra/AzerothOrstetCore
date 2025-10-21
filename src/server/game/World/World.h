@@ -169,7 +169,7 @@ public:
     [[nodiscard]] Seconds GetNextRandomBGResetTime() const override { return _nextRandomBGReset; }
 
     // кап арены
-    [[nodiscard]] Seconds GetNextDailyArenaCapResetTime() const { return m_NextDailyArenaCapReset; }
+    [[nodiscard]] Seconds GetNextDailyArenaCapResetTime() const { return _NextDailyArenaCapReset; }
 
     /// Get the maximum skill level a player can reach
     [[nodiscard]] uint16 GetConfigMaxSkillValue() const override
