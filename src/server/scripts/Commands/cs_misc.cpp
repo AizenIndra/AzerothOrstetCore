@@ -463,7 +463,7 @@ public:
             return false;
         }
 
-        Battleground* bg = sBattlegroundMgr->CreateNewBattleground(randomizedArenaBgTypeId, GetBattlegroundBracketById(bgt->GetMapId(), bgt->GetBracketId()), ArenaType(hcnt >= 2 ? hcnt : 2), false);
+        Battleground* bg = sBattlegroundMgr->CreateNewBattleground(randomizedArenaBgTypeId, GetBattlegroundBracketById(bgt->GetMapId(), bgt->GetBracketId()), ArenaType(hcnt >= 2 ? ARENA_TYPE_2v2 : ARENA_TYPE_5v5), false);
         if (!bg)
         {
             handler->SendErrorMessage("Couldn't create arena map!");
@@ -485,8 +485,9 @@ public:
             player->SetEntryPoint();
 
             uint32 queueSlot = 0;
+            uint8 arenatype = count == 2 ? ARENA_TYPE_5v5 : count == 4 ? ARENA_TYPE_2v2 : ARENA_TYPE_3v3;
             WorldPacket data;
-            sBattlegroundMgr->BuildBattlegroundStatusPacket(&data, bg, queueSlot, STATUS_IN_PROGRESS, 0, bg->GetStartTime(), bg->GetArenaType(), teamId);
+            sBattlegroundMgr->BuildBattlegroundStatusPacket(&data, bg, queueSlot, STATUS_IN_PROGRESS, 0, bg->GetStartTime(), arenatype, teamId);
             player->GetSession()->SendPacket(&data);
 
             // Remove from LFG queues
