@@ -458,6 +458,7 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<float>(CONFIG_ARENA_LOSE_RATING_MODIFIER, "Arena.ArenaLoseRatingModifier", 24.0f);
     SetConfigValue<float>(CONFIG_ARENA_MATCHMAKER_RATING_MODIFIER, "Arena.ArenaMatchmakerRatingModifier", 24.0f);
     SetConfigValue<bool>(CONFIG_ARENA_QUEUE_ANNOUNCER_ENABLE, "Arena.QueueAnnouncer.Enable", false);
+    SetConfigValue<bool>(CONFIG_ARENA_LEAVE_ANNOUNCER_ENABLE, "Arena.LeaveAnnouncer.Enable", false);
     SetConfigValue<bool>(CONFIG_ARENA_QUEUE_ANNOUNCER_PLAYERONLY, "Arena.QueueAnnouncer.PlayerOnly", false);
     SetConfigValue<uint32>(CONFIG_ARENA_QUEUE_ANNOUNCER_DETAIL, "Arena.QueueAnnouncer.Detail", 3);
 
