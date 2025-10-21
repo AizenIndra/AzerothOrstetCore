@@ -11472,7 +11472,7 @@ bool Player::CanJoinToBattleground() const
     if (HasAura(26013))
         return false;
 
-    if(IsDeathMatch())
+    if (IsDeathMatch())
         return false;
 
     if (InBattlegroundQueueForBattlegroundQueueType(BATTLEGROUND_QUEUE_5v5))
