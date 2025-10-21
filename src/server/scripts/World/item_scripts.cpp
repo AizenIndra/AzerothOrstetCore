@@ -362,8 +362,11 @@ public:
         if (!entry)
             return true;
 
-        uint32 prize = 0;
-        bool bigEvent = false;            
+        uint32 prize = 3;
+        bool bigEvent = false;
+
+        // назначаем ID приза за ивент
+        sServerMenuMgr->SetItemRewardID(entry);            
 
         switch (entry) {
             case 34634: bigEvent = true; prize = 1; break;
@@ -376,8 +379,6 @@ public:
         }
 
         sServerMenuMgr->GossipMenuEventReward(pPlayer, entry, bigEvent, prize);
-
-        pPlayer->DestroyItemCount(entry, 1, true);
         return true;
     }
 };
