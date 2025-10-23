@@ -4688,6 +4688,10 @@ RankSystem.RewardKillBG = 10
 # Custom Premium
 Rate.Honor.Premium = 2.0
 Rate.Rank.Premium = 2.0
+Rate.XP.Kill.Premium = 2.0
+Rate.XP.Quest.Premium = 2.0
+Rate.Reputation.Gain.Premium = 2.0
+Rate.XP.Explore.Premium = 2.0
 
 # AntiDraw
 Arena.AntiDraw.Enabled = 1

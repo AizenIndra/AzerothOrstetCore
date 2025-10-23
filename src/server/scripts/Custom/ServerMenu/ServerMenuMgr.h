@@ -91,6 +91,8 @@ public:
     // выходные опыт на 25% больше
     bool isDoubleDays();
 
+    std::string GetVipTimeLeft(Player* player);
+
     // Ремонт предметов
     void RepairItems(Player* /*player*/);
 

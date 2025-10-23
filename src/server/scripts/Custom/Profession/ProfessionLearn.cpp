@@ -11,13 +11,13 @@ class Professions_NPC : public CreatureScript
 public:
     Professions_NPC() : CreatureScript("Professions_NPC") {}
 
-    bool OnGossipHello(Player* player, Creature* creature)
+    bool OnPlayerGossipHello(Player* player, Creature* creature)
     {
         sProfessionMgr->ReagentsMenu(player, creature);
         return true;
     }
 
-    bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action)
+    bool OnPlayerGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action)
     {
         player->PlayerTalkClass->ClearMenus();
         switch (sender)

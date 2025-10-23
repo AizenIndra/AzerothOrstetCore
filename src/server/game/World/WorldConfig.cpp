@@ -122,6 +122,10 @@ void WorldConfig::BuildConfigCache()
     /* Vip аккаунт */
     SetConfigValue<float>(RATE_HONOR_PREMIUM, "Rate.Honor.Premium", 2.0f);
     SetConfigValue<float>(RATE_RANK_REWARD_PREMIUM, "Rate.Rank.Premium", 2.0f);
+    SetConfigValue<float>(RATE_XP_KILL_PREMIUM, "Rate.XP.Kill.Premium", 2.0f);
+    SetConfigValue<float>(RATE_XP_QUEST_PREMIUM, "Rate.XP.Quest.Premium", 2.0f);
+    SetConfigValue<float>(RATE_REPUTATION_GAIN_PREMIUM, "Rate.Reputation.Gain.Premium", 2.0f);
+    SetConfigValue<float>(RATE_XP_EXPLORE_PREMIUM, "Rate.XP.Explore.Premium", 2.0f);
 
     SetConfigValue<float>(RATE_MISS_CHANCE_MULTIPLIER_TARGET_CREATURE, "Rate.MissChanceMultiplier.TargetCreature", 11.0f);
     SetConfigValue<float>(RATE_MISS_CHANCE_MULTIPLIER_TARGET_PLAYER, "Rate.MissChanceMultiplier.TargetPlayer", 7.0f);

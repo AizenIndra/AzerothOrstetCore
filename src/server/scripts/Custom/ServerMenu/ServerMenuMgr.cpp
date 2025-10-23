@@ -103,10 +103,14 @@ std::string sServerMenu::HeadMenu(Player* player, uint8 MenuId)
             if (player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU) {
                 ss << "Приветствую вас, " << player->GetName() << "\n\n";
                 ss << "На вашем аккаунте " << player->GetSession()->GetBonuses() << " бонусов.\n";
-                ss << "Пополнить счёт: wow-idk.ru\n\n";
+                ss << "Пополнить счёт: orstet.ru\n\n";
                 if (player->GetSession()->IsPremium())
-                    ss << "Ваш премиум статус |cff156B06активирован|r.";
-                else {
+                {
+                    ss << "Ваш премиум статус |cff156B06активирован|r.\n";
+                    ss << "Время: " << sServerMenuMgr->GetVipTimeLeft(player).c_str() << "\n";
+                }
+                else
+                {
                     ss << "Ваш премиум статус |cffff0000не активирован|r.\n";
                     ss << "Можно приобрести в разделе премиум аккаунт";
                 }
@@ -114,7 +118,7 @@ std::string sServerMenu::HeadMenu(Player* player, uint8 MenuId)
             else {
                 ss << "Greetings, " << player->GetName() << "\n\n";
                 ss << "You have " << player->GetSession()->GetBonuses() << "bonuses in your account";
-                ss << "Top up account wow-idk.ru\n\n";
+                ss << "Top up account orstet.ru\n\n";
                 if (player->GetSession()->IsPremium())
                     ss << "Your premium status|cff156B06activated|r.";
                 else {
@@ -183,7 +187,7 @@ std::string sServerMenu::HeadMenu(Player* player, uint8 MenuId)
             if (player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU) {
                 ss << "Приветствую вас, " << player->GetName() << "\n\n";
                 ss << "Что входит в Премиум аккаунт ?\n";
-                ss << "   * Опыт для ранга X2\n   * Очки арены за победу/поражение X2\n   * Очки чести X2\n   * Кап арены X2\n";
+                ss << "   * Опыт для ранга X2\n   * Очки арены за победу/поражение X2\n   * Очки чести X2\n   * Кап арены X2\n   * Репутация X2\n   * Опыт за Квесты X2\n   * Опыт за Убийства X2\n";
                 ss << "   * Возможность снять дезертир\n   * Возможность снять слабость\n   * Получить бафы\n   * Каждый ранг дает бонус в инстах\n\n";
                 ss << "Цена на премиум аккаунт 350 бонусов на 7 дней.";
             }
@@ -834,4 +838,41 @@ bool sServerMenu::isDoubleDays() {
     time_t t = time(nullptr);
     tm* now = localtime(&t);
     return now->tm_wday == 6 || now->tm_wday == 0;    
+}
+
+std::string sServerMenu::GetVipTimeLeft(Player* player)
+{
+    uint32 accountId = player->GetSession()->GetAccountId();
+
+    // Получаем дату окончания VIP в виде UNIX-времени
+    LoginDatabasePreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_SEL_PREMIUM_TIME);
+    stmt->SetData(0, accountId);
+    PreparedQueryResult result = LoginDatabase.Query(stmt);
+
+    if (!result)
+        return " (неактивен)";
+
+    Field* fields = result->Fetch();
+    time_t premiumEnd = fields[0].Get<uint64>();
+    time_t now = time(nullptr);
+
+    if (premiumEnd <= now)
+        return " (истёк)";
+
+    time_t diff = premiumEnd - now;
+    uint32 days = diff / 86400;
+    uint32 hours = (diff % 86400) / 3600;
+    uint32 minutes = (diff % 3600) / 60;
+
+    std::ostringstream ss;
+    ss << " (осталось: ";
+    if (days > 0)
+        ss << days << " дн. ";
+    if (hours > 0)
+        ss << hours << " ч. ";
+    if (minutes > 0)
+        ss << minutes << " мин.";
+    ss << ")";
+
+    return ss.str();
 }

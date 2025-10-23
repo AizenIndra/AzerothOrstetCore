@@ -12,7 +12,7 @@ class ServerMenuPlayerGossip : public PlayerScript
 public:
     ServerMenuPlayerGossip() : PlayerScript("ServerMenuPlayerGossip") { }
 
-    void OnGossipSelect(Player* player, uint32 menu_id, uint32 sender, uint32 action)
+    void OnPlayerGossipSelect(Player* player, uint32 menu_id, uint32 sender, uint32 action)
     {    
         if (!player)
             return;
@@ -181,7 +181,7 @@ public:
         } 
     }
 
-    void OnGossipSelectCode(Player* player, uint32 /*menu_id*/, uint32 sender, uint32 action, const char* code)
+    void OnPlayerGossipSelectCode(Player* player, uint32 /*menu_id*/, uint32 sender, uint32 action, const char* code)
     {
         ClearGossipMenuFor(player);
         switch (sender) {
@@ -231,7 +231,7 @@ class ExchagerToken : public CreatureScript
 public:
     ExchagerToken() : CreatureScript("ExchagerToken") { }
 
-    bool OnGossipHello(Player* player, Creature* /* creature */) 
+    bool OnPlayerGossipHello(Player* player, Creature* /* creature */) 
     {
         if (!player)
             return true;

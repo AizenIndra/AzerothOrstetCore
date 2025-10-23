@@ -166,6 +166,10 @@ void KillRewarder::_RewardXP(Player* player, float rate)
         for (Unit::AuraEffectList::const_iterator i = auras.begin(); i != auras.end(); ++i)
             AddPct(xp, (*i)->GetAmount());
 
+        // 4.2.2.1. Apply premium bonus for kill XP
+        if (player->GetSession()->IsPremium())
+            xp = uint32(xp * sWorld->getRate(RATE_XP_KILL_PREMIUM));
+
         // 4.2.3. Give XP to player.
         sScriptMgr->OnPlayerGiveXP(player, xp, _victim, PlayerXPSource::XPSOURCE_KILL);
         player->GiveXP(xp, _victim, _groupRate);

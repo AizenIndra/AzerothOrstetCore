@@ -743,7 +743,7 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
     bool const rewarded = IsQuestRewarded(quest_id) && !quest->IsDFQuest() && !(quest->IsDaily() || quest->IsWeekly() || quest->IsMonthly());
 
     // Repeatable quests (not time-based reset ones) should not give XP on subsequent completions
-    uint32 XP = rewarded ? 0 : CalculateQuestRewardXP(quest);
+    uint32 XP = rewarded ? 0 : CalculateQuestRewardXP(quest) * (GetSession()->IsPremium() ? sWorld->getRate(RATE_XP_QUEST_PREMIUM) : sWorld->getRate(RATE_XP_QUEST));
 
     sScriptMgr->OnPlayerQuestComputeXP(this, quest, XP);
     int32 moneyRew = 0;

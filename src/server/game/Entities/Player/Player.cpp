@@ -5911,7 +5911,7 @@ void Player::CheckAreaExploreAndOutdoor()
                 }
                 else
                 {
-                    XP = uint32(sObjectMgr->GetBaseXP(areaEntry->area_level) * sWorld->getRate(RATE_XP_EXPLORE));
+                    XP = uint32(sObjectMgr->GetBaseXP(areaEntry->area_level) * (GetSession()->IsPremium() ? sWorld->getRate(RATE_XP_EXPLORE_PREMIUM) : sWorld->getRate(RATE_XP_EXPLORE)));
                 }
 
                 sScriptMgr->OnPlayerGiveXP(this, XP, nullptr, PlayerXPSource::XPSOURCE_EXPLORE);
@@ -6280,13 +6280,10 @@ bool Player::RewardHonor(Unit* uVictim, uint32 groupsize, int32 honor, bool awar
         AddPct(honor_f, GetMaxPositiveAuraModifier(SPELL_AURA_MOD_HONOR_GAIN_PCT));
     }
 
-    honor_f *= sWorld->getRate(RATE_HONOR);
+    honor_f *= GetSession()->IsPremium() ? sWorld->getRate(RATE_HONOR_PREMIUM) : sWorld->getRate(RATE_HONOR);
 
     if (sServerMenuMgr->isDoubleDays())
         honor_f *= 1.25f;    
-
-    if (GetSession()->IsPremium())
-        honor_f *= sWorld->getRate(RATE_HONOR_PREMIUM);
 
     // Back to int now
     honor = int32(honor_f);

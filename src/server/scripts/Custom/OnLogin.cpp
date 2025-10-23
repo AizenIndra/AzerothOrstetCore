@@ -41,22 +41,12 @@ public:
             switch(_events[pEvent].Events)
             {
                 case 0:
-                    ChatHandler(_Plr->GetSession()).PSendSysMessage("%sДобро пожаловать на проект |cffffff4dWoW-IDK.RU|r", icon_color);
+                    ChatHandler(_Plr->GetSession()).PSendSysMessage("{}Добро пожаловать на проект |cffffff4dOrstet WoW|r", icon_color);
                     _events[pEvent].Events = 1;
                     break;
 
                 case 1:
-                    ChatHandler(_Plr->GetSession()).PSendSysMessage("%sПеред вами стоит моб быстрого старта 'Mr.Gladiator' в котором сможете выбрать ваш спек, он всё сделает за вас.", icon_color);
-                    _events[pEvent].Events = 2;
-                    break;
-
-                case 2:
-                    ChatHandler(_Plr->GetSession()).PSendSysMessage("%sРядом с ним находится продавцы экипиров, если вы хотите сами одеть вашего персонажа.", icon_color);
-                    _events[pEvent].Events = 3;
-                    break;
-
-                case 3:
-                    ChatHandler(_Plr->GetSession()).PSendSysMessage("%sМы желаем вам приятной игры на нашем проекте <3", icon_color);
+                    ChatHandler(_Plr->GetSession()).PSendSysMessage("{}Мы желаем вам приятной игры на нашем проекте <3", icon_color);
                     _events[pEvent].Events = 5;
                     break;
             }
@@ -202,6 +192,9 @@ public:
         RemoveDementia(player);
         sServerMenuMgr->VipMountLearn(player);
         
+        if (!player->HasSpell(28698))
+        player->learnSpell(28698);
+
         Map *map = player->GetMap();
         if (!map)
             return;
