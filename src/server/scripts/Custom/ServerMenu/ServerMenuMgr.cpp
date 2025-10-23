@@ -82,7 +82,7 @@ void sServerMenu::CharControlMenu(Player* player) {
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_CHAR_CONTROL_1, EN_CHAR_CONTROL_1), GOSSIP_SENDER_MAIN + 1, 0);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_CHAR_CONTROL_2, EN_CHAR_CONTROL_2), GOSSIP_SENDER_MAIN + 1, 1);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_CHAR_CONTROL_3, EN_CHAR_CONTROL_3), GOSSIP_SENDER_MAIN + 1, 5);
-    AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_CHAR_CONTROL_7, EN_CHAR_CONTROL_7), GOSSIP_SENDER_MAIN + 1, 6);
+    // AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_CHAR_CONTROL_7, EN_CHAR_CONTROL_7), GOSSIP_SENDER_MAIN + 1, 6); // Управление акков - отключено
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HONOR_EXCHANGE_MAIN, EN_HONOR_EXCHANGE_MAIN), GOSSIP_SENDER_MAIN + 1, 7);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_ARENA_EXCHANGE_MAIN, EN_ARENA_EXCHANGE_MAIN), GOSSIP_SENDER_MAIN + 1, 11);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_TOKEN_EXCHANGE_MAIN, EN_TOKEN_EXCHANGE_MAIN), GOSSIP_SENDER_MAIN + 1, 9);
@@ -254,7 +254,7 @@ void sServerMenu::GossipHelloMenu(Player* player)
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_3, EN_HOME_MENU_3), GOSSIP_SENDER_MAIN, 3);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_4, EN_HOME_MENU_4), GOSSIP_SENDER_MAIN, 4);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_5, EN_HOME_MENU_5), GOSSIP_SENDER_MAIN, 5);
-    AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_6, EN_HOME_MENU_6), GOSSIP_SENDER_MAIN, 6);
+    // AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_6, EN_HOME_MENU_6), GOSSIP_SENDER_MAIN, 6); // Управление акков - отключено
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_7, EN_HOME_MENU_7), GOSSIP_SENDER_MAIN, 7);
     player->PlayerTalkClass->GetGossipMenu().SetMenuId(UNIQUE_MENU_ID);
     player->PlayerTalkClass->SendGossipMenu(sServerMenuMgr->HeadMenu(player, 0), player->GetGUID());

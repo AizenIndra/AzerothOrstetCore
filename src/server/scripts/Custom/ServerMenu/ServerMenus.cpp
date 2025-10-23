@@ -38,8 +38,8 @@ public:
                     case 4: player->GetSession()->IsPremium() ? sServerMenuMgr->GetVipMenu(player) : sServerMenuMgr->GetVipMenuForBuy(player); break;
                     // Управление персонажем - ок
                     case 5: sServerMenuMgr->CharControlMenu(player); break;
-                    // Управление акков
-                    case 6: sServerMenuMgr->AccControlMenu(player); break;
+                    // Управление акков - отключено
+                    // case 6: sServerMenuMgr->AccControlMenu(player); break;
                     // Арена
                     case 7: ArenaOneMgr->ArenaMainMenu(player); break;
                     default: break;
@@ -169,13 +169,15 @@ public:
                 sServerMenuMgr->ConfirmExchangeHonorForArena(player, action);
             } break; 
 
-            // Управление акков
+            // Управление акков - отключено
+            /*
             case GOSSIP_SENDER_MAIN + 18: {
                 switch (action) {
                     case 0: sServerMenuMgr->SetBroadcastControl(player); break;
                     default: break;
                 };
-            }    
+            }
+            */
             
             default: break;
         } 
