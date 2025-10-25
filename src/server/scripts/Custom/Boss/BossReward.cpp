@@ -50,7 +50,7 @@ public:
         player->RewardRankPoints(reward, 9 /* тип награды -> 9 = убийство боссов */);
     }
 
-	void OnCreatureKill(Player* player, Creature* boss)
+	void OnPlayerCreatureKill(Player* player, Creature* boss)
 	{
         if (!player || !boss)
             return;

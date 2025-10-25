@@ -11,14 +11,20 @@ class Professions_NPC : public CreatureScript
 public:
     Professions_NPC() : CreatureScript("Professions_NPC") {}
 
-    bool OnPlayerGossipHello(Player* player, Creature* creature)
+    bool OnGossipHello(Player* player, Creature* creature)
     {
+        if (!player || !creature)
+            return true;
+
         sProfessionMgr->ReagentsMenu(player, creature);
         return true;
     }
 
-    bool OnPlayerGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action)
+    bool OnGossipSelect(Player* player, Creature* creature, uint32 sender, uint32 action)
     {
+        if (!action || !player || !creature)
+            return true;
+
         player->PlayerTalkClass->ClearMenus();
         switch (sender)
         {
@@ -35,8 +41,11 @@ class Professions_ : public CreatureScript
 public:
     Professions_() : CreatureScript("Professions_") {}
 
-    bool OnGossipHello(Player* player, Creature*)
+    bool OnGossipHello(Player* player, Creature* creature)
     {
+        if (!player || !creature)
+            return true;
+
         sProfessionMgr->MainMenu(player);
         return true;
     }

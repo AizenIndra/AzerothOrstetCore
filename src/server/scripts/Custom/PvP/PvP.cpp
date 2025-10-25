@@ -71,7 +71,7 @@ class duel_reset : public PlayerScript
             player->SetPower(POWER_MANA, player->GetMaxPower(POWER_MANA));
     }
 
-    void OnDuelStart(Player* player1, Player* player2)
+    void OnPlayerDuelStart(Player* player1, Player* player2)
     {
         if (!player1 || !player2)
             return;
@@ -97,7 +97,7 @@ class duel_reset : public PlayerScript
         DruidForm(player2);
     }
 
-    void OnDuelEnd(Player* pWinner, Player* pLoser, DuelCompleteType /*type*/)
+    void OnPlayerDuelEnd(Player* pWinner, Player* pLoser, DuelCompleteType /*type*/)
     {
         if (!pWinner || !pLoser)
             return;
@@ -112,7 +112,7 @@ class Arena_Scripts : public PlayerScript
 public:
 	Arena_Scripts() : PlayerScript("Arena_Scripts") {  }
 
-	void OnUpdateZone(Player* player, uint32 zone, uint32 /*area*/)
+	void OnPlayerUpdateZone(Player* player, uint32 zone, uint32 /*area*/)
 	{
 		float x = player->GetPositionX();
 		float y = player->GetPositionY();
@@ -145,7 +145,7 @@ class channel_factions : public PlayerScript
 public:
     channel_factions() : PlayerScript("channel_factions") { }
 
-    void OnChat(Player* player, uint32 /*type*/, uint32 /*lang*/, std::string& msg, Channel* channel)
+    void OnPlayerChat(Player* player, uint32 /*type*/, uint32 /*lang*/, std::string& msg, Channel* channel)
     {
         if (!player || !channel)
             return;
