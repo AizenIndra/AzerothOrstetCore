@@ -199,8 +199,8 @@ void sProfession::PrimaryMenu(Player *player) {
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_28, EN_player_proff_text_28), GOSSIP_SENDER_MAIN + 3, SKILL_HERBALISM);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_29, EN_player_proff_text_29), GOSSIP_SENDER_MAIN + 3, SKILL_SKINNING);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_30, EN_player_proff_text_30), GOSSIP_SENDER_MAIN + 3, SKILL_MINING);
-    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_back, EN_back), GOSSIP_SENDER_MAIN, 0);
-    SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, player->GetGUID());
+    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_back, EN_back), GOSSIP_SENDER_MAIN + 2, 0);
+    player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), player->GetGUID());
 }
 
 void sProfession::SecondMenu(Player *player) {
@@ -208,7 +208,7 @@ void sProfession::SecondMenu(Player *player) {
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_31, EN_player_proff_text_31), GOSSIP_SENDER_MAIN + 3, SKILL_FIRST_AID);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_32, EN_player_proff_text_32), GOSSIP_SENDER_MAIN + 3, SKILL_FISHING);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_33, EN_player_proff_text_33), GOSSIP_SENDER_MAIN + 3, SKILL_COOKING);
-    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_back,EN_back), GOSSIP_SENDER_MAIN, 0);
+    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_back, EN_back), GOSSIP_SENDER_MAIN + 2, 0);
     player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), player->GetGUID());
 }
 
