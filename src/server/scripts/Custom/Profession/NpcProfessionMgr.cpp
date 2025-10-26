@@ -131,7 +131,7 @@ bool sProfession::LearnAllRecipesInProfession(Player *player, uint32 skill)
 
     if (SkillLineEntry const *SkillInfo = sSkillLineStore.LookupEntry(skill))
     {
-        player->SetSkill(SkillInfo->id, player->GetSkillStep(SkillInfo->id), 0, 450);
+        player->SetSkill(SkillInfo->id, player->GetSkillStep(SkillInfo->id), 450, 450);
         uint32 ClassMask = player->getClassMask();
 
         for (uint32 i = 0; i < sSkillLineAbilityStore.GetNumRows(); ++i)
@@ -177,16 +177,17 @@ void sProfession::CompleteLearnProfession(Player *player, uint32 skill) {
     player->PlayerTalkClass->SendCloseGossip();
 }
 
-void sProfession::MainMenu(Player *player) {
+void sProfession::MainMenu(Player *player, Creature* creature) {
     player->PlayerTalkClass->ClearMenus();
-    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_17, EN_player_proff_text_17), GOSSIP_SENDER_MAIN + 2, 1); // second
-    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_18, EN_player_proff_text_18), GOSSIP_SENDER_MAIN + 2, 2); // primary
+    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_17, EN_player_proff_text_17), GOSSIP_SENDER_MAIN + 2, 2); // primary - первый пункт
+    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_18, EN_player_proff_text_18), GOSSIP_SENDER_MAIN + 2, 1); // second - второй пункт
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_back, EN_back), GOSSIP_SENDER_MAIN, 0); //  на главное меню
     player->PlayerTalkClass->GetGossipMenu().SetMenuId(GossipHelloMenu + 2);
-    player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), player->GetGUID());
+    ObjectGuid guid = creature ? creature->GetGUID() : player->GetGUID();
+    player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), guid);
 }
 
-void sProfession::PrimaryMenu(Player *player) {
+void sProfession::PrimaryMenu(Player *player, Creature* creature) {
     player->PlayerTalkClass->ClearMenus();
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_20, EN_player_proff_text_20), GOSSIP_SENDER_MAIN + 3, SKILL_ALCHEMY);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_21, EN_player_proff_text_21), GOSSIP_SENDER_MAIN + 3, SKILL_BLACKSMITHING);
@@ -200,16 +201,18 @@ void sProfession::PrimaryMenu(Player *player) {
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_29, EN_player_proff_text_29), GOSSIP_SENDER_MAIN + 3, SKILL_SKINNING);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_30, EN_player_proff_text_30), GOSSIP_SENDER_MAIN + 3, SKILL_MINING);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_back, EN_back), GOSSIP_SENDER_MAIN + 2, 0);
-    player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), player->GetGUID());
+    ObjectGuid guid = creature ? creature->GetGUID() : player->GetGUID();
+    player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), guid);
 }
 
-void sProfession::SecondMenu(Player *player) {
+void sProfession::SecondMenu(Player *player, Creature* creature) {
     player->PlayerTalkClass->ClearMenus();
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_31, EN_player_proff_text_31), GOSSIP_SENDER_MAIN + 3, SKILL_FIRST_AID);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_32, EN_player_proff_text_32), GOSSIP_SENDER_MAIN + 3, SKILL_FISHING);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_player_proff_text_33, EN_player_proff_text_33), GOSSIP_SENDER_MAIN + 3, SKILL_COOKING);
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_back, EN_back), GOSSIP_SENDER_MAIN + 2, 0);
-    player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), player->GetGUID());
+    ObjectGuid guid = creature ? creature->GetGUID() : player->GetGUID();
+    player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), guid);
 }
 
 void sProfession::ReagentsMenu(Player *player, Creature* creature) {

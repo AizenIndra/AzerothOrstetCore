@@ -22,7 +22,8 @@ void sServerMenu::OpenMailSlot(Player* player)
         return;
 
     player->PlayerTalkClass->SendCloseGossip();
-	player->GetSession()->SendShowMailBox(player->GetGUID());
+    // Используем player GUID для системного mailbox (проверка в MailHandler.cpp изменена)
+    player->GetSession()->SendShowMailBox(player->GetGUID());
 }
 
 std::string sServerMenu::ConfirmChangeRFN(Player* player, uint32 cost) 

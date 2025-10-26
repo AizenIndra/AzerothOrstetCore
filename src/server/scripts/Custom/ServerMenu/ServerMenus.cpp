@@ -17,7 +17,8 @@ public:
         if (!player)
             return;
 
-        if (menu_id != UNIQUE_MENU_ID)
+        // Разрешаем обработку для ServerMenu (UNIQUE_MENU_ID) и для профессий (GossipHelloMenu + 2)
+        if (menu_id != UNIQUE_MENU_ID && menu_id != 3) // 3 = GossipHelloMenu + 2 (меню профессий)
             return; 
 
         ClearGossipMenuFor(player);
@@ -79,8 +80,9 @@ public:
             // меню профессий первый выбор
             case GOSSIP_SENDER_MAIN + 2: {
                 switch (action) {
-                    case 1: sProfessionMgr->PrimaryMenu(player); break; /* меню основных проф */
-                    case 2: sProfessionMgr->SecondMenu(player);  break; /* меню вторичных проф */
+                    case 0: sProfessionMgr->MainMenu(player); break; /* назад в главное меню профессий */
+                    case 1: sProfessionMgr->SecondMenu(player); break; /* меню вторичных проф */
+                    case 2: sProfessionMgr->PrimaryMenu(player); break; /* меню основных проф */
                     default: break;
                 }
             } break;
@@ -89,6 +91,8 @@ public:
             case GOSSIP_SENDER_MAIN + 3: {
                 if (!player->HasSkill(action))
                     sProfessionMgr->CompleteLearnProfession(player, action);
+                else
+                    CloseGossipMenuFor(player);
             } break;
 
             // Телепорт меню (первое)

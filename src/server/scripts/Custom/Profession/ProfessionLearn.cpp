@@ -46,7 +46,7 @@ public:
         if (!player || !creature)
             return true;
 
-        sProfessionMgr->MainMenu(player);
+        sProfessionMgr->MainMenu(player, creature);
         return true;
     }
 
@@ -67,9 +67,9 @@ public:
             }
             case GOSSIP_SENDER_MAIN + 2: {
                 switch (action) {
-                    case 0: sProfessionMgr->MainMenu(player); break;    // Назад в главное меню
-                    case 1: sProfessionMgr->SecondMenu(player); break;  // Secondary профессии
-                    case 2: sProfessionMgr->PrimaryMenu(player); break; // Primary профессии
+                    case 0: sProfessionMgr->MainMenu(player, creature); break;    // Назад в главное меню
+                    case 1: sProfessionMgr->SecondMenu(player, creature); break;  // Secondary профессии
+                    case 2: sProfessionMgr->PrimaryMenu(player, creature); break; // Primary профессии
                     default: break;
                 }
                 break;

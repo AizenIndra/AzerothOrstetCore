@@ -49,11 +49,11 @@ public:
     /* защита задания */
     void CompleteQuest(Player* /* player */);
     /* главное меню профессий */
-    void MainMenu(Player* /* player */);
+    void MainMenu(Player* /* player */, Creature* /* creature */ = nullptr);
     /* меню primary */
-    void PrimaryMenu(Player* /* player */);
+    void PrimaryMenu(Player* /* player */, Creature* /* creature */ = nullptr);
     /* меню second */
-    void SecondMenu(Player* /* player */);
+    void SecondMenu(Player* /* player */, Creature* /* creature */ = nullptr);
     /* меню реагентов */
     void ReagentsMenu(Player* /* player */, Creature*);
     /* заголовка в госипке */
