@@ -31,6 +31,19 @@ void AddSC_ServerMenuPlayerGossip();
 void AddSC_npc_custom_boss();
 void AddSC_RewardRangKillBoss();
 void AddSC_CustomBossAnna();
+void AddSC_UPDTStats();
+void AddSC_DailyQuestReset();
+void AddAutoReviveScripts();
+void AddSC_hujal_teleport();
+//WorldBosses
+void AddSC_aliden();
+void AddSC_alliance_boss();
+void AddSC_anna();
+void AddSC_CustomBossFalricScripts();
+void AddSC_boss_galadriel();
+void AddSC_orrig();
+void AddSC_tolreos();
+void AddSC_two();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
@@ -50,4 +63,17 @@ void AddCustomScripts()
     AddSC_npc_custom_boss();
     AddSC_RewardRangKillBoss();
     AddSC_CustomBossAnna();
+    AddSC_UPDTStats();
+    AddSC_DailyQuestReset();
+    AddAutoReviveScripts();
+    AddSC_hujal_teleport();
+    //WorldBosses
+    AddSC_aliden();
+    AddSC_alliance_boss();
+    AddSC_anna();
+    AddSC_CustomBossFalricScripts();
+    AddSC_boss_galadriel();
+    AddSC_orrig();
+    AddSC_tolreos();
+    AddSC_two();
 }

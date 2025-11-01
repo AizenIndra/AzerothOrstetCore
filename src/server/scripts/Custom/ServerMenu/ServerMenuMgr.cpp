@@ -252,11 +252,12 @@ void sServerMenu::GossipHelloMenu(Player* player)
     ClearGossipMenuFor(player);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_1, EN_HOME_MENU_1), GOSSIP_SENDER_MAIN, 1);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_2, EN_HOME_MENU_2), GOSSIP_SENDER_MAIN, 2);
-    AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_3, EN_HOME_MENU_3), GOSSIP_SENDER_MAIN, 3);
+    // AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_3, EN_HOME_MENU_3), GOSSIP_SENDER_MAIN, 3); // Магазин - отключено
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_4, EN_HOME_MENU_4), GOSSIP_SENDER_MAIN, 4);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_5, EN_HOME_MENU_5), GOSSIP_SENDER_MAIN, 5);
     // AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_6, EN_HOME_MENU_6), GOSSIP_SENDER_MAIN, 6); // Управление акков - отключено
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_7, EN_HOME_MENU_7), GOSSIP_SENDER_MAIN, 7);
+    AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_8, EN_HOME_MENU_8), GOSSIP_SENDER_MAIN, 8);
     player->PlayerTalkClass->GetGossipMenu().SetMenuId(UNIQUE_MENU_ID);
     player->PlayerTalkClass->SendGossipMenu(sServerMenuMgr->HeadMenu(player, 0), player->GetGUID());
 }
@@ -876,4 +877,240 @@ std::string sServerMenu::GetVipTimeLeft(Player* player)
     ss << ")";
 
     return ss.str();
+}
+
+// Константы для spells улучшения характеристик
+static const int SpellStamina = 80992;
+static const int SpellStrenght = 81103;
+static const int SpellAgility = 81048;
+static const int SpellIntelect = 80932;
+static const int SpellSpirit = 80876;
+static const int SpellDamage = 81158;
+
+int32* sServerMenu::GetSpellIdCurrent(Player* pp, int type)
+{
+    int32* STM = 0;
+    switch (type)
+    {
+    case 1: //Stamina
+    {
+        int bs = 0;
+        for (int i = 0; i < 55; i++)
+        {
+            if (pp->HasSpell(SpellStamina + bs))
+            {
+                if (bs == 54)
+                {
+                    STM = new int32[3]{ SpellStamina + bs,54,0 };
+                    return STM;
+                }
+                STM = new int32[3]{ SpellStamina + bs,bs,GetPrice(bs,0) };
+                return STM;
+            }
+            bs++;
+        }
+        STM = new int32[3]{ SpellStamina,-1,GetPrice(-1,0) };
+        return STM;
+    }
+    break;
+    case 2: //Strenght
+    {
+        int bs = 0;
+        for (int i = 0; i < 55; i++)
+        {
+            if (pp->HasSpell(SpellStrenght + bs))
+            {
+                if (bs == 54)
+                {
+                    STM = new int32[3]{ SpellStrenght + bs,54,0 };
+                    return STM;
+                }
+                STM = new int32[3]{ SpellStrenght + bs,bs,GetPrice(bs,0) };
+                return STM;
+            }
+            bs++;
+        }
+        STM = new int32[3]{ SpellStrenght,-1,GetPrice(-1,0) };
+        return STM;
+    }
+    break;
+    case 3: //Agility
+    {
+        int bs = 0;
+        for (int i = 0; i < 55; i++)
+        {
+            if (pp->HasSpell(SpellAgility + bs))
+            {
+                if (bs == 54)
+                {
+                    STM = new int32[3]{ SpellAgility + bs,54,0 };
+                    return STM;
+                }
+                STM = new int32[3]{ SpellAgility + bs,bs,GetPrice(bs,0) };
+                return STM;
+            }
+            bs++;
+        }
+        STM = new int32[3]{ SpellAgility,-1,GetPrice(-1,0) };
+        return STM;
+    }
+    break;
+    case 4: //Intelect
+    {
+        int bs = 0;
+        for (int i = 0; i < 55; i++)
+        {
+            if (pp->HasSpell(SpellIntelect + bs))
+            {
+                if (bs == 54)
+                {
+                    STM = new int32[3]{ SpellIntelect + bs,54,0 };
+                    return STM;
+                }
+                STM = new int32[3]{ SpellIntelect + bs,bs,GetPrice(bs,0) };
+                return STM;
+            }
+            bs++;
+        }
+        STM = new int32[3]{ SpellIntelect,-1,GetPrice(-1,0) };
+        return STM;
+    }
+    break;
+    case 5: //Spirit
+    {
+        int bs = 0;
+        for (int i = 0; i < 55; i++)
+        {
+            if (pp->HasSpell(SpellSpirit + bs))
+            {
+                if (bs == 54)
+                {
+                    STM = new int32[3]{ SpellSpirit + bs,54,0 };
+                    return STM;
+                }
+                STM = new int32[3]{ SpellSpirit + bs,bs,GetPrice(bs,0) };
+                return STM;
+            }
+            bs++;
+        }
+        STM = new int32[3]{ SpellSpirit,-1,GetPrice(-1,0) };
+        return STM;
+    }
+    break;
+    case 6: //Damage
+    {
+        int bs = 0;
+        for (int i = 0; i < 35; i++)
+        {
+            if (pp->HasSpell(SpellDamage + bs))
+            {
+                if (bs == 34)
+                {
+                    STM = new int32[3]{ SpellDamage + bs,34,0 };
+                    return STM;
+                }
+                STM = new int32[3]{ SpellDamage + bs,bs,GetPrice(bs,1) };
+                return STM;
+            }
+            bs++;
+        }
+        STM = new int32[3]{ SpellDamage,-1,GetPrice(-1,1) };
+        return STM;
+    }
+    break;
+    }
+    return nullptr;
+}
+
+int32 sServerMenu::GetPrice(int Level, int type)
+{
+    int tps1[] = { 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58 };
+    int tps2[] = { 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63 };
+
+    if (type == 0)
+    {
+        return tps1[Level + 1];
+    }
+    else
+    {
+        return tps2[Level + 1];
+    }
+}
+
+void sServerMenu::UpgradingStats(Player* pp, int32 SpellID, int Level, uint32 Price)
+{
+    if (pp->GetItemCount(73903) >= Price)
+    {
+        pp->DestroyItemCount(73903, Price, true);
+        if (Level == -1)
+        {
+            pp->learnSpell(SpellID);
+            ChatHandler(pp->GetSession()).PSendSysMessage("|cff44CC00[Улучшение характеристик]|r: Успешное улучшение умений!");
+        }
+        else
+        {
+            if (SpellDamage + Level == SpellID && Level == 34)
+            {
+                ChatHandler(pp->GetSession()).PSendSysMessage("|cff44CC00[Улучшение характеристик]|r: Вы получили максимальный уровень улучшения данного умения!");
+                return;
+            }
+            if (Level == 54)
+            {
+                ChatHandler(pp->GetSession()).PSendSysMessage("|cff44CC00[Улучшение характеристик]|r: Вы получили максимальный уровень улучшения данного умения!");
+                return;
+            }
+            pp->removeSpell(SpellID, SPEC_MASK_ALL, false);
+            pp->learnSpell(SpellID + 1);
+            ChatHandler(pp->GetSession()).PSendSysMessage("|cff44CC00[Улучшение характеристик]|r: Успешное улучшение умений!");
+        }
+        return;
+    }
+    else
+    {
+        int price = Price - pp->GetItemCount(73903);
+        ChatHandler(pp->GetSession()).PSendSysMessage("|cff44CC00[Улучшение характеристик]|r: К сожалению, у вас не хватает - {} осколков души.", std::to_string(price).c_str());
+        return;
+    }
+}
+
+void sServerMenu::OpenStatsUpgrade(Player* player)
+{
+    if (!player)
+        return;
+
+    // Открываем меню улучшения характеристик
+    ClearGossipMenuFor(player);
+    
+    int32* STM = GetSpellIdCurrent(player, 1);
+    std::stringstream msg;
+    msg << "|TInterface\\Icons\\Trade_Engineering:20:20:-20:0|tУлучшить Выносливость [" << std::to_string(STM[1] + 1) << " ур.] Цена: " << STM[2] << " душ";
+    AddGossipItemFor(player, GOSSIP_ICON_TRAINER, msg.str(), GOSSIP_SENDER_MAIN, 1000);
+    
+    STM = GetSpellIdCurrent(player, 2);
+    std::stringstream msg2;
+    msg2 << "|TInterface\\Icons\\spell_nature_strength:20:20:-20:0|tУлучшить Силу [" << std::to_string(STM[1] + 1) << " ур.] Цена: " << STM[2] << " душ";
+    AddGossipItemFor(player, GOSSIP_ICON_TRAINER, msg2.str(), GOSSIP_SENDER_MAIN, 1001);
+    
+    STM = GetSpellIdCurrent(player, 3);
+    std::stringstream msg3;
+    msg3 << "|TInterface\\Icons\\ability_rogue_sprint:20:20:-20:0|tУлучшить Ловкость [" << std::to_string(STM[1] + 1) << " ур.] Цена: " << STM[2] << " душ";
+    AddGossipItemFor(player, GOSSIP_ICON_TRAINER, msg3.str(), GOSSIP_SENDER_MAIN, 1002);
+    
+    STM = GetSpellIdCurrent(player, 4);
+    std::stringstream msg4;
+    msg4 << "|TInterface\\Icons\\spell_holy_magicalsentry:20:20:-20:0|tУлучшить Интеллект [" << std::to_string(STM[1] + 1) << " ур.] Цена: " << STM[2] << " душ";
+    AddGossipItemFor(player, GOSSIP_ICON_TRAINER, msg4.str(), GOSSIP_SENDER_MAIN, 1003);
+    
+    STM = GetSpellIdCurrent(player, 5);
+    std::stringstream msg5;
+    msg5 << "|TInterface\\Icons\\spell_holy_healingfocus:20:20:-20:0|tУлучшить Дух [" << std::to_string(STM[1] + 1) << " ур.] Цена: " << STM[2] << " душ";
+    AddGossipItemFor(player, GOSSIP_ICON_TRAINER, msg5.str(), GOSSIP_SENDER_MAIN, 1004);
+    
+    STM = GetSpellIdCurrent(player, 6);
+    std::stringstream msg6;
+    msg6 << "|TInterface\\Icons\\spell_fire_flamebolt:20:20:-20:0|tУлучшить Урон [" << std::to_string(STM[1] + 1) << " ур.] Цена: " << STM[2] << " душ";
+    AddGossipItemFor(player, GOSSIP_ICON_TRAINER, msg6.str(), GOSSIP_SENDER_MAIN, 1005);
+    
+    AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_NO_ICON, EN_HOME_MENU_NO_ICON), GOSSIP_SENDER_MAIN, 0);
+    player->PlayerTalkClass->SendGossipMenu(400000, player->GetGUID());
 }

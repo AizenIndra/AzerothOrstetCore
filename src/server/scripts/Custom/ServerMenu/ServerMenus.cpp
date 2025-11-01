@@ -4,7 +4,7 @@
 #include "ScriptedGossip.h"
 #include "../Profession/NpcProfessionMgr.h"
 #include "../CustomTeleport/CustomTeleport.h"
-#include "../DonatSysteme/DonatMgr.h"
+// #include "../DonatSysteme/DonatMgr.h" // Магазин - отключено
 #include "ArenaOnevsOne.h"
 
 class ServerMenuPlayerGossip : public PlayerScript
@@ -33,8 +33,8 @@ public:
                     case 1: sCustomTeleportMgr->TeleportListMain(player); break;
                     // Ранг система - ок
                     case 2: sServerMenuMgr->RankInfo(player); break;
-                    // Магазин
-                    case 3: DonationSystemeMgr->DonationSystemeListMain(player); break;
+                    // Магазин - отключено
+                    // case 3: DonationSystemeMgr->DonationSystemeListMain(player); break;
                     // Премиум
                     case 4: player->GetSession()->IsPremium() ? sServerMenuMgr->GetVipMenu(player) : sServerMenuMgr->GetVipMenuForBuy(player); break;
                     // Управление персонажем - ок
@@ -43,6 +43,39 @@ public:
                     // case 6: sServerMenuMgr->AccControlMenu(player); break;
                     // Арена
                     case 7: ArenaOneMgr->ArenaMainMenu(player); break;
+                    // Стать Сильнее
+                    case 8: sServerMenuMgr->OpenStatsUpgrade(player); break;
+                    // Улучшение характеристик
+                    case 1000: {
+                        int32* STM = sServerMenuMgr->GetSpellIdCurrent(player, 1);
+                        sServerMenuMgr->UpgradingStats(player, STM[0], STM[1], STM[2]);
+                        sServerMenuMgr->OpenStatsUpgrade(player);
+                    } break;
+                    case 1001: {
+                        int32* STM = sServerMenuMgr->GetSpellIdCurrent(player, 2);
+                        sServerMenuMgr->UpgradingStats(player, STM[0], STM[1], STM[2]);
+                        sServerMenuMgr->OpenStatsUpgrade(player);
+                    } break;
+                    case 1002: {
+                        int32* STM = sServerMenuMgr->GetSpellIdCurrent(player, 3);
+                        sServerMenuMgr->UpgradingStats(player, STM[0], STM[1], STM[2]);
+                        sServerMenuMgr->OpenStatsUpgrade(player);
+                    } break;
+                    case 1003: {
+                        int32* STM = sServerMenuMgr->GetSpellIdCurrent(player, 4);
+                        sServerMenuMgr->UpgradingStats(player, STM[0], STM[1], STM[2]);
+                        sServerMenuMgr->OpenStatsUpgrade(player);
+                    } break;
+                    case 1004: {
+                        int32* STM = sServerMenuMgr->GetSpellIdCurrent(player, 5);
+                        sServerMenuMgr->UpgradingStats(player, STM[0], STM[1], STM[2]);
+                        sServerMenuMgr->OpenStatsUpgrade(player);
+                    } break;
+                    case 1005: {
+                        int32* STM = sServerMenuMgr->GetSpellIdCurrent(player, 6);
+                        sServerMenuMgr->UpgradingStats(player, STM[0], STM[1], STM[2]);
+                        sServerMenuMgr->OpenStatsUpgrade(player);
+                    } break;
                     default: break;
                 }
             } break;
@@ -149,25 +182,24 @@ public:
                 sServerMenuMgr->RewardEvent(player, 3, action);
             } break;
 
-            // Магазин выбраная категория
+            // Магазин - отключено
+            /*
             case GOSSIP_SENDER_MAIN + 13: {
                 DonationSystemeMgr->GetDonationSystemeAfter(player, action, player->getClass());
             } break;
 
-            // Магазин пред покупка предмета
             case GOSSIP_SENDER_MAIN + 14: {
                 DonationSystemeMgr->DonatPayementFuction(player, action);
             } break;
 
-            // Магазин покупка предмета
             case GOSSIP_SENDER_MAIN + 15: {
                 DonationSystemeMgr->DonationFunction(player, action);
             } break;
 
-            // Опции для доната (смена ника, итд)
             case GOSSIP_SENDER_MAIN + 16: {
                 DonationSystemeMgr->DonatOption(player);
-            } break; 
+            } break;
+            */ 
 
             case GOSSIP_SENDER_MAIN + 17: {
                 sServerMenuMgr->ConfirmExchangeHonorForArena(player, action);

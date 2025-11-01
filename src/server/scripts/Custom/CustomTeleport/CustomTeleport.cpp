@@ -11,7 +11,7 @@
 #include "ScriptMgr.h"
 #include "DeathMatch.h"
 #include "ArenaOnevsOne.h"
-#include "../DonatSysteme/DonatMgr.h"
+// #include "../DonatSysteme/DonatMgr.h" // Магазин - удален
 
 using namespace Acore::ChatCommands;
 
@@ -22,7 +22,7 @@ void sCustomTeleport::LoadTeleportListContainer() {
 
     m_TeleportList_Container.clear();
 
-    QueryResult result = CharacterDatabase.Query("SELECT id, gossip_menu, faction, cost, name_RU, name_EN, map, position_x, position_y, position_z, orientation FROM server_menu_teleportlist ORDER BY id;");
+    QueryResult result = CharacterDatabase.Query("SELECT id, gossip_menu, faction, icon, name_RU, name_EN, map, position_x, position_y, position_z, orientation FROM server_menu_teleportlist ORDER BY id;");
 
     uint32 oldMSTime = getMSTime();
     uint32 count = 0;
@@ -40,7 +40,7 @@ void sCustomTeleport::LoadTeleportListContainer() {
         pTele->id                = fields[0].Get<uint32>();
         pTele->gossip_menu       = fields[1].Get<uint8>();
         pTele->faction           = fields[2].Get<uint8>();
-        pTele->cost              = fields[3].Get<uint32>();
+        pTele->icon              = fields[3].Get<std::string>();
         pTele->name_RU           = fields[4].Get<std::string>();
         pTele->name_EN           = fields[5].Get<std::string>();
         pTele->map               = fields[6].Get<uint16>();
@@ -59,8 +59,14 @@ void sCustomTeleport::LoadTeleportListContainer() {
 void sCustomTeleport::TeleportListMain(Player* player) {
     ClearGossipMenuFor(player);
     for (sCustomTeleport::TeleportList_Container::const_iterator itr = m_TeleportList_Container.begin(); itr != m_TeleportList_Container.end(); ++itr)
-        if((*itr)->gossip_menu == 0)
-            AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, (*itr)->name_RU, (*itr)->name_EN), GOSSIP_SENDER_MAIN + 4, (*itr)->id);
+        if((*itr)->gossip_menu == 0) {
+            // Формируем текст с иконкой в формате WoW
+            std::string nameText = GetCustomText(player, (*itr)->name_RU, (*itr)->name_EN);
+            std::string nameWithIcon = (*itr)->icon.empty() ? 
+                nameText :
+                (*itr)->icon + "t" + nameText;
+            AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, nameWithIcon, GOSSIP_SENDER_MAIN + 4, (*itr)->id);
+        }
     AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, GetCustomText(player, RU_HOME_MENU_NO_ICON, EN_HOME_MENU_NO_ICON), GOSSIP_SENDER_MAIN, 0);
     player->PlayerTalkClass->GetGossipMenu().SetMenuId(123);
     player->PlayerTalkClass->SendGossipMenu(HeadMenu(player), player->GetGUID());
@@ -70,10 +76,14 @@ void sCustomTeleport::GetTeleportListAfter(Player* player, uint32 action, uint8 
     ClearGossipMenuFor(player);
     for (sCustomTeleport::TeleportList_Container::const_iterator itr = m_TeleportList_Container.begin(); itr != m_TeleportList_Container.end(); ++itr) {
         if((*itr)->gossip_menu != 0 && (*itr)->gossip_menu == action && ((*itr)->faction == faction || (*itr)->faction == 3)) {
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, GetCustomText(player, (*itr)->name_RU + ConverterMoneyToGold(player, CalculRequiredMoney(player, (*itr)->cost)), (*itr)->name_EN +
-            ConverterMoneyToGold(player, CalculRequiredMoney(player, (*itr)->cost))),
-            GOSSIP_SENDER_MAIN + 5, (*itr)->id, ConfirmMoneyTeleport(player, GetCustomText(player, (*itr)->name_RU, (*itr)->name_EN)),
-            CalculRequiredMoney(player, (*itr)->cost), false);
+            // Формируем текст с иконкой в формате WoW
+            std::string nameText = GetCustomText(player, (*itr)->name_RU, (*itr)->name_EN);
+            std::string nameWithIcon = (*itr)->icon.empty() ? 
+                nameText :
+                (*itr)->icon + "t" + nameText;
+            
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, nameWithIcon,
+            GOSSIP_SENDER_MAIN + 5, (*itr)->id);
         }
     }
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, RU_HOME_MENU_NO_ICON, EN_HOME_MENU_NO_ICON), GOSSIP_SENDER_MAIN, 1);
@@ -84,7 +94,6 @@ void sCustomTeleport::TeleportFunction(Player* player, uint32 i) {
     for (sCustomTeleport::TeleportList_Container::const_iterator itr = m_TeleportList_Container.begin(); itr != m_TeleportList_Container.end(); ++itr) {
         if((*itr)->id == i) {
             player->TeleportTo((*itr)->map, (*itr)->position_x, (*itr)->position_y, (*itr)->position_z, (*itr)->orientation);
-            player->ModifyMoney(-CalculRequiredMoney(player, (*itr)->cost));
             ChatHandler(player->GetSession()).PSendSysMessage(GetCustomText(player, RU_SUCCESS_TELEPORT, EN_SUCCESS_TELEPORT), GetCustomText(player, (*itr)->name_RU.c_str(), (*itr)->name_EN.c_str()));
             player->PlayerTalkClass->SendCloseGossip();
             break;
@@ -95,54 +104,17 @@ void sCustomTeleport::TeleportFunction(Player* player, uint32 i) {
 std::string sCustomTeleport::HeadMenu(Player* player) {
     std::stringstream ss;
     if(player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU) {
-        ss << "Телепортация по всему миру:\nТелепорт платный по миру, все собранные ресурсы пойдут на благополучный фонд бездомных собак.\n\n";
-        ss << "|cffff0000Важно!|r Чем выше ваш ранг тем дешевле будет стоить телепортация.";
+        ss << "Телепортация по всему миру:\n\n";
+        ss << "Выберите место назначения:";
     }
     else {
-        ss << "Teleportation around the world:\nTeleport paid worldwide, all collected resources will go to a safe foundation of stray dogs.\n\n";
-        ss << "|cffff0000Important!|r The higher your rank, the cheaper it will be to teleport.";
+        ss << "Teleportation around the world:\n\n";
+        ss << "Choose destination:";
     }
     return ss.str();
 }
 
-uint32 sCustomTeleport::CalculRequiredMoney(Player* player, uint32 money) {
-    /* количество рангов (1 ранг = 2% скидка) */
-    uint8 count = player->GetAuraCount(71201);
-    return ((money/100) * (100 - (count*2)));
-}
-
-std::string sCustomTeleport::ConverterMoneyToGold(Player* player, uint32 money) {
-    uint32 gold = money / GOLD;
-    uint32 silv = (money % GOLD) / SILVER;
-    uint32 copp = (money % GOLD) % SILVER;
-
-    std::stringstream ss;
-    if(player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU)
-        ss << "\nНужно заплатить: ";
-    else
-        ss << "\nNeed to pay: ";
-
-    if (money == 0)
-        ss << "0|TInterface\\moneyframe\\ui-coppericon:11:11:2:0|t";
-    else {
-        if(gold > 0)
-            ss << gold <<"|TInterface\\moneyframe\\ui-goldicon:11:11:2:0|t ";
-        if(silv > 0)
-        ss << silv << "|TInterface\\moneyframe\\ui-silvericon:11:11:2:0|t ";
-        if(copp > 0)
-        ss << copp << "|TInterface\\moneyframe\\ui-coppericon:11:11:2:0|t";
-    }
-    return ss.str();
-}
-
-std::string sCustomTeleport::ConfirmMoneyTeleport(Player* player, std::string telename) {
-    std::stringstream ss;
-    if(player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU)
-        ss << "Вы уверены что хотите попасть в зону\n    <" << telename << ">\nза указанную сумму ниже ?\n";
-    else
-        ss << "Are you sure you want to get into the zone\n    <" << telename << ">\nfor the indicated amount below ?\n";
-    return ss.str();
-}
+// Функции для работы со стоимостью телепортации удалены - телепортация бесплатна
 
 class TeleportMaster : public CreatureScript
 {
@@ -179,14 +151,7 @@ public:
 
         // прогрузка телепорт мест
         LOG_INFO("Custom.TeleportMaster", ">> TeleportMaster: Loading teleport lists ...");
-        sCustomTeleportMgr->LoadTeleportListContainer();
-
-        // создаем базу если не создано
-        CharacterDatabase.DirectExecute(DonationSystemeMgr->sql_donation_systeme);
-
-        // прогрузка телепорт мест
-        LOG_INFO("Custom.DonationSyteme", ">> DonationSyteme: Loading donat item lists ...");
-        DonationSystemeMgr->LoadDonationSystemeListContainer();        
+        sCustomTeleportMgr->LoadTeleportListContainer();        
     }
 };
 
@@ -201,11 +166,6 @@ public:
         {
             {"reload", HandleReloadServerMenuCommand, SEC_ADMINISTRATOR, Console::No},
         };
-
-        static ChatCommandTable ServerDonatSysteme =
-        {
-            {"reload", HandleReloadDonatSystemeCommand, SEC_ADMINISTRATOR, Console::No},
-        };        
 
         static ChatCommandTable JoinOloCommand =
         {
@@ -229,7 +189,7 @@ public:
         static ChatCommandTable commandTable =
         {
             { "tpmaster", ServerMenuTable },
-            { "donat", ServerDonatSysteme },
+            // { "donat", ServerDonatSysteme }, // Магазин - удален
             { "join", JoinOloCommand },
             { "dm", DeathmatchTable },
             { "visual", VisualCommand },
@@ -329,13 +289,7 @@ public:
         return true;
     }
 
-    static bool HandleReloadDonatSystemeCommand(ChatHandler* handler)
-    {
-        LOG_INFO("Custom.DonationSyteme", ">> Reloading `server_donat_menu` table.");
-        DonationSystemeMgr->LoadDonationSystemeListContainer();        
-        handler->SendGlobalGMSysMessage("DB table `server_donat_menu` reloaded.");
-        return true;        
-    }
+    // Функция удалена - магазин полностью удален
 
     static bool HandleReloadServerMenuCommand(ChatHandler* handler)
     {

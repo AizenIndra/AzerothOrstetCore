@@ -76,33 +76,89 @@ enum Races
     RACE_TAUREN             = 6,  // TITLE Tauren
     RACE_GNOME              = 7,  // TITLE Gnome
     RACE_TROLL              = 8,  // TITLE Troll
-    //RACE_GOBLIN             = 9,
+    RACE_GOBLIN             = 9,  // TITLE Goblin
     RACE_BLOODELF           = 10, // TITLE Blood Elf
-    RACE_DRAENEI            = 11 //, TITLE Draenei
-    //RACE_FEL_ORC        = 12,
-    //RACE_NAGA           = 13,
-    //RACE_BROKEN         = 14,
-    //RACE_SKELETON       = 15,
-    //RACE_VRYKUL         = 16,
-    //RACE_TUSKARR        = 17,
-    //RACE_FOREST_TROLL   = 18,
-    //RACE_TAUNKA         = 19,
-    //RACE_NORTHREND_SKELETON = 20,
-    //RACE_ICE_TROLL      = 21
+    RACE_DRAENEI            = 11, // TITLE Draenei
+    RACE_WORGEN             = 12, // TITLE Worgen
+    RACE_PANDAREN_ALLIANCE  = 13, // TITLE Pandaren (Alliance)
+    RACE_PANDAREN_HORDE     = 14, // TITLE Pandaren (Horde)
+    RACE_VOIDELF            = 15, // TITLE Void
+    RACE_NIGHTBORNE         = 16, // TITLE Nightborne
+    RACE_LIGHTFORGED        = 17, // TITLE Lightforged Draenei
+    RACE_EREDAR             = 18, // TITLE Eredar
+    RACE_ILLIDARI_ALLIANCE  = 19, // TITLE Illidari (Alliance)
+    RACE_ILLIDARI_HORDE     = 20, // TITLE Illidari (Horde)
+    RACE_VULPERA            = 21, // TITLE Vulpera
+    RACE_ZANDALARITROLL     = 22, // TITLE Zandalari Troll
+    RACE_DARKIRONDWARF      = 23, // TITLE Dark Iron Dwarf
+    RACE_KULTIRAN           = 24, // TITLE Kul Tiran
+    RACE_DRACTHYR_HORDE     = 25, // TITLE Dracthyr (Horde)
+    RACE_DRACTHYR_ALLIANCE  = 26, // TITLE Dracthyr (Alliance)
+    RACE_BROKEN             = 27, // TITLE Broken
+    RACE_MAGHAR             = 28, // TITLE Mag'har Orc
+    RACE_BLOODELFN          = 29 //, TITLE Blood Elf Neutral
+    //RACE_FEL_ORC          = 31,
+    //RACE_NAGA             = 32,
+    //RACE_BROKEN           = 33,
+    //RACE_SKELETON         = 34,
+    //RACE_VRYKUL           = 35,
+    //RACE_TUSKARR          = 36,
+    //RACE_FOREST_TROLL     = 37,
+    //RACE_TAUNKA           = 38,
+    //RACE_NORTHREND_SKELETON = 39,
+    //RACE_ICE_TROLL        = 40
 };
 
 // max+1 for player race
-#define MAX_RACES         12
+#define MAX_RACES         30
 
 #define RACEMASK_ALL_PLAYABLE \
-    ((1<<(RACE_HUMAN-1))   |(1<<(RACE_ORC-1))          |(1<<(RACE_DWARF-1))   | \
-    (1<<(RACE_NIGHTELF-1))|(1<<(RACE_UNDEAD_PLAYER-1))|(1<<(RACE_TAUREN-1))  | \
-    (1<<(RACE_GNOME-1))   |(1<<(RACE_TROLL-1))        |(1<<(RACE_BLOODELF-1))| \
-    (1<<(RACE_DRAENEI-1)))
+    ((1<<(RACE_HUMAN-1))             | \
+    (1<<(RACE_ORC-1))                | \
+    (1<<(RACE_DWARF-1))              | \
+    (1<<(RACE_NIGHTELF-1))           | \
+    (1<<(RACE_UNDEAD_PLAYER-1))      | \
+    (1<<(RACE_TAUREN-1))             | \
+    (1<<(RACE_GNOME-1))              | \
+    (1<<(RACE_TROLL-1))              | \
+    (1<<(RACE_GOBLIN-1))             | \
+    (1<<(RACE_BLOODELF-1))           | \
+    (1<<(RACE_DRAENEI-1))            | \
+    (1<<(RACE_WORGEN-1))             | \
+    (1<<(RACE_PANDAREN_ALLIANCE-1))  | \
+    (1<<(RACE_PANDAREN_HORDE-1))     | \
+    (1<<(RACE_VOIDELF-1))            | \
+    (1<<(RACE_NIGHTBORNE-1))         | \
+    (1<<(RACE_LIGHTFORGED-1))        | \
+    (1<<(RACE_EREDAR-1))             | \
+    (1<<(RACE_ILLIDARI_ALLIANCE-1))  | \
+    (1<<(RACE_ILLIDARI_HORDE-1))     | \
+    (1<<(RACE_VULPERA-1))            | \
+    (1<<(RACE_ZANDALARITROLL-1))     | \
+    (1<<(RACE_DARKIRONDWARF-1))      | \
+    (1<<(RACE_KULTIRAN-1))           | \
+    (1<<(RACE_DRACTHYR_HORDE-1))     | \
+    (1<<(RACE_DRACTHYR_ALLIANCE-1))  | \
+    (1<<(RACE_BROKEN-1))             | \
+    (1<<(RACE_MAGHAR-1))             | \
+    (1<<(RACE_BLOODELFN-1)))
 
 #define RACEMASK_ALLIANCE \
-    ((1<<(RACE_HUMAN-1)) | (1<<(RACE_DWARF-1)) | (1<<(RACE_NIGHTELF-1)) | \
-    (1<<(RACE_GNOME-1)) | (1<<(RACE_DRAENEI-1)))
+    ((1<<(RACE_HUMAN-1))             | \
+    (1<<(RACE_DWARF-1))              | \
+    (1<<(RACE_NIGHTELF-1))           | \
+    (1<<(RACE_GNOME-1))              | \
+    (1<<(RACE_DRAENEI-1))            | \
+    (1<<(RACE_WORGEN-1))             | \
+    (1<<(RACE_PANDAREN_ALLIANCE-1))  | \
+    (1<<(RACE_VOIDELF-1))            | \
+    (1<<(RACE_LIGHTFORGED-1))        | \
+    (1<<(RACE_ILLIDARI_ALLIANCE-1))  | \
+    (1<<(RACE_DARKIRONDWARF-1))      | \
+    (1<<(RACE_KULTIRAN-1))           | \
+    (1<<(RACE_DRACTHYR_ALLIANCE-1))  | \
+    (1<<(RACE_BROKEN-1))             | \
+    (1<<(RACE_BLOODELFN-1)))
 
 #define RACEMASK_HORDE RACEMASK_ALL_PLAYABLE & ~RACEMASK_ALLIANCE
 
@@ -121,16 +177,34 @@ enum class DisplayRace : uint8
     Goblin            = 9,
     BloodElf          = 10,
     Draenei           = 11,
-    FelOrc            = 12,
-    Naga              = 13,
-    Broken            = 14,
-    Skeleton          = 15,
-    Vrykul            = 16,
-    Tuskarr           = 17,
-    ForestTroll       = 18,
-    Taunka            = 19,
-    NorthrendSkeleton = 20,
-    IceTroll          = 21
+    Worgen            = 12,
+    PandarenAlliance  = 13,
+    PandarenHorde     = 14,
+    VoidElf           = 15,
+    Nightborne        = 16,
+    Lightforged       = 17,
+    Eredar            = 18,
+    IllidariAlliance  = 19,
+    IllidariHorde     = 20,
+    Vulpera           = 21,
+    ZandalariTroll    = 22,
+    DarkIronDwarf     = 23,
+    KulTiran          = 24,
+    DracthyrHorde     = 25,
+    DracthyrAlliance  = 26,
+    Broken            = 27,
+    Maghar            = 28,
+    BloodElfNeutral   = 29,
+    FelOrc            = 31,
+    Naga              = 32,
+    BrokenOld         = 33,
+    Skeleton          = 34,
+    Vrykul            = 35,
+    Tuskarr           = 36,
+    ForestTroll       = 37,
+    Taunka            = 38,
+    NorthrendSkeleton = 39,
+    IceTroll          = 40
 };
 
 // Class value is index in ChrClasses.dbc

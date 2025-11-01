@@ -40,14 +40,33 @@ AC_API_EXPORT EnumText EnumUtils<Races>::ToString(Races value)
         case RACE_TAUREN: return { "RACE_TAUREN", "Tauren", "" };
         case RACE_GNOME: return { "RACE_GNOME", "Gnome", "" };
         case RACE_TROLL: return { "RACE_TROLL", "Troll", "" };
+        case RACE_GOBLIN: return { "RACE_GOBLIN", "Goblin", "" };
         case RACE_BLOODELF: return { "RACE_BLOODELF", "Blood Elf", "" };
         case RACE_DRAENEI: return { "RACE_DRAENEI", "Draenei", "" };
+        case RACE_WORGEN: return { "RACE_WORGEN", "Worgen", "" };
+        case RACE_PANDAREN_ALLIANCE: return { "RACE_PANDAREN_ALLIANCE", "Pandaren (Alliance)", "" };
+        case RACE_PANDAREN_HORDE: return { "RACE_PANDAREN_HORDE", "Pandaren (Horde)", "" };
+        case RACE_VOIDELF: return { "RACE_VOIDELF", "Void", "" };
+        case RACE_NIGHTBORNE: return { "RACE_NIGHTBORNE", "Nightborne", "" };
+        case RACE_LIGHTFORGED: return { "RACE_LIGHTFORGED", "Lightforged Draenei", "" };
+        case RACE_EREDAR: return { "RACE_EREDAR", "Eredar", "" };
+        case RACE_ILLIDARI_ALLIANCE: return { "RACE_ILLIDARI_ALLIANCE", "Illidari (Alliance)", "" };
+        case RACE_ILLIDARI_HORDE: return { "RACE_ILLIDARI_HORDE", "Illidari (Horde)", "" };
+        case RACE_VULPERA: return { "RACE_VULPERA", "Vulpera", "" };
+        case RACE_ZANDALARITROLL: return { "RACE_ZANDALARITROLL", "Zandalari Troll", "" };
+        case RACE_DARKIRONDWARF: return { "RACE_DARKIRONDWARF", "Dark Iron Dwarf", "" };
+        case RACE_KULTIRAN: return { "RACE_KULTIRAN", "Kul Tiran", "" };
+        case RACE_DRACTHYR_HORDE: return { "RACE_DRACTHYR_HORDE", "Dracthyr (Horde)", "" };
+        case RACE_DRACTHYR_ALLIANCE: return { "RACE_DRACTHYR_ALLIANCE", "Dracthyr (Alliance)", "" };
+        case RACE_BROKEN: return { "RACE_BROKEN", "Broken", "" };
+        case RACE_MAGHAR: return { "RACE_MAGHAR", "Mag'har Orc", "" };
+        case RACE_BLOODELFN: return { "RACE_BLOODELFN", "Blood Elf Neutral", "" };
         default: throw std::out_of_range("value");
     }
 }
 
 template <>
-AC_API_EXPORT std::size_t EnumUtils<Races>::Count() { return 10; }
+AC_API_EXPORT std::size_t EnumUtils<Races>::Count() { return 30; }
 
 template <>
 AC_API_EXPORT Races EnumUtils<Races>::FromIndex(std::size_t index)
@@ -62,8 +81,27 @@ AC_API_EXPORT Races EnumUtils<Races>::FromIndex(std::size_t index)
         case 5: return RACE_TAUREN;
         case 6: return RACE_GNOME;
         case 7: return RACE_TROLL;
-        case 8: return RACE_BLOODELF;
-        case 9: return RACE_DRAENEI;
+        case 8: return RACE_GOBLIN;
+        case 9: return RACE_BLOODELF;
+        case 10: return RACE_DRAENEI;
+        case 11: return RACE_WORGEN;
+        case 12: return RACE_PANDAREN_ALLIANCE;
+        case 13: return RACE_PANDAREN_HORDE;
+        case 14: return RACE_VOIDELF;
+        case 15: return RACE_NIGHTBORNE;
+        case 16: return RACE_LIGHTFORGED;
+        case 17: return RACE_EREDAR;
+        case 18: return RACE_ILLIDARI_ALLIANCE;
+        case 19: return RACE_ILLIDARI_HORDE;
+        case 20: return RACE_VULPERA;
+        case 21: return RACE_ZANDALARITROLL;
+        case 22: return RACE_DARKIRONDWARF;
+        case 23: return RACE_KULTIRAN; 
+        case 24: return RACE_DRACTHYR_HORDE;
+        case 25: return RACE_DRACTHYR_ALLIANCE;
+        case 26: return RACE_BROKEN;
+        case 27: return RACE_MAGHAR;
+        case 28: return RACE_BLOODELFN;
         default: throw std::out_of_range("index");
     }
 }
@@ -81,8 +119,27 @@ AC_API_EXPORT std::size_t EnumUtils<Races>::ToIndex(Races value)
         case RACE_TAUREN: return 5;
         case RACE_GNOME: return 6;
         case RACE_TROLL: return 7;
-        case RACE_BLOODELF: return 8;
-        case RACE_DRAENEI: return 9;
+        case RACE_GOBLIN: return 8;
+        case RACE_BLOODELF: return 9;
+        case RACE_DRAENEI: return 10;
+        case RACE_WORGEN: return 11;
+        case RACE_PANDAREN_ALLIANCE: return 12;
+        case RACE_PANDAREN_HORDE: return 13;
+        case RACE_VOIDELF: return 14;
+        case RACE_NIGHTBORNE: return 15;
+        case RACE_LIGHTFORGED: return 16;
+        case RACE_EREDAR: return 17;
+        case RACE_ILLIDARI_ALLIANCE: return 18;
+        case RACE_ILLIDARI_HORDE: return 19;
+        case RACE_VULPERA: return 20;
+        case RACE_ZANDALARITROLL: return 21;
+        case RACE_DARKIRONDWARF: return 22;
+        case RACE_KULTIRAN: return 23;
+        case RACE_DRACTHYR_HORDE: return 24;
+        case RACE_DRACTHYR_ALLIANCE: return 25;
+        case RACE_BROKEN: return 26;
+        case RACE_MAGHAR: return 27;
+        case RACE_BLOODELFN: return 28;
         default: throw std::out_of_range("value");
     }
 }

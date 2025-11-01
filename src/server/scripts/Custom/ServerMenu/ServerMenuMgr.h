@@ -29,6 +29,10 @@ public:
     void CommingSoon(Player* player);
     bool CanOpenMenu(Player* /*player*/);
     void RankInfo(Player* /*player*/);
+    void OpenStatsUpgrade(Player* /*player*/);
+    int32* GetSpellIdCurrent(Player* /*player*/, int /*type*/);
+    int32 GetPrice(int /*level*/, int /*type*/);
+    void UpgradingStats(Player* /*player*/, int32 /*SpellID*/, int /*Level*/, uint32 /*Price*/);
 
     uint32 getFactionCost() { return _factionCost; }
     uint32 getRaceCost() { return _raceCost; }

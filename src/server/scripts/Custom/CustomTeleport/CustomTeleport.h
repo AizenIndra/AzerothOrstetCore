@@ -21,7 +21,7 @@ public:
         uint32 id;            // ид самой телепортации (определяем место телепорта)
         uint8  gossip_menu;   // для определение стандартного пункта (например: 0 это старт меню телепортов, 1 это сталицы)
         uint8  faction;       // определяем фракцию кому доступно (1 альянс 2 орда 3 всем)
-        uint32 cost;          // стоимость телепортации
+        std::string icon;     // иконка для локации
         std::string name_RU;
         std::string name_EN;
         /* координаты для телепорта */
@@ -36,9 +36,6 @@ public:
    void GetTeleportListAfter(Player* player, uint32 action, uint8 faction);
    void TeleportFunction(Player* player, uint32 i);
    std::string HeadMenu(Player* player);
-   uint32 CalculRequiredMoney(Player* player, uint32 money);
-   std::string ConverterMoneyToGold(Player* player, uint32 money);
-   std::string ConfirmMoneyTeleport(Player* player, std::string telename);
 
    TeleportList_Container m_TeleportList_Container;
 
@@ -46,7 +43,7 @@ public:
                                   "    `id` INT(10) UNSIGNED NOT NULL COMMENT 'id',"
                                   "    `gossip_menu` INT(3) UNSIGNED NOT NULL COMMENT 'gossip_menu',"
                                   "    `faction` INT(3) UNSIGNED NOT NULL COMMENT 'faction',"
-                                  "    `cost` INT(10) UNSIGNED NOT NULL COMMENT 'cost',"
+                                  "    `icon` varchar(255) DEFAULT '',"
                                   "    `name_RU` char(100),"
                                   "    `name_EN` char(100),"
                                   "    `map` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'map',"

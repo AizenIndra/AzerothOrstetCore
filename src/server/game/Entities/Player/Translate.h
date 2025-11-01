@@ -82,6 +82,9 @@
 #define RU_HOME_MENU_7 "|TInterface\\icons\\Achievement_pvp_p_07:20:20:-20:0|tПвП раздел арены"
 #define EN_HOME_MENU_7 "|TInterface\\icons\\Achievement_pvp_p_07:20:20:-20:0|tPvP arena section"
 
+#define RU_HOME_MENU_8 "|TInterface\\icons\\Achievement_bg_killxenemies_generalsroom:20:20:-20:0|tСтать Сильнее"
+#define EN_HOME_MENU_8 "|TInterface\\icons\\Achievement_bg_killxenemies_generalsroom:20:20:-20:0|tBecome Stronger"
+
 #define RU_CHAR_CONTROL_1 "|TInterface\\icons\\INV_Misc_Bag_07:18:18:-20:0|tБанк"
 #define EN_CHAR_CONTROL_1 "|TInterface\\icons\\INV_Misc_Bag_07:18:18:-20:0|tBank"
 
