@@ -35,6 +35,7 @@ void AddSC_UPDTStats();
 void AddSC_DailyQuestReset();
 void AddAutoReviveScripts();
 void AddSC_hujal_teleport();
+void AddSC_first_character_item_reward();
 //WorldBosses
 void AddSC_aliden();
 void AddSC_alliance_boss();
@@ -67,6 +68,7 @@ void AddCustomScripts()
     AddSC_DailyQuestReset();
     AddAutoReviveScripts();
     AddSC_hujal_teleport();
+    AddSC_first_character_item_reward();
     //WorldBosses
     AddSC_aliden();
     AddSC_alliance_boss();

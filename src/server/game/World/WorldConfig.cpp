@@ -385,6 +385,9 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<uint32>(CONFIG_GUILD_BANK_TAB_COST_4, "Guild.BankTabCost4", 25000000);
     SetConfigValue<uint32>(CONFIG_GUILD_BANK_TAB_COST_5, "Guild.BankTabCost5", 50000000);
 
+    SetConfigValue<uint32>(CONFIG_GUILD_LEVEL_REWARD_KILL_BOSS, "Guild.LevelRewardKillBoss", 100);
+    SetConfigValue<uint32>(CONFIG_GUILD_LEVEL_REWARD_ITEM_USE, "Guild.LevelRewardItemUse", 150);
+
     SetConfigValue<uint32>(CONFIG_GUILD_MEMBER_LIMIT, "Guild.MemberLimit", 0);
 
     SetConfigValue<bool>(CONFIG_DETECT_POS_COLLISION, "DetectPosCollision", true);

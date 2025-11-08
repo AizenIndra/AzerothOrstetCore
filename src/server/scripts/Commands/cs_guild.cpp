@@ -19,6 +19,7 @@
 #include "CommandScript.h"
 #include "Guild.h"
 #include "GuildMgr.h"
+#include "GuildLevelMgr.h"
 
 using namespace Acore::ChatCommands;
 
@@ -29,6 +30,12 @@ public:
 
     ChatCommandTable GetCommands() const override
     {
+        static ChatCommandTable reloadCommandTable = {
+            { "spell",      HandleGuildReloadSpellCommand,  SEC_GAMEMASTER,  Console::Yes },
+            { "level",      HandleGuildReloadLevelCommand,  SEC_GAMEMASTER,  Console::Yes },
+            { "log",        HandleGuildReloadLogCommand,    SEC_GAMEMASTER,  Console::Yes }
+        };
+
         static ChatCommandTable guildCommandTable =
         {
             { "create",     HandleGuildCreateCommand,   SEC_GAMEMASTER, Console::Yes },
@@ -37,13 +44,38 @@ public:
             { "uninvite",   HandleGuildUninviteCommand, SEC_GAMEMASTER, Console::Yes },
             { "rank",       HandleGuildRankCommand,     SEC_GAMEMASTER, Console::Yes },
             { "rename",     HandleGuildRenameCommand,   SEC_GAMEMASTER, Console::Yes },
-            { "info",       HandleGuildInfoCommand,     SEC_GAMEMASTER, Console::Yes }
+            { "info",       HandleGuildInfoCommand,     SEC_GAMEMASTER, Console::Yes },
+            { "reload",         SEC_GAMEMASTER,     reloadCommandTable }
         };
         static ChatCommandTable commandTable =
         {
             { "guild", guildCommandTable }
         };
         return commandTable;
+    }
+
+    // Guild reload spell
+    static bool HandleGuildReloadSpellCommand(ChatHandler* handler, char const* /*args*/)
+    {
+        sGuildLevelMgr->GuildSpellLevelLoadFromDB();
+        handler->SendGlobalGMSysMessage("Guild spell level reloaded.");
+        return true;
+    }
+
+    // Guild reload level, exp
+    static bool HandleGuildReloadLevelCommand(ChatHandler* handler, char const* /*args*/)
+    {
+        sGuildLevelMgr->GuildLevelLoadFromDB();
+        handler->SendGlobalGMSysMessage("Guild level reloaded.");
+        return true;
+    }
+
+    // Guild reload log invest
+    static bool HandleGuildReloadLogCommand(ChatHandler* handler, char const* /*args*/)
+    {
+        sGuildLevelMgr->GuildLogLoadFromDB();
+        handler->SendGlobalGMSysMessage("Guild log reloaded.");
+        return true;
     }
 
     static bool HandleGuildCreateCommand(ChatHandler* handler, Optional<PlayerIdentifier> target, QuotedString guildName)

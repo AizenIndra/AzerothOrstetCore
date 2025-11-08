@@ -537,6 +537,13 @@ enum CharacterDatabaseStatements : uint32
     CHAR_SEL_WORLD_STATE,
     CHAR_REP_WORLD_STATE,
 
+    // guild level system - guild_level_invest_log table
+    CHAR_INS_GUILD_LEVEL_LOG,
+    // guild level system - guild table
+    CHAR_UPD_GUILD_EXP,
+    CHAR_UPD_GUILD_LEVEL,
+
+    // guild level system - guild_level_exp table
     MAX_CHARACTERDATABASE_STATEMENTS
 };
 

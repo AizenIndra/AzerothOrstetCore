@@ -38,6 +38,7 @@
 #include "Common.h"
 #include "ConditionMgr.h"
 #include "Config.h"
+#include "GuildLevelMgr.h"
 #include "CreatureAIRegistry.h"
 #include "CreatureGroups.h"
 #include "CreatureTextMgr.h"
@@ -743,6 +744,14 @@ void World::SetInitialWorldSettings()
     LOG_INFO("server.loading", "Loading Auctions...");
     sAuctionMgr->LoadAuctions();
 
+    // guild level system
+    LOG_INFO("server.loading", "Load Guild Level...");
+    sGuildLevelMgr->GuildLevelLoadFromDB();
+    LOG_INFO("server.loading", "Load Guild Log...");
+    sGuildLevelMgr->GuildLogLoadFromDB();
+    LOG_INFO("server.loading", "Load Guild Spell...");
+    sGuildLevelMgr->GuildSpellLevelLoadFromDB();
+    
     sGuildMgr->LoadGuilds();
 
     LOG_INFO("server.loading", "Loading ArenaTeams...");

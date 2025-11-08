@@ -104,7 +104,7 @@ std::string sServerMenu::HeadMenu(Player* player, uint8 MenuId)
             if (player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU) {
                 ss << "Приветствую вас, " << player->GetName() << "\n\n";
                 ss << "На вашем аккаунте " << player->GetSession()->GetBonuses() << " бонусов.\n";
-                ss << "Пополнить счёт: orstet.ru\n\n";
+                ss << "Пополнить счёт: wotlk.su\n\n";
                 if (player->GetSession()->IsPremium())
                 {
                     ss << "Ваш премиум статус |cff156B06активирован|r.\n";
@@ -119,7 +119,7 @@ std::string sServerMenu::HeadMenu(Player* player, uint8 MenuId)
             else {
                 ss << "Greetings, " << player->GetName() << "\n\n";
                 ss << "You have " << player->GetSession()->GetBonuses() << "bonuses in your account";
-                ss << "Top up account orstet.ru\n\n";
+                ss << "Top up account wotlk.su\n\n";
                 if (player->GetSession()->IsPremium())
                     ss << "Your premium status|cff156B06activated|r.";
                 else {

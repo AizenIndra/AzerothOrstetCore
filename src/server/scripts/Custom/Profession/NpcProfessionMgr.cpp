@@ -131,7 +131,7 @@ bool sProfession::LearnAllRecipesInProfession(Player *player, uint32 skill)
 
     if (SkillLineEntry const *SkillInfo = sSkillLineStore.LookupEntry(skill))
     {
-        player->SetSkill(SkillInfo->id, player->GetSkillStep(SkillInfo->id), 450, 450);
+        player->SetSkill(SkillInfo->id, player->GetSkillStep(SkillInfo->id), 1, 450);
         uint32 ClassMask = player->getClassMask();
 
         for (uint32 i = 0; i < sSkillLineAbilityStore.GetNumRows(); ++i)

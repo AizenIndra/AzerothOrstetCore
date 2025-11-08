@@ -41,7 +41,7 @@ public:
             switch(_events[pEvent].Events)
             {
                 case 0:
-                    ChatHandler(_Plr->GetSession()).PSendSysMessage("{}Добро пожаловать на проект |cffffff4dOrstet WoW|r", icon_color);
+                    ChatHandler(_Plr->GetSession()).PSendSysMessage("{}Добро пожаловать на проект |cffffff4dБитва Титанов|r", icon_color);
                     _events[pEvent].Events = 1;
                     break;
 
