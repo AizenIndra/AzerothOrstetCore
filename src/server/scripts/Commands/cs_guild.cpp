@@ -30,12 +30,6 @@ public:
 
     ChatCommandTable GetCommands() const override
     {
-        static ChatCommandTable reloadCommandTable = {
-            { "spell",      HandleGuildReloadSpellCommand,  SEC_GAMEMASTER,  Console::Yes },
-            { "level",      HandleGuildReloadLevelCommand,  SEC_GAMEMASTER,  Console::Yes },
-            { "log",        HandleGuildReloadLogCommand,    SEC_GAMEMASTER,  Console::Yes }
-        };
-
         static ChatCommandTable guildCommandTable =
         {
             { "create",     HandleGuildCreateCommand,   SEC_GAMEMASTER, Console::Yes },
@@ -45,11 +39,17 @@ public:
             { "rank",       HandleGuildRankCommand,     SEC_GAMEMASTER, Console::Yes },
             { "rename",     HandleGuildRenameCommand,   SEC_GAMEMASTER, Console::Yes },
             { "info",       HandleGuildInfoCommand,     SEC_GAMEMASTER, Console::Yes },
-            { "reload",         SEC_GAMEMASTER,     reloadCommandTable }
+        };
+        static ChatCommandTable reloadCommandTable =
+        {
+            { "spell",      HandleGuildReloadSpellCommand,  SEC_GAMEMASTER,  Console::Yes },
+            { "level",      HandleGuildReloadLevelCommand,  SEC_GAMEMASTER,  Console::Yes },
+            { "log",        HandleGuildReloadLogCommand,    SEC_GAMEMASTER,  Console::Yes },
         };
         static ChatCommandTable commandTable =
         {
-            { "guild", guildCommandTable }
+            { "guild", guildCommandTable },
+            { "reload", reloadCommandTable }
         };
         return commandTable;
     }

@@ -268,7 +268,7 @@ std::string GuildLevelMgr::MenuHeader(Player* player, uint8 MenuId)
         // Гильдийские заклинания
         case 1: {
             ss << "Уважаемый " << player->GetName() << "!\n\n";
-            ss << "Заклинания, соответствующие уровню вашей гильдии, автоматически добавляются в вашу книгу заклинаний при вступлении в гильдию и при ее повышении.\n\n";
+            ss << "Гильдийские усиления автоматически накладываются на вас при входе в игру и повышении уровня гильдии.\n\n";
             ss << "Уровень гильдии: " << player->GetGuild()->GetGuildLevel();
         } break;
 
@@ -319,12 +319,16 @@ void GuildLevelMgr::UpdateGuildLevel(Guild* guild, Player* player, uint32 exp) {
     // обновить уровень гильдии
     for (auto itr = _GuildLevelExpLevelContainer.begin(); itr != _GuildLevelExpLevelContainer.end(); ++itr)
     {
+        // Таблица отсортирована по уровню. Если текущего опыта недостаточно для следующего порога,
+        // то для последующих записей его тоже не хватит.
+        if (guild->GetGuildExp() < (*itr)->exp)
+            break;
+
         // если игрок набрал достаточно опыта для уровня гильдии, обновить уровень гильдии
-        if (guild->GetGuildLevel() < (*itr)->level && guild->GetGuildExp() >= (*itr)->exp)
+        if (guild->GetGuildLevel() < (*itr)->level)
         {
             // отправить сообщение игроку о том, что уровень гильдии был обновлен
             sGuildLevelMgr->SetNewLevel((*itr)->level, player, guild);
-            break;
         }
     }
 }
@@ -354,7 +358,7 @@ void GuildLevelMgr::SetNewExp(uint32 exp, Player* player, Guild* guild) {
     guild->SetGuildExp(guild->GetGuildExp() + exp);
 
     // анонсировать в чате игроку о вложении опыта
-    ChatHandler(player->GetSession()).PSendSysMessage("Вы вложили %u очков опыта в гильдию.", exp);
+    ChatHandler(player->GetSession()).PSendSysMessage("Вы вложили {} очков опыта в гильдию.", exp);
     
     // установить очки опыта гильдии в БД
     // Получить подготовленное выражение для обновления очков опыта гильдии в базе данных.
@@ -421,6 +425,21 @@ void GuildLevelMgr::ChangeNameGuild(Guild* guild, uint32 level) {
     ss << guildName << ", " << std::to_string(level) << " ур.";
     // обновляем имя гильдии
     guild->SetName(ss.str(), true);
+
+    struct GuildNameUpdate
+    {
+        Guild* guild;
+        void operator()(Player* member)
+        {
+            if (!member || !member->GetSession())
+                return;
+
+            guild->HandleQuery(member->GetSession());
+        }
+    };
+
+    GuildNameUpdate update { guild };
+    guild->BroadcastWorker(update);
 }
 
 void GuildLevelMgr::RewardGuild(Guild* guild, uint32 level, Player* player) {
@@ -429,7 +448,7 @@ void GuildLevelMgr::RewardGuild(Guild* guild, uint32 level, Player* player) {
         return;
         
     sGuildLevelMgr->LearnOrRemoveSpell(player);    
-    ChatHandler(player->GetSession()).PSendSysMessage("Вы получили награду за достижение %u уровня гильдии.", level);
+    ChatHandler(player->GetSession()).PSendSysMessage("Вы получили награду за достижение {} уровня гильдии.", level);
 }
 
 // считает количество вложеного опыта в гильдию игроком
@@ -466,16 +485,26 @@ std::string GuildLevelMgr::ShowLastLog(Player* player, bool showAll) {
 }
 
 void GuildLevelMgr::LearnOrRemoveSpell(Player* player) {
-    // обучение / разучение при входе в игру
-    for (auto itr = _GuildLevelSpellContainer.begin(); itr != _GuildLevelSpellContainer.end(); ++itr) {
-        if (player->GetGuild() && (*itr)->level <= player->GetGuild()->GetGuildLevel()) {
-            if (!player->HasSpell((*itr)->spellId))
-                player->learnSpell((*itr)->spellId);
-        } else {
-            if (player->HasSpell((*itr)->spellId))
-                player->removeSpell((*itr)->spellId, SPEC_MASK_ALL, false);
+    // накладываем/снимаем гильдийские ауры при входе и изменении уровня
+    bool hasGuild = player && player->GetGuild();
+    uint32 guildLevel = hasGuild ? player->GetGuild()->GetGuildLevel() : 0;
+
+    for (auto itr = _GuildLevelSpellContainer.begin(); itr != _GuildLevelSpellContainer.end(); ++itr)
+    {
+        uint32 requiredLevel = (*itr)->level;
+        uint32 spellId = (*itr)->spellId;
+
+        if (hasGuild && guildLevel >= requiredLevel)
+        {
+            if (!player->HasAura(spellId))
+                player->CastSpell(player, spellId, true);
         }
-    }  
+        else
+        {
+            if (player->HasAura(spellId))
+                player->RemoveAura(spellId);
+        }
+    }
 }
 
 void GuildLevelMgr::RewardOnKillBoss(Player* player) {
@@ -489,7 +518,7 @@ void GuildLevelMgr::RewardOnKillBoss(Player* player) {
         if (player->GetGuild()) {
             sGuildLevelMgr->UpdateGuildLevel(player->GetGuild(), player, exp);
         } else {
-            ChatHandler(player->GetSession()).PSendSysMessage("Если бы вы были в гильдии, вы принесли бы ей %u очков опыта.", exp); 
+            ChatHandler(player->GetSession()).PSendSysMessage("Если бы вы были в гильдии, вы принесли бы ей {} очков опыта.", exp); 
         }
     } else {
         uint32 numPlayers = group->GetMembersCount();
@@ -499,7 +528,7 @@ void GuildLevelMgr::RewardOnKillBoss(Player* player) {
                 if (p->GetGuild()) {
                     sGuildLevelMgr->UpdateGuildLevel(p->GetGuild(), p, pointsPerPlayer);
                 } else {
-                ChatHandler(p->GetSession()).PSendSysMessage("Если бы вы были в гильдии, вы принесли бы ей %u очков опыта.", pointsPerPlayer); 
+                ChatHandler(p->GetSession()).PSendSysMessage("Если бы вы были в гильдии, вы принесли бы ей {} очков опыта.", pointsPerPlayer); 
                 }
             }
         }

@@ -72,21 +72,21 @@ class GuildLevelPlayerScript : public PlayerScript
 public:
     GuildLevelPlayerScript() : PlayerScript("GuildLevelPlayerScript") { }
 
-    void OnLogin(Player* player) override
+    void OnPlayerLogin(Player* player) override
     {
         if (player) {
             sGuildLevelMgr->LearnOrRemoveSpell(player);     
         }
     }
 
-    void OnCreatureKill(Player* player, Creature* boss) override {
+    void OnPlayerCreatureKill(Player* player, Creature* boss) override {
         if (!player || !boss->isWorldBoss())
             return;
 
         sGuildLevelMgr->RewardOnKillBoss(player);            
     }    
 
-    void OnGossipSelect(Player* player, uint32 menu_id, uint32 sender, uint32 action) override
+    void OnPlayerGossipSelect(Player* player, uint32 menu_id, uint32 sender, uint32 action) override
     {    
         if (!player)
             return;
