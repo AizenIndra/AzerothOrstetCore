@@ -5,8 +5,8 @@
 
 #define GetCustomText(a, b, c)    a->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU ? b : c
 
-constexpr static const uint32 BuffList[9] = {
-    25898, 48470, 53307, 48074, 48162, 48170, 57623, 43002, 47440
+constexpr static const uint32 BuffList[12] = {
+    25898, 48470, 53307, 48074, 48162, 48170, 57623, 43002, 47440, 100459, 100460, 100462
 };
 
 class sServerMenu
