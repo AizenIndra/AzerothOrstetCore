@@ -25,11 +25,18 @@ struct GuildLevelExpLog
     std::string datetime;
 };
 
+enum GuildSpellGrantType : uint8
+{
+    GUILD_SPELL_GRANT_AURA  = 0,
+    GUILD_SPELL_GRANT_LEARN = 1
+};
+
 struct GuildLevelSpellStruct
 {
     uint32 level;
     uint32 spellId;
     std::string title;
+    GuildSpellGrantType grantType;
 };
 
 typedef std::vector<GuildLevelExpLevel*> GuildLevelExpLevelContainer;
@@ -134,7 +141,7 @@ class GuildLevelMgr
         /*
          * Генерирует текст для заклинания гильдии.
         */
-        std::string GenerateSpellText(Player* /*player*/, uint32 /*level*/, std::string /*title*/, bool /*know*/);
+        std::string GenerateSpellText(Player* /*player*/, uint32 /*level*/, std::string const& /*title*/, bool /*know*/, GuildSpellGrantType /*grantType*/);
 
         /*
          * Считает сколько игрок внес в гильдию.

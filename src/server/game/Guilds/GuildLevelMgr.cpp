@@ -8,6 +8,7 @@
 #include "SpellInfo.h"
 #include "SpellMgr.h"
 #include "WorldSession.h"
+#include "SharedDefines.h"
 
 // конструктор
 GuildLevelMgr::GuildLevelMgr() { }
@@ -103,7 +104,7 @@ void GuildLevelMgr::GuildSpellLevelLoadFromDB() {
     uint32 oldMSTime = getMSTime();
     uint32 count = 0;
 
-    QueryResult result = CharacterDatabase.Query("SELECT level, spellId, title FROM guild_level_spell");
+    QueryResult result = CharacterDatabase.Query("SELECT level, spellId, title, grantType FROM guild_level_spell");
     if (!result)
     {
         LOG_WARN("server.loading", ">> Loaded 0 guild spell. DB table `guild_level_spell` is empty!");
@@ -118,6 +119,8 @@ void GuildLevelMgr::GuildSpellLevelLoadFromDB() {
         GLLC->level       = fields[0].Get<uint32>();
         GLLC->spellId     = fields[1].Get<uint32>();
         GLLC->title       = fields[2].Get<std::string>();
+        uint8 grantType   = result->GetFieldCount() > 3 ? fields[3].Get<uint8>() : uint8(GUILD_SPELL_GRANT_AURA);
+        GLLC->grantType   = grantType == GUILD_SPELL_GRANT_LEARN ? GUILD_SPELL_GRANT_LEARN : GUILD_SPELL_GRANT_AURA;
 
         _GuildLevelSpellContainer.push_back(GLLC);
         ++count;
@@ -223,7 +226,8 @@ void GuildLevelMgr::GuildLevelSpell(Player* player)
                 player, 
                 (*itr)->level,
                 (*itr)->title,
-                (*itr)->level <= player->GetGuild()->GetGuildLevel() ? true : false);
+                (*itr)->level <= player->GetGuild()->GetGuildLevel(),
+                (*itr)->grantType);
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, text, GOSSIP_SENDER_MAIN, 4);
         }
     }
@@ -233,15 +237,18 @@ void GuildLevelMgr::GuildLevelSpell(Player* player)
 }
 
 // генерация текст для отоброжения заклинаний с уровнем требования
-std::string GuildLevelMgr::GenerateSpellText(Player* player, uint32 level, std::string title, bool know) {
+std::string GuildLevelMgr::GenerateSpellText(Player* player, uint32 level, std::string const& title, bool know, GuildSpellGrantType grantType) {
     
     if (!player || !player->GetSession())
         return "";
 
     std::ostringstream ss;
-    know ? ss << title << "\nДоступно с " << level << " уровня" :
-           ss << "|cff473B32" << title << "\nТребуется " << level << " уровень гильдии|r";
-    return ss.str().c_str();
+    std::string typeLabel = grantType == GUILD_SPELL_GRANT_LEARN ? "Изучается" : "Аура";
+    if (know)
+        ss << title << " [" << typeLabel << "]\nДоступно с " << level << " уровня";
+    else
+        ss << "|cff473B32" << title << " [" << typeLabel << "]\nТребуется " << level << " уровень гильдии|r";
+    return ss.str();
 }
 
 std::string GuildLevelMgr::MenuHeader(Player* player, uint8 MenuId)
@@ -493,16 +500,35 @@ void GuildLevelMgr::LearnOrRemoveSpell(Player* player) {
     {
         uint32 requiredLevel = (*itr)->level;
         uint32 spellId = (*itr)->spellId;
+        GuildSpellGrantType grantType = (*itr)->grantType;
 
         if (hasGuild && guildLevel >= requiredLevel)
         {
-            if (!player->HasAura(spellId))
-                player->CastSpell(player, spellId, true);
+            switch (grantType)
+            {
+                case GUILD_SPELL_GRANT_AURA:
+                    if (!player->HasAura(spellId))
+                        player->CastSpell(player, spellId, true);
+                    break;
+                case GUILD_SPELL_GRANT_LEARN:
+                    if (!player->HasSpell(spellId))
+                        player->learnSpell(spellId);
+                    break;
+            }
         }
         else
         {
-            if (player->HasAura(spellId))
-                player->RemoveAura(spellId);
+            switch (grantType)
+            {
+                case GUILD_SPELL_GRANT_AURA:
+                    if (player->HasAura(spellId))
+                        player->RemoveAura(spellId);
+                    break;
+                case GUILD_SPELL_GRANT_LEARN:
+                    if (player->HasSpell(spellId))
+                        player->removeSpell(spellId, SPEC_MASK_ALL, false);
+                    break;
+            }
         }
     }
 }
