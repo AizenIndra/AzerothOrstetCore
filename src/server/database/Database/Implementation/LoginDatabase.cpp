@@ -161,7 +161,9 @@ void LoginDatabaseConnection::DoPrepareStatements()
     PrepareStatement(LOGIN_UPD_ACCOUNT_BONUSES, "UPDATE account SET bonuses = ? WHERE id = ?", CONNECTION_ASYNC);
     PrepareStatement(LOGIN_SEL_ACCOUNT_BONUSES, "SELECT bonuses FROM account WHERE id = ?", CONNECTION_SYNCH);
 
-
+    // GM Логи
+    PrepareStatement(LOGIN_INS_GM_CHAR_ITEM_ADD, "INSERT INTO account_gm_log_item (guid, player, account, item, item_guid, count, position, target, realmId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
+    PrepareStatement(LOGIN_INS_GM_CHAR_LOG, "INSERT INTO account_gm_log (player, account, command, position, selected, realmId) VALUES (?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
 }
 
 LoginDatabaseConnection::LoginDatabaseConnection(MySQLConnectionInfo& connInfo) : MySQLConnection(connInfo)
