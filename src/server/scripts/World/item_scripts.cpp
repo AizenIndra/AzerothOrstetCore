@@ -274,13 +274,13 @@ public:
         if (!pPlayer || !pItem)
             return true;
 
-        if (pPlayer->GetAuraCount(71201) >= 50)
+        if (pPlayer->GetAuraCount(71201) >= Player::GetPvpRankPointsCount())
             return true;            
 
         uint32 entry = pItem->GetEntry();
         uint32 rate = 0;
 
-        if (pPlayer->GetAuraCount(71201) < 50) {
+        if (pPlayer->GetAuraCount(71201) < Player::GetPvpRankPointsCount()) {
             switch (entry) {
                 case 1042:
                     rate = 50;

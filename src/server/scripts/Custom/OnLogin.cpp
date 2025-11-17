@@ -70,6 +70,10 @@ public:
         // Remove Dementia on updating zone for player
         if (player->HasAura(SPELL_DEMENTIA))
             player->RemoveAura(SPELL_DEMENTIA);
+
+        // Re-evaluate rank buff allowance on zone change
+        if (Map* map = player->GetMap())
+            player->VerifiedRankBuff(map);
     }
 
     void OnPlayerMapChanged(Player *player) override

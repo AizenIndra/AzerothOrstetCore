@@ -20,6 +20,7 @@
 #include "GameGraveyard.h"
 #include "SpellInfo.h"
 #include "SpellMgr.h"
+#include "Player.h"
 
 inline void ApplySpellFix(std::initializer_list<uint32> spellIds, void(*fix)(SpellInfo*))
 {
@@ -378,8 +379,9 @@ void SpellMgr::LoadSpellInfoCorrections()
         spellInfo->AttributesEx |= SPELL_ATTR1_IMMUNITY_TO_HOSTILE_AND_FRIENDLY_EFFECTS;
         spellInfo->DurationEntry = sSpellDurationStore.LookupEntry(21);
         spellInfo->Attributes |= SPELL_ATTR0_NO_IMMUNITIES;
-        spellInfo->ProcCharges = 50;
-        spellInfo->StackAmount = 50;
+        uint32 ranks = Player::GetPvpRankPointsCount();
+        spellInfo->ProcCharges = ranks ? ranks : 50;
+        spellInfo->StackAmount = ranks ? ranks : 50;
     });
 
     // rank system
@@ -390,8 +392,9 @@ void SpellMgr::LoadSpellInfoCorrections()
         spellInfo->AttributesEx |= SPELL_ATTR1_IMMUNITY_TO_HOSTILE_AND_FRIENDLY_EFFECTS;
         spellInfo->DurationEntry = sSpellDurationStore.LookupEntry(21);
         spellInfo->Attributes |= SPELL_ATTR0_NO_IMMUNITIES;
-        spellInfo->ProcCharges = 50;
-        spellInfo->StackAmount = 50;
+        uint32 ranks = Player::GetPvpRankPointsCount();
+        spellInfo->ProcCharges = ranks ? ranks : 50;
+        spellInfo->StackAmount = ranks ? ranks : 50;
     });    
 
     // Crafty's Ultra-Advanced Proto-Typical Shortening Blaster

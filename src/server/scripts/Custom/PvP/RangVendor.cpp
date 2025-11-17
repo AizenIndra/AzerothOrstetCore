@@ -34,9 +34,13 @@ public:
             femb << "In this mob 10 sellers are available from the first(1) rank to the tenth(10).\n";
         }
 
-        for(int i = 1; i<=10; i++)
+        {
+            uint32 maxRank = Player::GetPvpRankPointsCount();
+            uint32 to = std::min<uint32>(10, maxRank);
+            for (uint32 i = 1; i <= to; ++i)
             if(player->GetAuraCount(71201) >= static_cast<uint32>(i))
                 AddGossipItemFor(player, GOSSIP_ICON_BATTLE, "|TInterface\\icons\\Ability_warrior_rampage:20:20:0:0|t > Rank " + to_string(i), GOSSIP_SENDER_MAIN, RankVendorID + i);
+        }
 
         if (player->GetAuraCount(71201) == 0)
         {
@@ -90,9 +94,13 @@ public:
             femb << "In this mob 10 sellers are available from the eleventh(11) rank to the twentieth(20).\n";
         }
 
-        for(int i = 11; i<=20; i++)
+        {
+            uint32 maxRank = Player::GetPvpRankPointsCount();
+            uint32 to = std::min<uint32>(20, maxRank);
+            for (uint32 i = 11; i <= to; ++i)
             if(player->GetAuraCount(71201) >= static_cast<uint32>(i))
                 AddGossipItemFor(player, GOSSIP_ICON_BATTLE, "|TInterface\\icons\\Ability_warrior_rampage:20:20:0:0|t > Rank " + to_string(i), GOSSIP_SENDER_MAIN, RankVendorID + i);
+        }
 
         if (player->GetAuraCount(71201) < 11)
         {
@@ -146,9 +154,13 @@ public:
             femb << "In this mob 10 sellers are available from the twenty-first(21) rank to the thirtieth(30).\n";
         }
 
-        for(int i = 21; i<=30; i++)
+        {
+            uint32 maxRank = Player::GetPvpRankPointsCount();
+            uint32 to = std::min<uint32>(30, maxRank);
+            for (uint32 i = 21; i <= to; ++i)
             if(player->GetAuraCount(71201) >= static_cast<uint32>(i))
                 AddGossipItemFor(player, GOSSIP_ICON_BATTLE, "|TInterface\\icons\\Ability_warrior_rampage:20:20:0:0|t > Rank " + to_string(i), GOSSIP_SENDER_MAIN, RankVendorID + i);
+        }
 
         if (player->GetAuraCount(71201) < 21)
         {
@@ -202,9 +214,13 @@ public:
             femb << "In this mob 10 sellers are available from the thirty-first(31) rank to the fortieth(40).\n";
         }
 
-        for(int i = 31; i<=40; i++)
+        {
+            uint32 maxRank = Player::GetPvpRankPointsCount();
+            uint32 to = std::min<uint32>(40, maxRank);
+            for (uint32 i = 31; i <= to; ++i)
             if(player->GetAuraCount(71201) >= static_cast<uint32>(i))
                 AddGossipItemFor(player, GOSSIP_ICON_BATTLE, "|TInterface\\icons\\Ability_warrior_rampage:20:20:0:0|t > Rank " + to_string(i), GOSSIP_SENDER_MAIN, RankVendorID + i);
+        }
 
         if (player->GetAuraCount(71201) < 31)
         {
@@ -249,18 +265,22 @@ public:
         {
             femb << "Уважаемый|cff065961 " << name << "|r\n";
             femb << "Для просмотра данных продавцов вам нужно повышать ранги.\n\n";
-            femb << "В данном мобе доступны 10 продавцов от сорок первого(41) ранга до пятидесятого(50).\n";
+            femb << "В данном мобе доступны 10 продавцов от сорок первого(41) ранга до " << Player::GetPvpRankPointsCount() << ".\n";
         }
         else
         {
             femb << "Respected|cff065961 " << name << "|r\n";
             femb << "To view these vendors you need to increase the ranks.\n\n";
-            femb << "In this mob 10 sellers are available from the forty-one(41) rank to the fiftieth(50).\n";
+            femb << "In this mob 10 sellers are available from the forty-one(41) rank to " << Player::GetPvpRankPointsCount() << ".\n";
         }
 
-        for(int i = 41; i<=50; i++)
+        {
+            uint32 maxRank = Player::GetPvpRankPointsCount();
+            uint32 to = std::min<uint32>(50, maxRank);
+            for (uint32 i = 41; i <= to; ++i)
             if(player->GetAuraCount(71201) >= static_cast<uint32>(i))
                 AddGossipItemFor(player, GOSSIP_ICON_BATTLE, "|TInterface\\icons\\Ability_warrior_rampage:20:20:0:0|t > Rank " + to_string(i), GOSSIP_SENDER_MAIN, RankVendorID + i);
+        }
 
         if (player->GetAuraCount(71201) < 41)
         {

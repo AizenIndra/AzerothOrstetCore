@@ -2302,6 +2302,11 @@ void Player::SetGameMaster(bool on)
     UpdateObjectVisibility();
 }
 
+bool Player::HasPermissionToAddItem() const
+{
+    return GetSession()->GetSecurity();
+}
+
 void Player::SetGMVisible(bool on)
 {
     const uint32 VISUAL_AURA = 37800;
@@ -16488,8 +16493,11 @@ bool Player::AcceptArenaToday()
 void Player::RewardRankPoints(uint32 amount, int source)
  {
     /* если уже максимальный ранг */
-    if (GetRankPoints() >= pvp_rang_points[49])
+    {
+        auto const& thresholds = GetPvpRankPoints();
+        if (!thresholds.empty() && GetRankPoints() >= thresholds.back())
         return;
+    }
     
     if (sServerMenuMgr->isDoubleDays())
         amount *= 1.25f;
@@ -16568,9 +16576,11 @@ bool Player::CanRankUp()
     uint8 i = 0; /* считаем ранги */
     bool yes = false; /* проверка для повышение ранга */
 
-    while ((yes == false) && (i < 50))
+    uint32 ranksCount = GetPvpRankPointsCount();
+    while ((yes == false) && (i < ranksCount))
     {
-        if (GetRankPoints() >= pvp_rang_points[i] && GetAuraCount(RANKSYSTEMID) < i+1)
+        auto const& thresholds = GetPvpRankPoints();
+        if (i < thresholds.size() && GetRankPoints() >= thresholds[i] && GetAuraCount(RANKSYSTEMID) < i+1)
         {
             RewardPvPRank();
             yes = true;
@@ -16586,16 +16596,25 @@ bool Player::CanRankUp()
 int Player::GetRankByExp()
 {
     /* максимальный ранг */
-    if (GetRankPoints() >= pvp_rang_points[49])
-        return 50;
+    {
+        auto const& thresholds = GetPvpRankPoints();
+        if (!thresholds.empty() && GetRankPoints() >= thresholds.back())
+            return int(thresholds.size());
+    }
 
     /* минимальный ранг (чтобы не заходить в while) */
-    if (GetRankPoints() < pvp_rang_points[0])
+    {
+        auto const& thresholds = GetPvpRankPoints();
+        if (!thresholds.empty() && GetRankPoints() < thresholds[0])
         return 0;
+    }
 
     uint8 i = 0;
-    while (GetRankPoints() >= pvp_rang_points[i]) {
+    {
+        auto const& thresholds = GetPvpRankPoints();
+        while (i < thresholds.size() && GetRankPoints() >= thresholds[i]) {
         i++;
+        }
     }
     return i;
 }
@@ -16633,7 +16652,45 @@ void Player::RemoveRankBuff() {
 
 void Player::VerifiedRankBuff(Map* map)
 {
-    if (map->IsRaid() || map->IsDungeon()) {
+    bool allow = false;
+    bool allow = false;
+    if (map->IsRaid() || map->IsDungeon())
+        allow = true;
+    else
+    {
+        if (sWorld->getBoolConfig(CONFIG_RANK_BUFF_ENABLE_WORLD))
+        {
+            static bool loadedZones = false;
+            static std::unordered_set<uint32> allowedZones;
+            if (!loadedZones)
+            {
+                loadedZones = true;
+                allowedZones.clear();
+                std::string_view csv = sWorld->getStringConfig(CONFIG_RANK_BUFF_ALLOWED_ZONES);
+                std::string csvStr(csv);
+                size_t start = 0;
+                while (start < csvStr.size())
+                {
+                    size_t pos = csvStr.find(',', start);
+                    size_t len = (pos == std::string::npos ? std::string::npos : (pos - start));
+                    std::string token = csvStr.substr(start, len);
+                    if (!token.empty())
+                    {
+                        char* endp = nullptr;
+                        unsigned long v = std::strtoul(token.c_str(), &endp, 10);
+                        if (endp && *endp == '\0' && v > 0)
+                            allowedZones.insert(static_cast<uint32>(v));
+                    }
+                    if (pos == std::string>::npos) break;
+                    start = (pos == std::string::npos ? csvStr.size() : pos + 1);
+                }
+            }
+            if (!allowedZones.empty() && allowedZones.count(GetZoneId()) > 0)
+                allow = true;
+        }
+    }
+
+    if (allow) {
         if (!HasAura(62519) && !HasAura(66721))
             GetRangBuffInInstance(GetRankByExp());
         else {
@@ -16672,12 +16729,14 @@ uint32 Player::PointsUntilNextRank()
     uint8 i = 0;
     bool yes = false;
 
-    while ((yes == false) && i <= 50)
+    uint32 ranksCount = GetPvpRankPointsCount();
+    while ((yes == false) && i <= ranksCount)
     {
-        if (GetRankPoints() < pvp_rang_points[i])
+        auto const& thresholds = GetPvpRankPoints();
+        if (i < thresholds.size() && GetRankPoints() < thresholds[i])
         {
             yes = true;
-             return pvp_rang_points[i] - GetRankPoints();
+             return thresholds[i] - GetRankPoints();
         }
         else
            i++;
@@ -16687,7 +16746,7 @@ uint32 Player::PointsUntilNextRank()
 
 void Player::LoadPvPRank()
 {
-    if (GetAuraCount(RANKSYSTEMID) < 50)
+    if (GetAuraCount(RANKSYSTEMID) < GetPvpRankPointsCount())
         ChatHandler(GetSession()).PSendSysMessage(GetCustomText(this, RU_glory_win_6, EN_glory_win_6), GetRankPoints(), GetRankByExp(), PointsUntilNextRank());
     else
         ChatHandler(GetSession()).PSendSysMessage(GetCustomText(this, RU_glory_win_10, EN_glory_win_10));
@@ -16786,4 +16845,35 @@ std::string Player::GetDebugInfo() const
 void Player::SendSystemMessage(std::string_view msg, bool escapeCharacters)
 {
     ChatHandler(GetSession()).SendSysMessage(msg, escapeCharacters);
+}
+
+// ---------------- PvP Rank Points (DB-driven) ----------------
+static std::vector<uint32> s_pvpRankPointsCache;
+static bool s_pvpRankPointsLoaded = false;
+
+const std::vector<uint32>& Player::GetPvpRankPoints()
+{
+    if (s_pvpRankPointsLoaded)
+        return s_pvpRankPointsCache;
+
+    s_pvpRankPointsLoaded = true;
+    s_pvpRankPointsCache.clear();
+
+    // Load from world database
+    if (QueryResult result = WorldDatabase.Query("SELECT `rank`, `points` FROM `pvp_rank_points` ORDER BY `rank` ASC"))
+    {
+        do
+        {
+            Field* fields = result->Fetch();
+            uint32 points = fields[1].Get<uint32>();
+            s_pvpRankPointsCache.push_back(points);
+        } while (result->NextRow());
+    }
+
+    return s_pvpRankPointsCache;
+}
+
+uint32 Player::GetPvpRankPointsCount()
+{
+    return (uint32)GetPvpRankPoints().size();
 }

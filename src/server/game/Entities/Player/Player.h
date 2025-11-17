@@ -1152,6 +1152,7 @@ public:
     [[nodiscard]] bool isAcceptWhispers() const { return m_ExtraFlags & PLAYER_EXTRA_ACCEPT_WHISPERS; }
     void SetAcceptWhispers(bool on) { if (on) m_ExtraFlags |= PLAYER_EXTRA_ACCEPT_WHISPERS; else m_ExtraFlags &= ~PLAYER_EXTRA_ACCEPT_WHISPERS; }
     [[nodiscard]] bool IsGameMaster() const { return m_ExtraFlags & PLAYER_EXTRA_GM_ON; }
+    bool HasPermissionToAddItem() const;
     void SetGameMaster(bool on);
     [[nodiscard]] bool isGMChat() const { return m_ExtraFlags & PLAYER_EXTRA_GM_CHAT; }
     void SetGMChat(bool on) { if (on) m_ExtraFlags |= PLAYER_EXTRA_GM_CHAT; else m_ExtraFlags &= ~PLAYER_EXTRA_GM_CHAT; }
@@ -2646,19 +2647,9 @@ public:
         KILL_BOSS,
     };
 
-    // опыты для каждого ранга
-    constexpr static const uint32 pvp_rang_points[50] = {
-                             /*   1    2     3     4      5    6     7       8     9     10      11     12 */
-                                 250, 500, 1000, 2000, 4000, 8000, 16000, 32000, 60000, 80000, 100000, 125000,
-                                 /* 13     14      15        16     17     18        19    20       21     22    */
-                                 150000, 175000, 200000, 225000, 250000, 275000, 300000, 350000, 400000, 450000,
-                                /* 23      24      25       26     27     28        29     30      31      32     */
-                                  500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000,
-                                /* 33         34       35      36       37        38      39        40      41       42   */
-                                  1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 1600000, 1700000, 1800000, 1900000,
-                                /*    43       44     45       46         47      48      49       50(MAX)  */
-                                  2000000, 2100000, 2200000, 2300000, 2400000, 2500000, 2600000, 3000000
-                               };
+    // Пороговые значения опыта для рангов загружаются из базы данных (world.pvp_rank_points)
+    static const std::vector<uint32>& GetPvpRankPoints();
+    static uint32 GetPvpRankPointsCount();
 
     // выдаем опыт для ранга и за что был получен
     void RewardRankPoints(uint32 /*amount*/, int /*source*/);

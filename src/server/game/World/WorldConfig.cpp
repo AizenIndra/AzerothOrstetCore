@@ -645,6 +645,9 @@ void WorldConfig::BuildConfigCache()
     SetConfigValue<uint32>(CONFIG_RANK_SYSTEM_WIN_RATE_ARENA, "RankSystem.RewardWinArena", 25);
     SetConfigValue<uint32>(CONFIG_RANK_SYSTEM_WIN_RATE_BG,    "RankSystem.RewardWinBG", 150);
     SetConfigValue<uint32>(CONFIG_RANK_SYSTEM_KILL_RATE_BG,   "RankSystem.RewardKillBG", 10);
+    // rank system world buffs
+    SetConfigValue<bool>(CONFIG_RANK_BUFF_ENABLE_WORLD,       "RankSystem.BuffEnableInWorld", false);
+    SetConfigValue<std::string>(CONFIG_RANK_BUFF_ALLOWED_ZONES, "RankSystem.BuffAllowedZones", "");
 
     // arena cap today
     SetConfigValue<uint32>(CONFIG_ARENA_CAP_PER_DAYS, "Arena.CapPerDay", 400);

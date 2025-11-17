@@ -267,6 +267,18 @@ void sServerMenu::GossipMenuExchangeHonor(Player* player)
     if (!player)
         return;
 
+    // Если достигнут максимальный ранг - информируем и выходим в назад
+    if (player->GetRankByExp() >= static_cast<int>(Player::GetPvpRankPointsCount()))
+    {
+        ChatHandler(player->GetSession()).PSendSysMessage(GetCustomText(player,
+            "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: У вас максимальный ранг, обмен недоступен.",
+            "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: You have the maximum rank, exchange is unavailable."));
+        ClearGossipMenuFor(player);
+        AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, GetCustomText(player, "Назад", "Back"), GOSSIP_SENDER_MAIN, 5);
+        player->PlayerTalkClass->SendGossipMenu(sServerMenuMgr->HeadMenu(player, 3), player->GetGUID());
+        return;
+    }
+
     ClearGossipMenuFor(player);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, ConverterHonorRang(player, 7500, 50, 1), GOSSIP_SENDER_MAIN + 7, 50);
     AddGossipItemFor(player, GOSSIP_ICON_INTERACT_1, ConverterHonorRang(player, 15000, 100, 2), GOSSIP_SENDER_MAIN + 7, 100);
@@ -340,10 +352,20 @@ std::string sServerMenu::ConverterHonorRang(Player* player, uint32 honor, uint32
     uint32 need = sServerMenuMgr->CalculHonorForExp(player, honor, count);
     if (need <= 0)
         need = honor;
+    uint32 remain = player->PointsUntilNextRank();
+    bool isMax = player->GetRankByExp() >= static_cast<int>(Player::GetPvpRankPointsCount());
     if (player->GetSession()->GetSessionDbLocaleIndex() == LOCALE_ruRU) {
-        ss << "Обменять " << need << " очков чести на\n    |cff473B32" << exp << " опыта для ранга.|r";
+        if (isMax)
+            ss << "Максимальный ранг достигнут.";
+        else
+            ss << "Обменять " << need << " очков чести на\n    |cff473B32" << exp << " опыта для ранга|r"
+               << "\nОсталось до ранга: |cff473B32" << remain << "|r";
     } else {
-        ss << "Exchange " << need << " honor points for\n  |cff473B32" << exp << " exp for rang.|r";
+        if (isMax)
+            ss << "Maximum rank reached.";
+        else
+            ss << "Exchange " << need << " honor points for\n  |cff473B32" << exp << " rank exp|r"
+               << "\nLeft to next rank: |cff473B32" << remain << "|r";
     }
     return ss.str();
 }
@@ -387,6 +409,15 @@ void sServerMenu::ConfirmExchangeHonorForExp(Player* player, uint32 honor, uint3
 {
     if (!player || !honor || !exp)
         return;
+
+    // Блокируем обмен при максимальном ранге
+    if (player->GetRankByExp() >= static_cast<int>(Player::GetPvpRankPointsCount()))
+    {
+        ChatHandler(player->GetSession()).PSendSysMessage(GetCustomText(player,
+            "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Ранг Система]: У вас максимальный ранг, обмен недоступен.",
+            "|TInterface\\GossipFrame\\Battlemastergossipicon:15:15:|t |cffff9933[Rank System]: You have the maximum rank, exchange is unavailable."));
+        return sServerMenuMgr->GossipMenuExchangeHonor(player);
+    }
 
     uint8 new_count = count == 1250 ? 25 : count == 500 ? 10 : count == 250 ? 5 : count == 100 ? 2 : 1;    
 
