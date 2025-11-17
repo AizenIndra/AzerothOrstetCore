@@ -16653,7 +16653,6 @@ void Player::RemoveRankBuff() {
 void Player::VerifiedRankBuff(Map* map)
 {
     bool allow = false;
-    bool allow = false;
     if (map->IsRaid() || map->IsDungeon())
         allow = true;
     else
@@ -16681,7 +16680,7 @@ void Player::VerifiedRankBuff(Map* map)
                         if (endp && *endp == '\0' && v > 0)
                             allowedZones.insert(static_cast<uint32>(v));
                     }
-                    if (pos == std::string>::npos) break;
+                    if (pos == std::string::npos) break;
                     start = (pos == std::string::npos ? csvStr.size() : pos + 1);
                 }
             }

@@ -82,6 +82,18 @@ foreach(SOURCE_MODULE ${MODULES_MODULE_LIST})
     ConfigureElunaModule(${SOURCE_MODULE})
   endif()
 
+  # Configure mod-ale (ALE - AzerothCore Lua Engine)
+  if (SOURCE_MODULE MATCHES "mod-ale")
+    set(MOD_ALE_FOUND 1 PARENT_SCOPE)
+    GetPathToModuleSource(${SOURCE_MODULE} MODULE_SOURCE_PATH)
+    set(MOD_ALE_PATH ${MODULE_SOURCE_PATH} PARENT_SCOPE)
+    # Execute mod-ale CMakeLists.txt early to create lualib target before modules are built
+    # This ensures lualib is available when we try to link it
+    if(EXISTS "${CMAKE_SOURCE_DIR}/modules/${SOURCE_MODULE}/CMakeLists.txt")
+      add_subdirectory("${CMAKE_SOURCE_DIR}/modules/${SOURCE_MODULE}" "${CMAKE_BINARY_DIR}/modules/${SOURCE_MODULE}")
+    endif()
+  endif()
+
   if (SOURCE_MODULE MATCHES "mod-playerbots")
     set(MOD_PLAYERBOTS_FOUND 1)
     target_compile_options(database
@@ -241,6 +253,30 @@ foreach(SOURCE_MODULE ${MODULES_MODULE_LIST})
       PUBLIC
         game)
 
+    # Link lualib for mod-ale dynamic modules
+    if (SOURCE_MODULE MATCHES "mod-ale" AND TARGET lualib)
+      # Use PUBLIC to ensure include directories are propagated automatically
+      target_link_libraries(${MODULE_SOURCE_PROJECT_NAME} PUBLIC lualib)
+      # Explicitly get and add include directories for Visual Studio on Windows
+      unset(DYNAMIC_MODULE_LUA_INCLUDE_DIRS)
+      get_target_property(LUALIB_INCLUDE_DIRS lualib INTERFACE_INCLUDE_DIRECTORIES)
+      if(LUALIB_INCLUDE_DIRS AND NOT LUALIB_INCLUDE_DIRS STREQUAL "LUALIB_INCLUDE_DIRS-NOTFOUND" AND NOT LUALIB_INCLUDE_DIRS STREQUAL "")
+          list(APPEND DYNAMIC_MODULE_LUA_INCLUDE_DIRS ${LUALIB_INCLUDE_DIRS})
+      endif()
+      get_target_property(LUALIB_INCLUDE_DIRS_REGULAR lualib INCLUDE_DIRECTORIES)
+      if(LUALIB_INCLUDE_DIRS_REGULAR AND NOT LUALIB_INCLUDE_DIRS_REGULAR STREQUAL "LUALIB_INCLUDE_DIRS_REGULAR-NOTFOUND" AND NOT LUALIB_INCLUDE_DIRS_REGULAR STREQUAL "")
+          foreach(DIR ${LUALIB_INCLUDE_DIRS_REGULAR})
+              list(FIND DYNAMIC_MODULE_LUA_INCLUDE_DIRS ${DIR} FOUND_INDEX)
+              if(FOUND_INDEX EQUAL -1)
+                  list(APPEND DYNAMIC_MODULE_LUA_INCLUDE_DIRS ${DIR})
+              endif()
+          endforeach()
+      endif()
+      if(DYNAMIC_MODULE_LUA_INCLUDE_DIRS)
+          target_include_directories(${MODULE_SOURCE_PROJECT_NAME} PRIVATE ${DYNAMIC_MODULE_LUA_INCLUDE_DIRS})
+      endif()
+    endif()
+
     target_include_directories(${MODULE_SOURCE_PROJECT_NAME}
       PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
@@ -283,6 +319,11 @@ if (MOD_ELUNA_FOUND)
   list(REMOVE_ITEM PRIVATE_SOURCES_MODULES ${MOD_ELUNA_PATH}/lualib/luac.c)
 endif()
 
+if (MOD_ALE_FOUND)
+  list(REMOVE_ITEM PRIVATE_SOURCES_MODULES ${MOD_ALE_PATH}/src/lualib/lua/lua.c)
+  list(REMOVE_ITEM PRIVATE_SOURCES_MODULES ${MOD_ALE_PATH}/src/lualib/lua/luac.c)
+endif()
+
 add_library(modules STATIC
     ModulesScriptLoader.h
     ${SCRIPT_MODULE_PRIVATE_SCRIPTLOADER}
@@ -290,6 +331,41 @@ add_library(modules STATIC
 
 if (MOD_ELUNA_FOUND)
     target_link_libraries(modules PUBLIC lualib)
+endif()
+
+if (MOD_ALE_FOUND AND TARGET lualib)
+    target_link_libraries(modules PUBLIC lualib)
+    # Get include directories from lualib target
+    # For regular Lua, they are set via target_include_directories(lualib PUBLIC ...)
+    # For LuaJIT, they are set via INTERFACE_INCLUDE_DIRECTORIES
+    # Using PUBLIC in target_link_libraries should automatically propagate INTERFACE_INCLUDE_DIRECTORIES
+    # But we also try to get them explicitly to ensure Visual Studio sees them on Windows
+    get_target_property(LUALIB_INCLUDE_DIRS lualib INTERFACE_INCLUDE_DIRECTORIES)
+    if(LUALIB_INCLUDE_DIRS AND NOT LUALIB_INCLUDE_DIRS STREQUAL "LUALIB_INCLUDE_DIRS-NOTFOUND" AND NOT LUALIB_INCLUDE_DIRS STREQUAL "")
+        # Normalize paths for Windows - ensure they're absolute paths
+        # CMake should handle path normalization, but we ensure they're properly set
+        list(APPEND MODULES_LUA_INCLUDE_DIRS ${LUALIB_INCLUDE_DIRS})
+    endif()
+    # Also try to get from regular INCLUDE_DIRECTORIES as fallback (for regular Lua with PUBLIC)
+    get_target_property(LUALIB_INCLUDE_DIRS_REGULAR lualib INCLUDE_DIRECTORIES)
+    if(LUALIB_INCLUDE_DIRS_REGULAR AND NOT LUALIB_INCLUDE_DIRS_REGULAR STREQUAL "LUALIB_INCLUDE_DIRS_REGULAR-NOTFOUND" AND NOT LUALIB_INCLUDE_DIRS_REGULAR STREQUAL "")
+        # Add directories that aren't already in the list
+        foreach(DIR ${LUALIB_INCLUDE_DIRS_REGULAR})
+            list(FIND MODULES_LUA_INCLUDE_DIRS ${DIR} FOUND_INDEX)
+            if(FOUND_INDEX EQUAL -1)
+                list(APPEND MODULES_LUA_INCLUDE_DIRS ${DIR})
+            endif()
+        endforeach()
+    endif()
+    # Add all collected include directories
+    if(MODULES_LUA_INCLUDE_DIRS)
+        target_include_directories(modules PUBLIC ${MODULES_LUA_INCLUDE_DIRS})
+        message(STATUS "mod-ale: Added Lua include directories: ${MODULES_LUA_INCLUDE_DIRS}")
+    else()
+        # If we couldn't get include dirs from target properties, lualib might not be created yet
+        # This shouldn't happen now that we call add_subdirectory early, but just in case
+        message(WARNING "mod-ale: Could not get Lua include directories from lualib target. Make sure lualib is created before modules.")
+    endif()
 endif()
 
 target_link_libraries(modules
@@ -399,6 +475,31 @@ if (MOD_ELUNA_FOUND)
   endif()
 
   install(DIRECTORY "${MOD_ELUNA_PATH}/LuaEngine/extensions" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin/lua_scripts/")
+endif()
+
+if (MOD_ALE_FOUND)
+  if (APPLE)
+    target_compile_definitions(modules
+      PUBLIC
+        LUA_USE_MACOSX)
+  elseif (UNIX)
+    target_compile_definitions(modules
+      PUBLIC
+        LUA_USE_LINUX)
+  endif()
+
+  if (WIN32)
+    if (MSVC)
+      set(MSVC_CONFIGURATION_NAME $(ConfigurationName)/)
+    endif()
+
+    add_custom_command(TARGET modules
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/bin/${MSVC_CONFIGURATION_NAME}lua_scripts/extensions/"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${MOD_ALE_PATH}/src/LuaEngine/extensions" "${CMAKE_BINARY_DIR}/bin/${MSVC_CONFIGURATION_NAME}lua_scripts/extensions/")
+  endif()
+
+  install(DIRECTORY "${MOD_ALE_PATH}/src/LuaEngine/extensions" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin/lua_scripts/")
 endif()
 
 message("")

@@ -513,6 +513,13 @@ void MySQLConnection::PrepareStatement(uint32 index, std::string_view sql, Conne
         return;
     }
 
+    if (!m_Mysql)
+    {
+        LOG_ERROR("sql.sql", "Cannot prepare statement {}: MySQL connection is not initialized", index);
+        m_prepareError = true;
+        return;
+    }
+
     MYSQL_STMT* stmt = mysql_stmt_init(m_Mysql);
     if (!stmt)
     {
