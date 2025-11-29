@@ -219,8 +219,9 @@ void WorldSession::SetBonuses(uint32 Bonuses)
 {
     m_bonuses = Bonuses;
     LoginDatabasePreparedStatement* tm = LoginDatabase.GetPreparedStatement(LOGIN_UPD_ACCOUNT_BONUSES);
-    tm->SetData(0, Bonuses);
-    tm->SetData(1, GetAccountId());
+    tm->SetData(0, GetAccountId());  // id для INSERT
+    tm->SetData(1, Bonuses);         // bonuses для INSERT
+    tm->SetData(2, Bonuses);         // bonuses для UPDATE
     LoginDatabase.Execute(tm);    
 }
 
