@@ -182,9 +182,9 @@ public:
 		}
 		void UpgradingStats(Player* pp, int32 SpellID, int Level, uint32 Price)
 		{
-			if (pp->GetItemCount(73903) >= Price)
+			if (pp->GetItemCount(184240) >= Price)
 			{
-				pp->DestroyItemCount(73903, Price, true);
+				pp->DestroyItemCount(184240, Price, true);
 				if (Level == -1)
 				{
 					pp->learnSpell(SpellID);
@@ -210,7 +210,7 @@ public:
 			}
 			else
 			{
-				int price = Price - pp->GetItemCount(73903);
+				int price = Price - pp->GetItemCount(184240);
 				ChatHandler(pp->GetSession()).PSendSysMessage("|cff44CC00[Чумный алхимический стол]|r: К сожалению, у вас не хватает - {} осколков души.", std::to_string(price).c_str());
 				return;
 			}
@@ -354,7 +354,7 @@ public:
 				break;
 			case GOSSIP_ACTION_INFO_DEF + 2:
 			{
-				if (player->GetItemCount(73903) >= 1)
+				if (player->GetItemCount(184240) >= 1)
 				{
 					int16 questCount = GetQuestCount();
 					int32* res = GetQuests();
