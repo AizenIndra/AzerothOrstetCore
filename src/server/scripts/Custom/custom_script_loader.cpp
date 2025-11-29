@@ -46,6 +46,7 @@ void AddSC_boss_galadriel();
 void AddSC_orrig();
 void AddSC_tolreos();
 void AddSC_two();
+void AddSC_custom_reload_commands();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
@@ -80,4 +81,5 @@ void AddCustomScripts()
     AddSC_orrig();
     AddSC_tolreos();
     AddSC_two();
+    AddSC_custom_reload_commands();
 }
