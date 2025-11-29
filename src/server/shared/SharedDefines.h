@@ -67,50 +67,43 @@ enum Gender
 // EnumUtils: DESCRIBE THIS
 enum Races
 {
-    RACE_NONE               = 0,  // SKIP
-    RACE_HUMAN              = 1,  // TITLE Human
-    RACE_ORC                = 2,  // TITLE Orc
-    RACE_DWARF              = 3,  // TITLE Dwarf
-    RACE_NIGHTELF           = 4,  // TITLE Night Elf
-    RACE_UNDEAD_PLAYER      = 5,  // TITLE Undead
-    RACE_TAUREN             = 6,  // TITLE Tauren
-    RACE_GNOME              = 7,  // TITLE Gnome
-    RACE_TROLL              = 8,  // TITLE Troll
-    RACE_GOBLIN             = 9,  // TITLE Goblin
-    RACE_BLOODELF           = 10, // TITLE Blood Elf
-    RACE_DRAENEI            = 11, // TITLE Draenei
-    RACE_WORGEN             = 12, // TITLE Worgen
-    RACE_PANDAREN_ALLIANCE  = 13, // TITLE Pandaren (Alliance)
-    RACE_PANDAREN_HORDE     = 14, // TITLE Pandaren (Horde)
-    RACE_VOIDELF            = 15, // TITLE Void
-    RACE_NIGHTBORNE         = 16, // TITLE Nightborne
-    RACE_LIGHTFORGED        = 17, // TITLE Lightforged Draenei
-    RACE_EREDAR             = 18, // TITLE Eredar
-    RACE_ILLIDARI_ALLIANCE  = 19, // TITLE Illidari (Alliance)
-    RACE_ILLIDARI_HORDE     = 20, // TITLE Illidari (Horde)
-    RACE_VULPERA            = 21, // TITLE Vulpera
-    RACE_ZANDALARITROLL     = 22, // TITLE Zandalari Troll
-    RACE_DARKIRONDWARF      = 23, // TITLE Dark Iron Dwarf
-    RACE_KULTIRAN           = 24, // TITLE Kul Tiran
-    RACE_DRACTHYR_HORDE     = 25, // TITLE Dracthyr (Horde)
-    RACE_DRACTHYR_ALLIANCE  = 26, // TITLE Dracthyr (Alliance)
-    RACE_BROKEN             = 27, // TITLE Broken
-    RACE_MAGHAR             = 28, // TITLE Mag'har Orc
-    RACE_BLOODELFN          = 29 //, TITLE Blood Elf Neutral
-    //RACE_FEL_ORC          = 31,
-    //RACE_NAGA             = 32,
-    //RACE_BROKEN           = 33,
-    //RACE_SKELETON         = 34,
-    //RACE_VRYKUL           = 35,
-    //RACE_TUSKARR          = 36,
-    //RACE_FOREST_TROLL     = 37,
-    //RACE_TAUNKA           = 38,
-    //RACE_NORTHREND_SKELETON = 39,
-    //RACE_ICE_TROLL        = 40
+    RACE_NONE                = 0,
+    RACE_HUMAN               = 1,
+    RACE_ORC                 = 2,
+    RACE_DWARF               = 3,
+    RACE_NIGHTELF            = 4,
+    RACE_UNDEAD_PLAYER       = 5,
+    RACE_TAUREN              = 6,
+    RACE_GNOME               = 7,
+    RACE_TROLL               = 8,
+    RACE_VULPERA             = 9,
+    RACE_BLOODELF            = 10,
+    RACE_DRAENEI             = 11,
+    RACE_WORGEN              = 12,
+    RACE_NIGHTBORNE          = 13,
+    RACE_HIGHELF             = 14,
+    RACE_VOIDELF             = 15,
+    RACE_EREDAR              = 16,
+    RACE_DRACTHYR            = 17,
+    RACE_ZANDALARI_TROLL     = 18,
+    RACE_OGRE                = 19,
+    RACE_LIGHTFORGED         = 20,
+    RACE_GOBLIN              = 21,
+    RACE_PANDAREN            = 22,
+    RACE_BROKEN              = 23,
+    RACE_TUSKARR             = 24,
+    RACE_FOREST_TROLL        = 25,
+    RACE_PANDARENA           = 26,
+    RACE_DEMONHUNTERH        = 27,
+    RACE_ARAKKOA             = 28,
+    RACE_DARKIRONDWARF       = 29,
+    RACE_DRACTHYRA           = 30,
+    RACE_KULTIRAN            = 31,
+    RACE_DEMONHUNTERA        = 32
 };
 
 // max+1 for player race
-#define MAX_RACES         30
+#define MAX_RACES         33
 
 #define RACEMASK_ALL_PLAYABLE \
     ((1<<(RACE_HUMAN-1))             | \
@@ -121,27 +114,29 @@ enum Races
     (1<<(RACE_TAUREN-1))             | \
     (1<<(RACE_GNOME-1))              | \
     (1<<(RACE_TROLL-1))              | \
-    (1<<(RACE_GOBLIN-1))             | \
+    (1<<(RACE_VULPERA-1))            | \
     (1<<(RACE_BLOODELF-1))           | \
     (1<<(RACE_DRAENEI-1))            | \
     (1<<(RACE_WORGEN-1))             | \
-    (1<<(RACE_PANDAREN_ALLIANCE-1))  | \
-    (1<<(RACE_PANDAREN_HORDE-1))     | \
-    (1<<(RACE_VOIDELF-1))            | \
     (1<<(RACE_NIGHTBORNE-1))         | \
     (1<<(RACE_LIGHTFORGED-1))        | \
     (1<<(RACE_EREDAR-1))             | \
-    (1<<(RACE_ILLIDARI_ALLIANCE-1))  | \
-    (1<<(RACE_ILLIDARI_HORDE-1))     | \
-    (1<<(RACE_VULPERA-1))            | \
-    (1<<(RACE_ZANDALARITROLL-1))     | \
-    (1<<(RACE_DARKIRONDWARF-1))      | \
-    (1<<(RACE_KULTIRAN-1))           | \
-    (1<<(RACE_DRACTHYR_HORDE-1))     | \
-    (1<<(RACE_DRACTHYR_ALLIANCE-1))  | \
+    (1<<(RACE_DRACTHYR-1))           | \
+    (1<<(RACE_ZANDALARI_TROLL-1))    | \
+    (1<<(RACE_OGRE-1))               | \
+    (1<<(RACE_LIGHTFORGED-1))        | \
+    (1<<(RACE_GOBLIN-1))             | \
+    (1<<(RACE_PANDAREN-1))           | \
     (1<<(RACE_BROKEN-1))             | \
-    (1<<(RACE_MAGHAR-1))             | \
-    (1<<(RACE_BLOODELFN-1)))
+    (1<<(RACE_TUSKARR-1))            | \
+    (1<<(RACE_FOREST_TROLL-1))       | \
+    (1<<(RACE_PANDARENA-1))          | \
+    (1<<(RACE_DEMONHUNTERH-1))       | \
+    (1<<(RACE_ARAKKOA-1))            | \
+    (1<<(RACE_DARKIRONDWARF-1))      | \
+    (1<<(RACE_DRACTHYRA-1))          | \
+    (1<<(RACE_KULTIRAN-1))           | \
+    (1<<(RACE_DEMONHUNTERA-1)))
 
 #define RACEMASK_ALLIANCE \
     ((1<<(RACE_HUMAN-1))             | \
@@ -150,15 +145,17 @@ enum Races
     (1<<(RACE_GNOME-1))              | \
     (1<<(RACE_DRAENEI-1))            | \
     (1<<(RACE_WORGEN-1))             | \
-    (1<<(RACE_PANDAREN_ALLIANCE-1))  | \
     (1<<(RACE_VOIDELF-1))            | \
+    (1<<(RACE_HIGHELF-1))            | \
+    (1<<(RACE_OGRE-1))               | \
     (1<<(RACE_LIGHTFORGED-1))        | \
-    (1<<(RACE_ILLIDARI_ALLIANCE-1))  | \
-    (1<<(RACE_DARKIRONDWARF-1))      | \
-    (1<<(RACE_KULTIRAN-1))           | \
-    (1<<(RACE_DRACTHYR_ALLIANCE-1))  | \
     (1<<(RACE_BROKEN-1))             | \
-    (1<<(RACE_BLOODELFN-1)))
+    (1<<(RACE_FOREST_TROLL-1))       | \
+    (1<<(RACE_PANDARENA-1))          | \
+    (1<<(RACE_DARKIRONDWARF-1))      | \
+    (1<<(RACE_DRACTHYRA-1))          | \
+    (1<<(RACE_KULTIRAN-1))           | \
+    (1<<(RACE_DEMONHUNTERA-1)))
 
 #define RACEMASK_HORDE RACEMASK_ALL_PLAYABLE & ~RACEMASK_ALLIANCE
 
@@ -174,37 +171,30 @@ enum class DisplayRace : uint8
     Tauren            = 6,
     Gnome             = 7,
     Troll             = 8,
-    Goblin            = 9,
+    Vulpera           = 9,
     BloodElf          = 10,
     Draenei           = 11,
     Worgen            = 12,
-    PandarenAlliance  = 13,
-    PandarenHorde     = 14,
+    Nightborne        = 13,
+    HighElf           = 14,
     VoidElf           = 15,
-    Nightborne        = 16,
-    Lightforged       = 17,
-    Eredar            = 18,
-    IllidariAlliance  = 19,
-    IllidariHorde     = 20,
-    Vulpera           = 21,
-    ZandalariTroll    = 22,
-    DarkIronDwarf     = 23,
-    KulTiran          = 24,
-    DracthyrHorde     = 25,
-    DracthyrAlliance  = 26,
-    Broken            = 27,
-    Maghar            = 28,
-    BloodElfNeutral   = 29,
-    FelOrc            = 31,
-    Naga              = 32,
-    BrokenOld         = 33,
-    Skeleton          = 34,
-    Vrykul            = 35,
-    Tuskarr           = 36,
-    ForestTroll       = 37,
-    Taunka            = 38,
-    NorthrendSkeleton = 39,
-    IceTroll          = 40
+    Eredar            = 16,
+    Dracthyr          = 17,
+    ZandalariTroll    = 18,
+    Ogre              = 19,
+    Lightforged       = 20,
+    Goblin            = 21,
+    Pandaren          = 22,
+    Broken            = 23,
+    Tuskarr           = 24,
+    ForestTroll       = 25,
+    Pandarena         = 26,
+    DemonhunterH      = 27,
+    Arakkoa           = 28,
+    DarkironDwarf     = 29,
+    DracthyrA         = 30,
+    KulTiran          = 31,
+    DemonhunterA      = 32,
 };
 
 // Class value is index in ChrClasses.dbc
@@ -221,7 +211,7 @@ enum Classes
     CLASS_SHAMAN        = 7, // TITLE Shaman
     CLASS_MAGE          = 8, // TITLE Mage
     CLASS_WARLOCK       = 9, // TITLE Warlock
-    //CLASS_UNK           = 10,
+    CLASS_DEMON_HUNTER  = 10,
     CLASS_DRUID         = 11 // TITLE Druid
 };
 
@@ -232,7 +222,7 @@ enum Classes
     ((1<<(CLASS_WARRIOR-1))|(1<<(CLASS_PALADIN-1))|(1<<(CLASS_HUNTER-1))| \
     (1<<(CLASS_ROGUE-1))  |(1<<(CLASS_PRIEST-1)) |(1<<(CLASS_SHAMAN-1))| \
     (1<<(CLASS_MAGE-1))   |(1<<(CLASS_WARLOCK-1))|(1<<(CLASS_DRUID-1)) | \
-    (1<<(CLASS_DEATH_KNIGHT-1)))
+    (1<<(CLASS_DEATH_KNIGHT-1))  | (1<<(CLASS_DEMON_HUNTER-1)))
 
 // valid classes for creature_template.unit_class
 enum UnitClass
